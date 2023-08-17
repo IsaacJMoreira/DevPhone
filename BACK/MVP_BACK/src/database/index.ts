@@ -1,24 +1,8 @@
+import Connection from "./Connection";
+import ENV from "../infra/config/env";
 
-import SequelizeDatabase from "./SequelizeDatabase";
-import "dotenv/config"
+const mongoDB = new Connection(`${ENV.MONGODB_URL}`);
 
-interface Config {
-  [key: string]: any
-}
+// const mongoDB = new Connection(`mongodb://${ENV.DB_HOST}:${ENV.DB_PORT}/${ENV.DB_NAME}`);
 
-const config: Config = {
-  DB_NAME: process.env.DB_NAME,
-  DB_USER: process.env.DB_USER,
-  DB_PASS: process.env.DB_PASS,
-  DB_CONFIG: {
-    dialect: process.env.DB_TYPE,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-  }
-}
-
-
-
-const db = new SequelizeDatabase(config.DB_NAME, config.DB_USER, config.DB_PASS, config.DB_CONFIG)
-
-export { db }
+export { mongoDB };
