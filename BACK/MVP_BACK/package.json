@@ -1,7 +1,7 @@
 {
-  "name": "boss-api",
+  "name": "noname-api",
   "version": "1.0.0",
-  "description": "Api para o HandsOn Final da Gama Academy",
+  "description": "Final Project fot the BackEnd part of the GAMA FullStack BootCamp",
   "main": "dist/main.js",
   "scripts": {
     "test": "jest",
@@ -11,19 +11,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/StaticDreamstate/GamaBoss.git"
+    "url": 
   },
   "keywords": [
     "HandsOnFinal",
     "GamaAcademy",
-    "XP42-Grupo1"
+    "XP51-Grupo1"
   ],
-  "author": "XP42-Grupo1 Backend Team",
+  "author": "XP51-Grupo1 Backend Team",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/StaticDreamstate/GamaBoss/issues"
+    "url": 
   },
-  "homepage": "https://github.com/StaticDreamstate/GamaBoss#readme",
+  "homepage": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
