@@ -1,6 +1,6 @@
 import Express, { Application } from "express";
 import ENV from "./config/env";
-import logger from "./logger";
+import logger from "./logger";  
 import detect from "detect-port";
 import { mongoDB } from "../database";
 import BaseRoutes from "./BaseRoutes";
