@@ -10,8 +10,7 @@
     "dev": "ts-node-dev --respawn --ignore-watch node_modules -r dotenv/config src/index.ts dotenv_config_path=.env --files"
   },
   "repository": {
-    "type": "git",
-    "url": 
+  
   },
   "keywords": [
     "HandsOnFinal",
@@ -21,7 +20,7 @@
   "author": "XP51-Grupo1 Backend Team",
   "license": "ISC",
   "bugs": {
-    "url": 
+   
   },
   "homepage": "",
   "dependencies": {
