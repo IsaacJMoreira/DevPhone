@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const database_1 = require("../database");
+const BaseRoutes_1 = __importDefault(require("./BaseRoutes"));
 class App {
     constructor() {
         this.defaultPort = 4000;
@@ -14,7 +15,7 @@ class App {
         database_1.mongoDB.createConnection();
         const selectedPort = options.port ? options.port : this.defaultPort;
         this.instance.use(express_1.default.json());
-        //this.instance.use(BaseRoutes);//this stays like this for now
+        this.instance.use(BaseRoutes_1.default); //this stays like this for now
         if (options.isTest)
             return;
         this.instance.listen(selectedPort, () => {

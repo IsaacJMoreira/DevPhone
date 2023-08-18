@@ -1,7 +1,7 @@
 
 import Express, { Application } from 'express';
 import { mongoDB } from '../database'
-//import BaseRoutes from './BaseRoutes'
+import BaseRoutes from './BaseRoutes'
 
 type SetupOptions = {
     isTest?: boolean;
@@ -23,7 +23,7 @@ export default class App{
         mongoDB.createConnection();
         const selectedPort = options.port ? options.port : this.defaultPort;
         this.instance.use(Express.json());
-        //this.instance.use(BaseRoutes);//this stays like this for now
+        this.instance.use(BaseRoutes);//this stays like this for now
 
         if(options.isTest) return;
 

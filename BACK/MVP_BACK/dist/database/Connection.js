@@ -21,7 +21,7 @@ class Connection {
                 console.log("Banco de dados NO-SQL conectado com sucesso!");
             }
             catch (error) {
-                console.log(error);
+                // console.log("Não conseguimos conexão com o mongo DB!",error);   
             }
         });
     }

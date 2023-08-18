@@ -13,7 +13,7 @@ export default class Connection{
             await connect(this.db_connection_string);
             console.log("Banco de dados NO-SQL conectado com sucesso!");
         } catch (error) {
-            console.log(error);   
+           // console.log("Não conseguimos conexão com o mongo DB!",error);   
         }
     }
 
