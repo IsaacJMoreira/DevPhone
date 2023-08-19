@@ -15,10 +15,63 @@ const routes = (0, express_1.Router)();
 routes.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield models_1.User.create({
-            id: 1,
             name: "Isaac",
             email: 'isaac@email.com',
             password: "42069"
+        });
+        yield models_1.Product.create({
+            name: "Vibrador",
+            SKU: "7896001283008",
+            dimensions: {
+                height: 8,
+                width: 8,
+                length: 30,
+            },
+            category: [
+                {
+                    code: "V-COLOR",
+                    name: "Black",
+                },
+                {
+                    code: "SIZE",
+                    name: "Giant",
+                }
+            ],
+        });
+        yield models_1.ShoppingCart.create({
+            items: [
+                {
+                    itemID: "any1",
+                    itemSKU: "any1",
+                    quantity: 69420
+                },
+                {
+                    itemID: "any2",
+                    itemSKU: "any1",
+                    quantity: 6942011
+                }
+            ],
+            ownerID: "Isaac"
+        });
+        yield models_1.Categorie.create({
+            code: "V-COLOR",
+            name: "Black",
+        });
+        yield models_1.Order.create({
+            items: [
+                {
+                    itemID: "any1",
+                    itemSKU: "any1",
+                    quantity: 69420
+                },
+                {
+                    itemID: "any2",
+                    itemSKU: "any1",
+                    quantity: 6942011
+                }
+            ],
+            ownerID: "24",
+            shippingCode: "Correios",
         });
         return res.json("OK!!!");
     }

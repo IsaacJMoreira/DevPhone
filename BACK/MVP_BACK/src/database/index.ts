@@ -1,5 +1,5 @@
-import Connection from "./Connection";
+import MongoConnection from "./MongoConnection";
 
-const mongoDB = new Connection('mongodb://0.0.0.0:27017/DevPhone');
+const mongoDB = new MongoConnection('mongodb://0.0.0.0:27017/DevPhone');
 
 export{ mongoDB };

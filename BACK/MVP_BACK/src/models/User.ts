@@ -1,8 +1,11 @@
+/*****************************************
+ *        🤓 ISAAC ESTEVE AQUI 🤓       *
+ *****************************************/
+
 import { Schema, model} from 'mongoose'
 
 
 interface IUser{
-    id: number;
     name: string;
     email: string;
     credential: string;// client | admin | other
@@ -10,7 +13,6 @@ interface IUser{
 };
 
 const userSchema = new Schema<IUser>({
-    id: { type: Number, required: true},
     name: { type: String, required: true},
     email: { type: String, required: true},
     credential: { type: String, required: true, default: "CLIENT"},

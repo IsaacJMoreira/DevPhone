@@ -6,12 +6,11 @@ color: #FFFAFA;
 display: flex;
 width: 100%;
 height: 60px;
-padding-left: 200px;
 position: fixed;
-
 
 h1 {
     margin-top: 10px;
+    margin-left: 190px;
 }
 
 ul {
@@ -28,7 +27,6 @@ li {
 }
 
 input {
-    margin-left: 10px;
     padding-left: 10px;
     margin-top: 10px;
     height: 40px;

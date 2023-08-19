@@ -1,6 +1,6 @@
 import { connect } from 'mongoose'
 
-export default class Connection{
+export default class MongoConnection{
 
     private db_connection_string: string;
 

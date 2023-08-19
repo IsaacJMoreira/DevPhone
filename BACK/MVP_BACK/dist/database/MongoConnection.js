@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-class Connection {
+class MongoConnection {
     constructor(db_connection_string) {
         this.db_connection_string = db_connection_string;
     }
@@ -26,4 +26,4 @@ class Connection {
         });
     }
 }
-exports.default = Connection;
+exports.default = MongoConnection;
