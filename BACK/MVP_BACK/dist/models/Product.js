@@ -17,6 +17,10 @@ const productSchema = new mongoose_1.Schema({
         length: { type: Number, required: true },
         dimension: { type: String, required: true, default: "cm" },
     },
+    weight: {
+        weight: { type: Number, required: true },
+        dimension: { type: String, required: true, default: "g" },
+    },
     category: [{
             code: { type: String, required: true },
             name: { type: String, required: true },

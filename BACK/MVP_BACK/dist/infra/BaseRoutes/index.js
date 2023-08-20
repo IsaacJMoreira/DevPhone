@@ -27,6 +27,10 @@ routes.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 width: 8,
                 length: 30,
             },
+            weight: {
+                weight: 10,
+                dimension: "Kg",
+            },
             category: [
                 {
                     code: "V-COLOR",
