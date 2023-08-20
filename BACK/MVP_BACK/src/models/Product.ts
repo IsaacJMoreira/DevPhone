@@ -15,7 +15,7 @@ interface IDimensions{
 
 interface IWeight{
     weight: number;
-    Dimension: string;
+    dimension: string;
 };
 
 interface ICategory extends Array<ICategory>{
@@ -43,6 +43,10 @@ const productSchema = new Schema<IProduct>(
         length: { type: Number, required: true},
         dimension: { type: String, required: true, default: "cm"},
 
+     },
+     weight: {
+        weight: { type: Number, required: true},
+        dimension: { type: String, required: true, default: "g"},
      },
     category:[ { 
 
