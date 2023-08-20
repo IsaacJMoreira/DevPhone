@@ -11,7 +11,7 @@ import HeaderMenu from "../../Components/HeaderMenu"
 import Footer from "../../Components/Footer"
 import { faEnvelope, faF, faG } from '@fortawesome/free-solid-svg-icons';
 
-export default function Login() {
+export default function LoginAccounts() {
     return <BodyStyled>
         <HeaderMenu/>
         <MainStyled>
