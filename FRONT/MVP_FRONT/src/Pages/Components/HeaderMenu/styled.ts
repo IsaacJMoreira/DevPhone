@@ -6,7 +6,7 @@ color: #FFFAFA;
 display: flex;
 width: 100%;
 height: 60px;
-position: fixed;
+
 
 h1 {
     margin-top: 10px;
