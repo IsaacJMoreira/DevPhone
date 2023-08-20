@@ -8,29 +8,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
-const logger_1 = __importDefault(require("../infra/logger"));
-class Connection {
-    constructor(url_connection) {
-        this.url_connection = url_connection;
-    }
-    getInstance() {
-        return this.instance;
+class MongoConnection {
+    constructor(db_connection_string) {
+        this.db_connection_string = db_connection_string;
     }
     createConnection() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                this.instance = yield (0, mongoose_1.connect)(this.url_connection);
-                logger_1.default.info("[createConnection] Conexão com o banco de dados realizada.");
+                yield (0, mongoose_1.connect)(this.db_connection_string);
+                console.log("Banco de dados NO-SQL conectado com sucesso!");
             }
             catch (error) {
-                logger_1.default.error("[createConnection] Conexão Recusada:" + error);
+                // console.log("Não conseguimos conexão com o mongo DB!",error);   
             }
         });
     }
 }
-exports.default = Connection;
+exports.default = MongoConnection;

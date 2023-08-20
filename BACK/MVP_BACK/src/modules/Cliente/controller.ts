@@ -1,45 +1,56 @@
-import { Request, Response } from "express";
-import Image from "../../models/Images";
-import Client from "../../models/Clients";
-import path from "path";
-import logger from "../../infra/logger";
-import bcrypt from "bcryptjs";
+import { Request,Response } from "express";
+import { User } from "../../models";
 
 const controller = {
+ async create(req:Request,res:Response){
+    const{nome,email,credential,password}= req.body;
 
-  start(req: Request, res: Response) {
-    return res.status(200).json("API em execução.");
-  },
+    const newUser= await User.create({
+        nome,
+        email,
+        credential,
+        password,
+    })
 
-  async createClient(req: Request, res: Response) {
-    const hash = bcrypt.hashSync(req.body.senha, 10);
-    const { nome, email, senha, telefone, whatsapp } = req.body;
-    const { file } = req;
+    return res.status(201).json(newUser);
+ },
 
-    const savedClient = await Client.count({
-      email,
-    });
+ async findAll (req:Request,res:Response){
+    const users= await User.find();
 
-    if (savedClient) {
-      logger.warn(`[createClient] Tentativap repetida de cadastro: ${req.socket.remoteAddress}`);
-      return res.status(400).json("Email já cadastrado no banco");
-    }
+    return res.json(users);
+ },
 
-    const image = await Image.create({
-      link: `${path.resolve("uploads", "images")}${file?.filename}`,
-      nome: file?.filename,
-    });
+ async creaOne(req:Request,res:Response){
+    const{id} = req.params
+    const user = await User.findById(id)
 
-    const newClient = await Client.create({
-      ...req.body,
-      senha: hash,
-      images: [image._id],
-    });
+    return res.status(200).json(user);
+ },
+ async update(req:Request,res:Response){
+   const {id} = req.params
+   const{nome,email,password}= req.body;
 
-    logger.info(`[createClient] Cliente cadastrado: ${req.socket.remoteAddress}`);
-    return res.status(201).json(newClient);
-  },
+    const updateUser= await User.updateOne({
+      _id: id,
+    },{
+      $set: {
+         nome,
+         email,
+         password,
+      }
+    })
 
-}
+    return res.sendStatus(204);
+ },
+ async delete(req:Request,res:Response){
+   const {id} = req.params;
 
-export default controller;
+   await User.findByIdAndDelete(id);
+
+   return res.sendStatus(204);
+ },
+};
+
+
+export default User;

@@ -1,10 +1,10 @@
 import { Router } from "express";
-import controller from "./controller";
-import imgUpload from "../../infra/middlewares/imgUpload";
+import controller from './controller'
 
 const routes = Router();
 
-routes.get("/", controller.start);
-routes.post("/cadastro", imgUpload.single("avatar"), controller.createClient);
+routes.post("/user",controller.create);
+routes.get("/user", controller.findAll);
+
 
 export default routes;

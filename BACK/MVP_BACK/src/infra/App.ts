@@ -1,61 +1,39 @@
-import Express, { Application } from "express";
-import ENV from "./config/env";
-import logger from "./logger";
-import detect from "detect-port";
-import { mongoDB } from "../database";
-import BaseRoutes from "./BaseRoutes";
-import cors from "cors";
+import Express, { Application } from 'express';
+import { mongoDB } from '../database'
+import BaseRoutes from './BaseRoutes'
+
 
 type SetupOptions = {
-  test?: boolean;
-  port?: number;
+    isTest?: boolean;
+    port?: number;
 };
 
-export default class App {
-  private instance: Application;
-  private defaultPort: any = process.env.PORT || 8080;
+export default class App{
 
-  constructor() {
-    this.instance = Express();
-  }
+    private instance: Application;
+    private defaultPort : number = 4000;
 
-  async setup(options: SetupOptions): Promise<void> {
-    await mongoDB.createConnection();
-    const selectedPort = options.port ? options.port : this.defaultPort;
-    this.instance.use(cors());
-    this.instance.use(Express.json());
-    this.instance.use(Express.static("uploads"));
-    this.instance.use(BaseRoutes);
-    
-
-    if (options.test) {
-      console.log("[OK] Teste de configuração.");
-      console.log(`API: ${ENV.API_NAME}`);
-      console.log(`Porta TCP: ${selectedPort}`);
-      console.log(`Banco de dados: ${ENV.DB_NAME}`);
-      console.log("Saindo...");
-      logger.info("[setup] Teste de configuração executado.");
-      return;
+    constructor(){
+        this.instance = Express();
     }
 
-    detect(selectedPort)
-      .then(_port => {
-        if (selectedPort == _port) {
-          this.instance.listen(process.env.PORT || selectedPort, () => {
-            console.log(`[OK] API aguardando requisições... [Porta TCP ${selectedPort}]`);
-            logger.info("[setup] API em execução.");
-          })
-        } else {
-          logger.warn("[setup] Conexão Recusada: Porta em Uso.");
-        }
-      })
-      .catch(err => {
-        logger.error("[setup] Conexão Recusada:" + err);
-      });
+    setup(options: SetupOptions): void {
 
-  }
 
-  getInstance() {
-    return this.instance;
-  }
+        mongoDB.createConnection();
+        const selectedPort = options.port ? options.port : this.defaultPort;
+        this.instance.use(Express.json());
+        this.instance.use(BaseRoutes);//this stays like this for now
+
+        if(options.isTest) return;
+
+        this.instance.listen(selectedPort, ()=>{
+            console.log(`Server running with port: ${selectedPort}`);
+        });
+    }
+
+    getInstance(){
+        return this.instance;
+    }
+
 }
