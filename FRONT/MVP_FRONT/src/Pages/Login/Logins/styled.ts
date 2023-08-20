@@ -18,7 +18,7 @@ export const FormStyled = styled.form `
 margin-top: 10vh;
 padding: 20px;
 background-color: #FFFFFF;
-max-height: 26vh;
+max-height: 250px;
 width: 35vh;
 display: flex;
 gap: 10px;

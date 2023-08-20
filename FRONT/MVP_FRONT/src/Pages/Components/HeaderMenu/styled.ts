@@ -4,13 +4,13 @@ export const HeaderStyled = styled.header `
 background-color: #000000;
 color: #FFFAFA;
 display: flex;
+padding: 1em;
+justify-content: center;
+position: fixed;
 width: 100%;
-height: 60px;
-
 
 h1 {
     margin-top: 10px;
-    margin-left: 190px;
 }
 
 ul {
@@ -27,11 +27,10 @@ li {
 }
 
 input {
-    padding-left: 10px;
     margin-top: 10px;
     height: 40px;
     font-size: large;
-    color: white;
+    color: #FFFAFA;
     background-color: #000000;
     border: none;
     width: 500px;
@@ -63,7 +62,6 @@ a.menu {
 a.carinho {
     color: #FFFAFA;
     text-decoration: none;
-    margin-left: 260px;
 }
 
 `
