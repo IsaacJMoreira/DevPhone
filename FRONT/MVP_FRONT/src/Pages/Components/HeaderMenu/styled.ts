@@ -4,11 +4,10 @@ export const HeaderStyled = styled.header `
 background-color: #000000;
 color: #FFFAFA;
 display: flex;
-width: 100%;
-height: 60px;
-padding-left: 200px;
+padding: 1em;
+justify-content: center;
 position: fixed;
-
+width: 100%;
 
 h1 {
     margin-top: 10px;
@@ -28,12 +27,10 @@ li {
 }
 
 input {
-    margin-left: 10px;
-    padding-left: 10px;
     margin-top: 10px;
     height: 40px;
     font-size: large;
-    color: white;
+    color: #FFFAFA;
     background-color: #000000;
     border: none;
     width: 500px;
@@ -65,7 +62,6 @@ a.menu {
 a.carinho {
     color: #FFFAFA;
     text-decoration: none;
-    margin-left: 260px;
 }
 
 `

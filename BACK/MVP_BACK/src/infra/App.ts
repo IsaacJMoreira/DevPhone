@@ -1,7 +1,7 @@
-
 import Express, { Application } from 'express';
 import { mongoDB } from '../database'
 import BaseRoutes from './BaseRoutes'
+
 
 type SetupOptions = {
     isTest?: boolean;
