@@ -81,7 +81,7 @@ const productControllers = {
         
             const DBResponse =  await Product.find({ name: name });            
             
-            if(!DBResponse) return response.status(404).json(errors.not_found);
+            if(!DBResponse.length) return response.status(404).json(errors.not_found);
 
             return response.status(200).json(DBResponse);
 
@@ -98,7 +98,7 @@ const productControllers = {
             
             const DBResponse = await Product.find();
             
-            if(!DBResponse) return response.status(404).json(errors.not_found);
+            if(!DBResponse.length) return response.status(404).json(errors.not_found);
 
             return response.status(200).json(DBResponse);
 

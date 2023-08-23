@@ -34,6 +34,6 @@ const shoppingCartSchema = new Schema<IShoppinCart>(
     }
 );
 
-const ShoppingCart = model<IShoppinCart>('Cart', shoppingCartSchema);
+const ShoppingCart = model<IShoppinCart>('Shopping Cart', shoppingCartSchema);
 
 export default ShoppingCart;
