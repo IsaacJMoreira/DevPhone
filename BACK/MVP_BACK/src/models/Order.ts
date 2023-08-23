@@ -37,6 +37,6 @@ const shoppingCartSchema = new Schema<IOrder>(
     }
 );
 
-const Order = model<IOrder>('Shopping Cart', shoppingCartSchema);
+const Order = model<IOrder>('Order', shoppingCartSchema);
 
 export default Order;
