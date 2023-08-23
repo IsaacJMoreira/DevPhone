@@ -10,7 +10,7 @@ interface IDimensions{
     height: number;
     width: number;
     length: number;
-    dimension: string;
+    dimension: string    
 };
 
 interface IWeight{
@@ -30,6 +30,7 @@ interface IProduct{
     dimensions: IDimensions;
     weight: IWeight;
     category: ICategory;
+    stock: number
 };
 
 const productSchema = new Schema<IProduct>(
@@ -54,6 +55,8 @@ const productSchema = new Schema<IProduct>(
         name: { type: String, required: true},
         fatherCategory: { type: String, required: true, default: "root"},
      },],
+
+     stock: { type: Number, required: true, default: 0}
 
     },
     {
