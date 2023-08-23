@@ -1,4 +1,6 @@
 import { FooterStyled } from "./styled"
+import { Link } from 'react-router-dom';
+
 
 export default function Footer(){
     return <FooterStyled>
@@ -6,7 +8,7 @@ export default function Footer(){
             <h1>Sign up for our newsletter</h1>
             <p>Be the first to know about our special offers, new product launches, and events</p>
             <input type="email" placeholder="Email Address"></input>
-            <button>Sign Up</button>
+            <p><Link to="/" className="singup">Sign Up</Link></p>
         </div>
         <ul>
             <h2>Shop</h2>

@@ -24,6 +24,10 @@ routes.get('/', async(req, res) =>{
                 length: 30,
 
              },
+             weight:{
+                weight: 10,
+                dimension: "Kg",
+             },
             category: [
                 
                 { 

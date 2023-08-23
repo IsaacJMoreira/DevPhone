@@ -14,7 +14,7 @@ export default function HeaderMenu() {
             <li><Link to="/" className='menu'>About</Link></li>
             <input type="text" placeholder="Search"></input>
             <li><Link to="/" className='carinho'><FontAwesomeIcon icon={faBagShopping}/></Link></li>
-            <li><Link to="/" className='menu'>Login</Link></li>
+            <li><Link to="/Login" className='menu'>Login</Link></li>
         </ul>
         </HeaderStyled>
         </body>

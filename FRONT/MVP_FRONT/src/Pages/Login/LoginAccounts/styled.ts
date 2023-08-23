@@ -3,8 +3,8 @@ import styled from "styled-components"
 export const BodyStyled = styled.body `
 display: flex;
 flex-direction: column;
-min-height: 100vh;
 background-color: #EFF2F6;
+min-height: 100vh;
 `
 
 export const MainStyled = styled.header `
@@ -12,15 +12,13 @@ margin-top: 60px;
 flex: 1 1 0;
 display: flex;
 justify-content: center;
-height: 100vh;
 `
 
 export const FormStyled = styled.form `
 margin-top: 10vh;
-padding-top: 20px;
 padding: 20px;
 background-color: #FFFFFF;
-max-height: 30vh;
+max-height: 250px;
 width: 35vh;
 display: flex;
 gap: 10px;
@@ -51,7 +49,7 @@ a.Link {
 
 p.posicao {
     text-align: center;
-    padding-top: 150px;
+    margin-top: 50px;
 
     &:hover {
         opacity: 100%;
@@ -64,4 +62,6 @@ a.linkk {
     color: #000000;
     cursor: pointer;
 }
+
+
 `
