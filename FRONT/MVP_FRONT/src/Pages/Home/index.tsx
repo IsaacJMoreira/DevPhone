@@ -18,7 +18,7 @@ import ButtonShop from '../Components/ButtonShop';
 import { CompaniesStyled } from './styled';
 
 
-export default function Inicio() {
+export default function Home() {
     return <BodyStyled>
         <HeaderMenu />
         <MainStyled>

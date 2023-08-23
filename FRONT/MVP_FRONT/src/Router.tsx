@@ -3,7 +3,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 //Importações de "Pages"
 import Login from "./Pages/Login/Logins";
 import Producao from './Pages/Components/ButtonGlobal';
-import Inicio from './Pages/Inicio';
+import Inicio from './Pages/Home';
 
 export default function Router(){
     const routes = createBrowserRouter([{
@@ -13,7 +13,7 @@ export default function Router(){
         path: "/dev",
         element: <Producao/>
     },{
-        path: "/Inicio",
+        path: "/Home",
         element: <Inicio/>
     }]);
 
