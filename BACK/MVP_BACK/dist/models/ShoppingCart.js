@@ -18,5 +18,5 @@ const shoppingCartSchema = new mongoose_1.Schema({
 }, {
     timestamps: true,
 });
-const ShoppingCart = (0, mongoose_1.model)('Cart', shoppingCartSchema);
+const ShoppingCart = (0, mongoose_1.model)('Shopping Cart', shoppingCartSchema);
 exports.default = ShoppingCart;

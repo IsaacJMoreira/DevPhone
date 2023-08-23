@@ -68,7 +68,7 @@ const productControllers = {
         const { name } = request.params;
         try {
             const DBResponse = yield models_1.Product.find({ name: name });
-            if (!DBResponse)
+            if (!DBResponse.length)
                 return response.status(404).json(errors.not_found);
             return response.status(200).json(DBResponse);
         }
@@ -81,7 +81,7 @@ const productControllers = {
     findAll: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const DBResponse = yield models_1.Product.find();
-            if (!DBResponse)
+            if (!DBResponse.length)
                 return response.status(404).json(errors.not_found);
             return response.status(200).json(DBResponse);
         }
