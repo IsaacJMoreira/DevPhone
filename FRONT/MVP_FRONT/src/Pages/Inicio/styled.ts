@@ -66,3 +66,18 @@ cursor: pointer;
 }
 `
 
+export const CompaniesStyled = styled.form `
+display: inline-flex;
+flex-direction: row;
+align-items:center;
+padding-bottom: 100px;
+padding-top: 650px;
+margin-left: -830px;
+
+
+img{
+align-content:space-evenly;
+max-width: 400px;
+height: 60px;
+}
+`

@@ -7,7 +7,7 @@ color: #000000;
 font-weight: bolder;
 font-size: 18px;
 padding: 10px 10px;
-width: 150px;
+width: 194px;
 cursor: pointer;
 
 &:hover {
