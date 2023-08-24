@@ -30,11 +30,8 @@ const productControllers = {
             return response.sendStatus(200);
         } catch (error) {
             if(isTest) console.log(error);
-            return response.status(500).json(errors.internal_server_error);
-            
-            
-        }  
-       
+            return response.status(500).json(errors.internal_server_error);           
+        }       
     },
 
     findOne: async (request: Request, response: Response) => {
@@ -87,8 +84,7 @@ const productControllers = {
 
         } catch (error) {
             if(isTest) console.log(error);
-            return response.status(500).json(errors.internal_server_error);
-           
+            return response.status(500).json(errors.internal_server_error);          
         }
     },
 
@@ -106,7 +102,6 @@ const productControllers = {
             if(isTest) console.log(error);
             response.status(500).json(errors.internal_server_error);            
         }
-
     },
 
     update: async (request: Request, response: Response) => {
@@ -146,7 +141,6 @@ const productControllers = {
             if(isTest) console.log(error);
             response.status(500).json(errors.internal_server_error);            
         }
-
     },
 
     delete: async (request: Request, response: Response) => {
@@ -163,8 +157,7 @@ const productControllers = {
         } catch (error) {
             if(isTest) console.log(error);
             response.status(500).json(errors.internal_server_error);  
-        }
-        
+        }        
     },
 }
 

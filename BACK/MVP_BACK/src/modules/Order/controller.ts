@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import { ShoppingCart } from "../../models";
+import { Order } from "../../models";
 const errors = require("../errors");
 
 const isTest = true;//ATTENTION!!!! REMOVE!
 
-const shoppingCartControllers = {
+const orderControllers = {
 
     create: async (request: Request, response: Response) => {
 
@@ -15,7 +15,7 @@ const shoppingCartControllers = {
         } = request.body;
         
         try {
-            const DBResponse = await ShoppingCart.create({
+            const DBResponse = await Order.create({
                 ownerID: ownerID.toString(),
                 items: items
             }); 
@@ -28,12 +28,12 @@ const shoppingCartControllers = {
        
     },
 
-    findOne: async (request: Request, response: Response) => {
+    findByOwnerId: async (request: Request, response: Response) => {
             
         const { ownerID } = request.params;
         try {
 
-            const DBResponse = await    ShoppingCart.find({
+            const DBResponse = await    Order.find({
                 ownerID: ownerID
             });
 
@@ -52,7 +52,7 @@ const shoppingCartControllers = {
 
         try {
             
-            const DBResponse = await ShoppingCart.find();
+            const DBResponse = await Order.find();
             
             if(!DBResponse.length) return response.status(404).json(errors.not_found);
 
@@ -69,17 +69,21 @@ const shoppingCartControllers = {
         
         const  { ownerID }  = request.params
         const { 
-                items
+                items,
+                shippingCode,
+                status
             } = request.body;
 
         try {
 
-            const DBResponse = await ShoppingCart.updateOne(
+            const DBResponse = await Order.updateOne(
                 {
                     ownerID: ownerID
                 }, 
                 {
-                   items
+                    items,
+                    shippingCode,
+                    status
                 }
             );
 
@@ -94,4 +98,4 @@ const shoppingCartControllers = {
     },
 }
 
-export default shoppingCartControllers;
+export default orderControllers;
