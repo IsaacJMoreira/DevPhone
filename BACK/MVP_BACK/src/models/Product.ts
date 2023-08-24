@@ -30,7 +30,12 @@ interface IProduct{
     dimensions: IDimensions;
     weight: IWeight;
     category: ICategory;
-    stock: number
+    stock: number;
+    price: number;
+    imgURL: string;
+    description: string;
+    shortDescription: string;
+    alt: string;
 };
 
 const productSchema = new Schema<IProduct>(
@@ -56,7 +61,13 @@ const productSchema = new Schema<IProduct>(
         fatherCategory: { type: String, required: true, default: "root"},
      },],
 
-     stock: { type: Number, required: true, default: 0}
+     stock: { type: Number, required: true, default: 0},
+
+     price:  { type: Number, required: true, default: 0},
+     imgURL: { type: String, required: true},
+     description: { type: String, required: true},
+     shortDescription: { type: String, required: true},
+     alt: { type: String, required: true},
 
     },
     {

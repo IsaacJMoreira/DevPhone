@@ -2,39 +2,17 @@ import styled from 'styled-components';
 import THEME from '../../../theme';
 
 export const CardContainer = styled.section`
+    /* background-image: linear-gradient(90deg,${THEME.COLORS.WHITE},${THEME.COLORS.LIGHT_BLUE}, ${THEME.COLORS.YELLOW_LIGHT}, ${THEME.COLORS.GREEN}); */
+    background-color: ${THEME.COLORS.WHITE};
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-
-    width: 300px;    
-    background-color: ${ THEME.COLORS.WHITE };      
-    
-    
-    gap: 15px;
-    padding: 40px;    
-    border-width: 10px;
-    border-radius: 20px;
-    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
-    border: none;
-    margin: 10px;
-
-    p, h1, h2, h3, h4, h5, h6{
-        box-sizing: border-box;
-        text-align: center;
-    }
-
-    img{
-        object-fit: cover;
-        width: 300px;
-        height: 300px;
-        border-radius: 20px;        
-    }
-
-    .button:hover{
-     background-color: #9CCE76;
-     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-     }
-
+    flex-wrap: wrap;
+    flex-direction: row;
+    box-sizing : border-box;
+    background-color: transparent;      
+    justify-content: space-evenly;
+    gap: 5px;    
+    text-align: center;
+    margin: none;    
 `;
 
 
