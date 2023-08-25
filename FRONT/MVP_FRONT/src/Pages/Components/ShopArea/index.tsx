@@ -40,7 +40,7 @@ export const ShopArea = ()=>{
                         return(
                             
                         <ProductCard
-                        className = "PIG"
+                        key = {`${product._id}`}
                         Src = {product.imgURL} 
                         Alt = {product.alt}
                         Title= {product.name}
