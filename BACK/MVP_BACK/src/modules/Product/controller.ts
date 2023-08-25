@@ -1,3 +1,7 @@
+/*****************************************
+ *        🤓 ISAAC ESTEVE AQUI 🤓       *
+ *****************************************/
+
 import { Request, Response } from "express";
 import { Product } from "../../models";
 const errors = require("../errors");

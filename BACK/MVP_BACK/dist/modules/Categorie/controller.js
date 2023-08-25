@@ -15,17 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const errors = require("../errors");
 const isTest = true; //ATTENTION!!!! REMOVE!
-const orderControllers = {
+const catergorieControllers = {
     create: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { ownerID } = request.params;
-        const { items } = request.body;
+        const newCategorie = request.body;
         try {
-            const DBResponse = yield models_1.Order.create({
-                ownerID: ownerID.toString(),
-                items: items
-            });
+            const DBResponse = yield models_1.Categorie.find({ name: newCategorie.name }).count();
+            //By demand, we need to check that no category is duplicated
+            if (DBResponse)
+                return response.status(403).json(errors.forbidden);
+            yield models_1.Categorie.create(Object.assign({}, newCategorie));
             if (isTest)
-                console.log(DBResponse);
+                console.log("New Category created!");
             return response.sendStatus(200);
         }
         catch (error) {
@@ -34,25 +34,21 @@ const orderControllers = {
             return response.status(500).json(errors.internal_server_error);
         }
     }),
-    findByOwnerId: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { ownerID } = request.params;
+    findOneByName: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+        const { name } = request.params;
         try {
-            const DBResponse = yield models_1.Order.find({
-                ownerID: ownerID
-            });
-            if (!DBResponse.length)
+            const DBResponse = yield models_1.Categorie.findOne({ name: name });
+            if (!DBResponse)
                 return response.status(404).json(errors.not_found);
             return response.status(200).json(DBResponse);
         }
         catch (error) {
-            if (isTest)
-                console.log(error);
-            response.status(500).json(errors.internal_server_error);
+            return response.status(500).json(errors.internal_server_error);
         }
     }),
     findAll: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const DBResponse = yield models_1.Order.find();
+            const DBResponse = yield models_1.Categorie.find();
             if (!DBResponse.length)
                 return response.status(404).json(errors.not_found);
             return response.status(200).json(DBResponse);
@@ -64,23 +60,25 @@ const orderControllers = {
         }
     }),
     update: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { ownerID } = request.params;
-        const { items, shippingCode, status } = request.body;
+        const { name } = request.params;
+        const toUpdate = request.body;
         try {
-            const DBResponse = yield models_1.Order.updateOne({
-                ownerID: ownerID
+            const DBResponse = yield models_1.Categorie.findOneAndUpdate({
+                name: name
             }, {
-                items,
-                shippingCode,
-                status
+                $set: Object.assign({}, toUpdate)
+            }, {
+                new: true
             });
-            return response.status(204).json(DBResponse);
+            if (!DBResponse)
+                return response.status(404).json(errors.not_found);
+            return response.status(200).json(DBResponse);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
             response.status(500).json(errors.internal_server_error);
         }
-    }),
+    })
 };
-exports.default = orderControllers;
+exports.default = catergorieControllers;
