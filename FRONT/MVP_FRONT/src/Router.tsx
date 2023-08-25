@@ -3,7 +3,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 //Importações de "Pages"
 import Login from "./Pages/Login";
 import LoginContas from "./Pages/Login/LoginAccounts"
-import Producao from './Pages/Components/ButtonGlobal';
+import {ButtonGlobal} from './Pages/Components/ButtonGlobal';
 import Inicio from './Pages/Home';
 import Shop from './Pages/Shop';
 
@@ -18,7 +18,7 @@ export default function Router(){
     },
     {
         path: "/dev",
-        element: <Producao/>
+        element: <ButtonGlobal>Sou um botão</ButtonGlobal>
     },{
         path: "/Home",
         element: <Inicio/>

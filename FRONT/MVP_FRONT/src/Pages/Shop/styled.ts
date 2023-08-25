@@ -23,8 +23,6 @@ flex-direction: column;
 padding-top: 100px;
 
 
-
-
 h1{
 align-items: center;
 display: flex;
@@ -80,4 +78,9 @@ align-content:space-evenly;
 max-width: 400px;
 height: 60px;
 }
+`
+
+export const PageBody = styled.body `
+    display: flex;
+    flex-direction: row;
 `

@@ -6,17 +6,18 @@ export const Card = styled.section`
     flex-direction: column;
     justify-content: space-around;
 
-    width: 300px;    
+    width: 15vw;
+    min-width: 200px;
     background-color: ${ THEME.COLORS.WHITE };      
     
     
     gap: 15px;
-    padding: 40px;    
+    padding: 2vw;  
     border-width: 10px;
     border-radius: 5px;
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
     border: none;
-    margin: 10px;
+    margin: 5px;
 
     p, h1, h2, h3, h4, h5, h6{
         box-sizing: border-box;
@@ -30,8 +31,8 @@ export const Card = styled.section`
 
     img{
         object-fit: cover;
-        width: 300px;
-        height: 300px;
+        width: 15vw;
+        height: 15vw;
         border-radius: 5px;        
     }
 

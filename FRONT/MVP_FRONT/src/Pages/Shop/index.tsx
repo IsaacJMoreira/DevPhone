@@ -15,6 +15,7 @@ import { CardContainer } from "../Components/CardContainer/styles";
 export default function Shop() {
     return <BodyStyled>
         <HeaderMenu />
+           
             <CardContainer> 
                 
                 <ShopArea />   

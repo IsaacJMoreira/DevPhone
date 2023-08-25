@@ -109,7 +109,7 @@ const productControllers = {
         try {
             
             const DBResponse = await Product.find();
-            console.log("Alguém tá tentando acessar!");
+            if(isTest)console.log("Alguém tá tentando acessar!");
             
             if(!DBResponse.length) return response.status(404).json(errors.not_found);
 

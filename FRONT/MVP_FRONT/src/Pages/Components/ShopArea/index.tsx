@@ -1,10 +1,11 @@
 import * as React from 'react'
 import { ProductCard } from '../ProductCard'
 import axios from 'axios'
-import baseURL from '../../../../public/baseRoute'
+import baseURL from '../../../../baseURL'
 
 
 type Product = {
+    _id: string;
     imgURL: string;
     alt: string;
     name: string;
@@ -39,7 +40,7 @@ export const ShopArea = ()=>{
                         return(
                             
                         <ProductCard
-
+                        className = "PIG"
                         Src = {product.imgURL} 
                         Alt = {product.alt}
                         Title= {product.name}

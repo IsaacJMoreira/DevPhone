@@ -1,7 +1,9 @@
 const THEME = {
     COLORS: {
       WHITE: "#FFFFFF",
-      GREY: "#555555"
+      BLACK: "#000000",
+      GREY: "#555555",
+      ORANGE_HIGHLIGHT: "#FFA500"
     }
   }
   

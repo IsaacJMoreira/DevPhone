@@ -1,7 +1,7 @@
 
 import * as React from 'react'
 import { Card } from "../Card/styles";
-import ButtonGlobal from "../ButtonGlobal";
+import { ButtonGlobal } from "../ButtonGlobal";
 
 interface ProductProps{
     Title: string;
@@ -29,7 +29,7 @@ export const ProductCard: React.FC<ProductProps> = ({
             </div>
             <div>
                 <h6>R${Price}</h6>
-                <ButtonGlobal />
+                <ButtonGlobal>Comprar</ButtonGlobal>
             </div>
             
         </Card>
