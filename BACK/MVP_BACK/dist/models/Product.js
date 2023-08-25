@@ -26,6 +26,7 @@ const productSchema = new mongoose_1.Schema({
             name: { type: String, required: true },
             fatherCategory: { type: String, required: true, default: "root" },
         },],
+    stock: { type: Number, required: true, default: 0 }
 }, {
     timestamps: true,
 });
