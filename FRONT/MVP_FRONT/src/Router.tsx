@@ -13,7 +13,7 @@ export default function Router(){
         element: <Login/>
     },
     {
-        path: "LoginAccounts",
+        path: "/LoginAccounts",
         element: <LoginContas/>
     },
     {

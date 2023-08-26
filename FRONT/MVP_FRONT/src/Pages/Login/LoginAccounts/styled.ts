@@ -49,7 +49,7 @@ a.Link {
 
 p.posicao {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 48px;
 
     &:hover {
         opacity: 100%;

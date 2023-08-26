@@ -66,10 +66,26 @@ a.forgetPass {
     }
 }
 
+button {
+    position: relative;
+    width: 80px;
+    bottom: 20px;
+    font-size: 18px;
+    margin-left: 130px;
+    cursor: pointer;
+    background: none;
+    border: none;
+
+    &:hover {
+        transition: 0.8s;
+        opacity: 50%;
+    }
+}
+
 a.posicao {
     opacity: 60%;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 20px;
     text-decoration: none;
     color: #000000;
     cursor: pointer;
