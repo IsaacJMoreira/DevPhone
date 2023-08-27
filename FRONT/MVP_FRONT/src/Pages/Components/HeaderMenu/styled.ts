@@ -6,7 +6,6 @@ color: #FFFAFA;
 display: flex;
 padding: 1em;
 justify-content: center;
-position: fixed;
 width: 100%;
 
 h1 {

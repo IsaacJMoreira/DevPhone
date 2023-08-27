@@ -5,7 +5,7 @@ import { HeaderStyled } from "./styled";
 
 
 export default function HeaderMenu() {
-    return <body>
+    return <>
         <HeaderStyled>
         <h1>DevPhone</h1>
         <ul>
@@ -17,5 +17,5 @@ export default function HeaderMenu() {
             <li><Link to="/Login" className='menu'>Login</Link></li>
         </ul>
         </HeaderStyled>
-        </body>
+        </>
 };

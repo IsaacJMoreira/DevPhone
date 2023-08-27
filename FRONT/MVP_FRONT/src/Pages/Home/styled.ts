@@ -1,11 +1,6 @@
 import styled from "styled-components"
 
-export const BodyStyled = styled.body `
-display: flex;
-flex-direction: column;
-min-height: 100vh;
-background-color: #EFF2F6;
-`
+
 
 export const MainStyled = styled.header `
 margin-top: 60px;

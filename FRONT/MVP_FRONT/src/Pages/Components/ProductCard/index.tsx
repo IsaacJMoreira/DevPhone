@@ -1,7 +1,7 @@
 
 import * as React from 'react'
-import { Card } from "../Card/styles";
-import { ButtonGlobal } from "../ButtonGlobal";
+import { Card } from "../Containers/Card/styles";
+import { ButtonGlobal } from "../Buttons/ButtonGlobal";
 
 interface ProductProps{
     Title: string;

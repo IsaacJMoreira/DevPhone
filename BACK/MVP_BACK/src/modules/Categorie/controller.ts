@@ -51,7 +51,7 @@ const catergorieControllers = {
             
             if(!DBResponse.length) return response.status(404).json(errors.not_found);
 
-            return response.status(200).json(DBResponse);
+            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
 
         } catch (error) {
             if(isTest) console.log(error);
