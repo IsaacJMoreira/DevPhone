@@ -90,7 +90,8 @@ const productControllers = {
     findAll: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const DBResponse = yield models_1.Product.find();
-            console.log("Alguém tá tentando acessar!");
+            if (isTest)
+                console.log("Alguém tá tentando acessar!");
             if (!DBResponse.length)
                 return response.status(404).json(errors.not_found);
             return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);

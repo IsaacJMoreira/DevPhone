@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { ProductCard } from '../ProductCard'
+import { ProductCard } from '../../ProductCard'
 import axios from 'axios'
-import baseURL from '../../../../baseURL'
+import baseURL from '../../../../../baseURL'
 
 
 type Product = {

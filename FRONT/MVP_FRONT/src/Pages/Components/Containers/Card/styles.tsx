@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import THEME from '../../../theme';
+import THEME from '../../../../theme';
 
 export const Card = styled.section`
     display: flex;

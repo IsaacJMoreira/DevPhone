@@ -1,28 +1,35 @@
 
 
 //Styleds:
-import {  BodyStyled } from "./styled"
-import { ShopArea } from "../Components/ShopArea";
+
+import { ShopArea } from "../Components/Active/ShopArea";
+import { CategorieArea } from "../Components/Active/CategorieArea";
+import { BodySection } from "./styled";
 
 //Components:
 import HeaderMenu from "../Components/HeaderMenu"
 import Footer from "../Components/Footer"
-import { CardContainer } from "../Components/CardContainer/styles";
+import { CardContainer } from "../Components/Containers/cardContainer/styles";
 
 
 
 
 export default function Shop() {
-    return <BodyStyled>
+    return <>
         <HeaderMenu />
-           
-            <CardContainer> 
-                
-                <ShopArea />   
-                      
-
-            </CardContainer>
-      
+            <BodySection>
+                <div className="CategorieSection"> 
+                    <CategorieArea /> 
+                </div>
+            
+                <CardContainer> 
+                    <div>
+                        <h1>{"Compre"}</h1>
+                    </div>
+                    
+                    <ShopArea />
+                </CardContainer>
+            </BodySection>   
         <Footer />
-    </BodyStyled>
+    </>
 }
