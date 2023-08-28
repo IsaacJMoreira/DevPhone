@@ -1,13 +1,13 @@
 import styled from "styled-components"
 
-export const ButtonStyled = styled.button `
-border: #000000;
-background-color: #000000;
-color: #FFFFFF;
+export const ButtonShopAll = styled.button `
+border-color: #000000;
+background-color: #FFFFFF;
+color: #000000;
 font-weight: bolder;
 font-size: 18px;
-padding: 13px;
-width: 35vh;
+padding: 10px 10px;
+width: 194px;
 cursor: pointer;
 
 &:hover {
