@@ -45,6 +45,15 @@ const productControllers = {
             return response.status(500).json(errors.internal_server_error);
         }
     }),
+    returnLength: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            const DBResponse = yield models_1.Product.count();
+            return response.status(200).json(DBResponse);
+        }
+        catch (error) {
+            return response.status(500).json(error);
+        }
+    }),
     findOne: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = request.params;
         try {

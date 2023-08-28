@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { SetStateAction } from 'react'
 import CategoriesUL from '../CategoriesUL'
 import axios from 'axios'
 import baseURL from '../../../../../baseURL'
@@ -27,7 +26,7 @@ export const CategorieArea = ()=>{
 
     if(!categorie.data) return (
         <>
-            <h6>Sorry, nothing to select here 😥(</h6>
+            <h6>Sorry, nothing to select here 😥</h6>
         </>
     );
 
