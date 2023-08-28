@@ -18,19 +18,18 @@ export const FormStyled = styled.form `
 margin-top: 10vh;
 padding: 20px;
 background-color: #FFFFFF;
-max-height: 250px;
+max-height: 260px;
 width: 35vh;
 display: flex;
 gap: 10px;
 flex-direction: column;
 
 h1 {
-    padding-bottom: 10px;
+    padding-bottom: 5px;
 }
 
 p {
     opacity: 60%;
-    padding-bottom: 10px;
 }
 
 input {
@@ -45,6 +44,13 @@ label {
     font-size: 15px;
     margin-left: 5px;
     opacity: 60%;
+}
+
+div.error {
+    justify-content: center;
+    position: relative;
+    top: 20px;
+    color: #ff0000;
 }
 
 div {
@@ -67,11 +73,7 @@ a.forgetPass {
 }
 
 button {
-    position: relative;
-    width: 80px;
-    bottom: 20px;
     font-size: 18px;
-    margin-left: 130px;
     cursor: pointer;
     background: none;
     border: none;
@@ -85,7 +87,7 @@ button {
 a.posicao {
     opacity: 60%;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 35px;
     text-decoration: none;
     color: #000000;
     cursor: pointer;

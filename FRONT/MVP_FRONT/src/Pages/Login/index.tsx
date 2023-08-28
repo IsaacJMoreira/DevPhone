@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { FormEventHandler, useState } from "react"
+import { login } from "../../services/LoginTs/login"
 
 //Styleds:
 import { MainStyled, BodyStyled, FormStyled} from "./styled"
@@ -9,9 +10,11 @@ import HeaderMenu from "../Components/HeaderMenu"
 import Footer from "../Components/Footer"
 
 
-export default function Login() {
+export default function Login({}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
+    const [isRequestng, setIsRequestng] = useState(false);
 
     const logar: FormEventHandler<HTMLFormElement> = (event) => {
         // "preventDefault" pra tela não ser recarregada;
@@ -21,7 +24,19 @@ export default function Login() {
 
     };
 
+    const handleSubmit = () => {
+        //voltar ao padrão
+        setError(null);
+        setIsRequestng(true);
 
+        let values = {email: email, password: password}
+         login(values).then(() => {alert("Login Efetuado!")}).catch((error) => {
+            console.log(error);
+            setError(error.message);
+         }).finally(() => { // "finally" para rodar sempre;
+            setIsRequestng(false);
+         });
+    };
 
     return <BodyStyled>
         <HeaderMenu/>
@@ -34,7 +49,8 @@ export default function Login() {
                 <div><input type="checkbox" checked className="remember"></input>
                 <label>Remember me</label></div>
                 <Link to="/" className="forgetPass">Forgot Password?</Link>
-                <button type="submit">logar</button>
+                <button type="submit" onClick={handleSubmit} disabled={email == '' || password.length < 6 || isRequestng}>logar</button>
+                {error && <div className="error">{error}</div>}
                 <Link to="/" className='posicao'>Or create an account</Link>
          </FormStyled>
         </MainStyled>
