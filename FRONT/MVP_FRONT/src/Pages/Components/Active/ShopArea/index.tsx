@@ -11,6 +11,7 @@ type Product = {
     name: string;
     price: number;
     shortDescription: string;
+    stock: number
 }
 
 export const ShopArea = ()=>{
@@ -86,6 +87,7 @@ export const ShopArea = ()=>{
                         Title= {product.name}
                         Price= {product.price}
                         Description= {product.shortDescription}
+                        Stock={product.stock}
                         />
 
                         )
