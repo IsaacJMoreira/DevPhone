@@ -9,6 +9,8 @@ font-weight: bolder;
 font-size: 18px;
 padding: 13px;
 width: 10vw;
+height: 3.3vw;
+min-height: 50px;
 min-width: 120px;
 cursor: pointer;
 

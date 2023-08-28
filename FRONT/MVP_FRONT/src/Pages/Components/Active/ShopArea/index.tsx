@@ -2,6 +2,7 @@ import * as React from 'react'
 import { ProductCard } from '../../ProductCard'
 import axios from 'axios'
 import baseURL from '../../../../../baseURL'
+import { ButtonGlobal } from '../../Buttons/ButtonGlobal'
 
 
 type Product = {
@@ -40,10 +41,11 @@ export const ShopArea = ()=>{
 
     
         try {
+            //TODO: Remove all the logs!!!
             console.log("Total de produtos:",products.data.length);
             const fullPages = Math.floor(products.data.length/10);
             const remeinderOfProducts = products.data.length%10; 
-            console.log("Pgs completas:",fullPages, "Última pg terá:", remeinderOfProducts, "produtos");
+            console.log("Pgs completas:",fullPages, "|Última pg terá:", remeinderOfProducts, "produtos");
             const pages: number = fullPages + (remeinderOfProducts > 0? 1 : 0);
             console.log("Total de pgs: ", pages);
             for(let i = 0; i < fullPages; i++){
@@ -64,7 +66,7 @@ export const ShopArea = ()=>{
             console.log("O novo array de produtos agora é assim:",toRender);
 
         } catch (error) {
-            console.log("erro ap buscar dados: ", error);   
+            console.log("erro ao buscar dados: ", error);   
         }
         
 
@@ -77,7 +79,7 @@ export const ShopArea = ()=>{
     return (
         <>
                
-            {products.data.map<[]>((product: Product)=>{
+            {toRender[0].map((product: Product)=>{
                         return(
                             
                         <ProductCard
@@ -96,6 +98,11 @@ export const ShopArea = ()=>{
                     })
                     
             }  
+
+            <div>
+            <ButtonGlobal>1</ButtonGlobal>
+            </div>
+            
         </>      
     ); 
     
