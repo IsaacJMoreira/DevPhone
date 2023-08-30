@@ -4,7 +4,7 @@
 
 import { Request, Response } from 'express'
 import { Categorie } from "../../models";
-const errors = require("../errors");
+import errors from "../errors";
 
 const isTest = true;//ATTENTION!!!! REMOVE!
 

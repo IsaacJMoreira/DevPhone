@@ -14,8 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const models_1 = require("../../models");
-const errors = require("../errors");
-const CryptoProvider_1 = __importDefault(require("../../infra/CryptoProvider"));
+const errors_1 = __importDefault(require("../errors"));
+const CryptoProvider_1 = __importDefault(require("../../infra/providers/CryptoProvider"));
 const isTest = true;
 const userControllers = {
     create(req, res) {
@@ -36,7 +36,7 @@ const userControllers = {
             catch (error) {
                 if (isTest)
                     console.log(error);
-                return res.status(500).json(errors.internal_server_error);
+                return res.status(500).json(errors_1.default.internal_server_error);
             }
         });
     },
@@ -45,13 +45,13 @@ const userControllers = {
             try {
                 const users = yield models_1.User.find();
                 if (!users.length)
-                    return res.status(404).json(errors.not_found);
+                    return res.status(404).json(errors_1.default.not_found);
                 return res.status(200).json(users);
             }
             catch (error) {
                 if (isTest)
                     console.log(error);
-                express_1.response.status(500).json(errors.internal_server_error);
+                express_1.response.status(500).json(errors_1.default.internal_server_error);
             }
         });
     },
@@ -61,13 +61,13 @@ const userControllers = {
             try {
                 const user = yield models_1.User.findById(id);
                 if (!user)
-                    return res.status(404).json(errors.not_found);
+                    return res.status(404).json(errors_1.default.not_found);
                 return res.status(200).json(user);
             }
             catch (error) {
                 if (isTest)
                     console.log(error);
-                return res.status(500).json(errors.internal_server_error);
+                return res.status(500).json(errors_1.default.internal_server_error);
             }
         });
     },
@@ -75,6 +75,7 @@ const userControllers = {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             const { name, email, password, credential } = req.body;
+            const newEncryptedPass = CryptoProvider_1.default.hashSync(password, 10);
             try {
                 const updateUser = yield models_1.User.updateOne({
                     _id: id,
@@ -82,7 +83,7 @@ const userControllers = {
                     $set: {
                         name,
                         email,
-                        password,
+                        password: newEncryptedPass,
                         credential
                     }
                 });
@@ -91,7 +92,7 @@ const userControllers = {
             catch (error) {
                 if (isTest)
                     console.log(error);
-                res.status(500).json(errors.internal_server_error);
+                res.status(500).json(errors_1.default.internal_server_error);
             }
         });
     },

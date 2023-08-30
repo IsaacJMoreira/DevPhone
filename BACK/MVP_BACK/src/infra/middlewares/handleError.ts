@@ -1,7 +1,6 @@
 import {  Request, Response, NextFunction } from "express";
 const {ValidationError} = require("express-validation");
-
-module.exports = (
+const globalErrorHandler = (
     error: any, 
     request: Request, 
     response: Response, 
@@ -13,3 +12,5 @@ module.exports = (
         
         return response. status(500).json(error);
     };
+
+export default globalErrorHandler;

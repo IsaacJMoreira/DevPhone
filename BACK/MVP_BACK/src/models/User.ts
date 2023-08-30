@@ -17,11 +17,12 @@ interface IAddress{
 
 
 interface IUser{
+    _id: string;
     name: string;
     email: string;
-    credential: string;// client | admin | other
+    credential: string;// CLI | ADM | INACTIVE
     password: string;
-    address: IAddress;
+    address: IAddress;    
 };
 
 const userSchema = new Schema<IUser>({
