@@ -1,6 +1,6 @@
 import {  Request, Response, NextFunction } from "express";
 import { ValidationError } from "express-validation";
-import UnauthorizedError from 'express-jwt'
+import { UnauthorizedError } from 'express-jwt'
 const globalErrorHandler = (
     error: any, 
     request: Request, 
