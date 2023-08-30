@@ -33,4 +33,4 @@ const middlewareUsers = {
    
 }
 
-module.exports = middlewareUsers;
+export default middlewareUsers;

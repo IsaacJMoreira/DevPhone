@@ -1,4 +1,9 @@
-const secret = {
+interface ISecret {
+    key: string
+}
+
+
+const secret: ISecret= {
         key: "brick-phone"
     }
 
