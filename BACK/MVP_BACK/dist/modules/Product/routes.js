@@ -14,5 +14,4 @@ productRoutes.get('/product/category/:category', controller_1.default.findByCate
 productRoutes.get('/product/name/:name', controller_1.default.findByName);
 productRoutes.put('adm/product/:id', controller_1.default.update);
 productRoutes.delete('adm/product/:id', controller_1.default.delete);
-productRoutes.get('/products/length', controller_1.default.returnLength);
 exports.default = productRoutes;
