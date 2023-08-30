@@ -10,28 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const { validate, Joi } = require("express-validation");
-const validatePost = validate({
+const validateLogin = validate({
     body: Joi.object().keys({
-        name: Joi.string().required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().min(8).max(30).required(),
-        credential: Joi.string().valid("ADM", "CLI", "INACTIVE"),
-    })
-});
-const validateUpdate = validate({
-    body: Joi.object().keys({
-        name: Joi.string(),
         email: Joi.string(),
-        password: Joi.string().min(8).max(30),
-        credential: Joi.string().valid("ADM", "CLI", "INACTIVE"),
+        password: Joi.string().required(),
     })
 });
-const middlewareUsers = {
-    newUser: (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-        yield validatePost(request, response, next);
+const middlewareAuth = {
+    login: (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+        yield validateLogin(request, response, next);
     }),
-    updateUser: (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-        yield validateUpdate(request, response, next);
-    })
 };
-exports.default = middlewareUsers;
+exports.default = middlewareAuth;

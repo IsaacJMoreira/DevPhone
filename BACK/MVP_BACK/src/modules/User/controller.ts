@@ -1,7 +1,7 @@
 import { Request,Response, response } from "express";
 import { User } from "../../models";
-const errors = require ("../errors");
-import cryptoProvider from "../../infra/CryptoProvider";
+import errors from "../errors";
+import cryptoProvider from "../../infra/providers/CryptoProvider";
 
 const isTest= true;
 
@@ -71,6 +71,8 @@ const userControllers = {
          credential
         }= req.body;
 
+        const newEncryptedPass =  cryptoProvider.hashSync(password, 10);
+
     try {
         const updateUser= await User.updateOne({
             _id: id,
@@ -79,7 +81,7 @@ const userControllers = {
             $set: {
                name,
                email,
-               password,
+               password: newEncryptedPass,
                credential
             }
         });
