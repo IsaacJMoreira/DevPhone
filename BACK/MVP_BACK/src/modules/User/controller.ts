@@ -4,7 +4,7 @@ import { User } from "../../models";
 
 
 const userController = {
-    async UserCadastro(req: Request, res: Response) {
+    async create(req: Request, res: Response) {
         const {name, email, password} = req.body;
         const newPassword = bcrypt.hashSync(password, 10);
         const newUser = await User.create({name, email, password: newPassword})

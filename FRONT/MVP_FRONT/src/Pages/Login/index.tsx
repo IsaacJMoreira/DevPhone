@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import { FormEventHandler, useState } from "react"
 import { login } from "../../services/LoginTs/login"
+import { logar } from '../../services/LoginTs/logar'
 
 //Styleds:
 import { MainStyled, BodyStyled, FormStyled} from "./styled"
@@ -16,11 +17,16 @@ export default function Login({}) {
     const [error, setError] = useState(null);
     const [isRequestng, setIsRequestng] = useState(false);
 
-    const logar: FormEventHandler<HTMLFormElement> = (event) => {
-        // "preventDefault" pra tela não ser recarregada;
+    const logar: FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault()
-        console.log(email)
-        console.log(password)
+
+        const response = await 
+
+        try {
+            
+        } catch (error) {
+            
+        }
 
     };
 

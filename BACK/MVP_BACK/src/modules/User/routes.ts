@@ -4,5 +4,5 @@ import userController from "./controller"
 const userRoutes = Router()
 
 // rota teste
-userRoutes.post("/testeNewUser", userController.UserCadastro);
+userRoutes.post("/testeUser", userController.create);
 

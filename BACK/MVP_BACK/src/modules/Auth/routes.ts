@@ -5,6 +5,6 @@ import userController from '../User/controller';
 
 const AuthRoutes = Router()
 
-AuthRoutes.post("/loginteste", AuthValidation, AuthController.login)
+AuthRoutes.post("/login", AuthValidation, AuthController.login)
 
 export default AuthRoutes;

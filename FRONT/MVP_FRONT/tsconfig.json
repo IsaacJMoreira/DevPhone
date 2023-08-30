@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "src/services/LoginTs", "../../BACK/MVP_BACK/src/validations/auth"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
