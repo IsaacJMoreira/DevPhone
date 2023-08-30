@@ -34,4 +34,4 @@ const middlewareUsers = {
         yield validateUpdate(request, response, next);
     })
 };
-module.exports = middlewareUsers;
+exports.default = middlewareUsers;

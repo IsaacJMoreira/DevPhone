@@ -33,7 +33,9 @@ const authControllers = {
             id: DBResponse._id,
             email: DBResponse.email,
             name: DBResponse.name
-        }, Token_1.secret.key);
+        }, Token_1.secret.key, {
+            expiresIn: Token_1.expireTime
+        });
         return response.status(200).json(token);
         ;
     })

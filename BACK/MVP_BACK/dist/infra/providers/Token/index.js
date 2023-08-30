@@ -26,9 +26,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.secret = exports.tokenProvider = void 0;
+exports.expireTime = exports.secret = exports.tokenProvider = void 0;
 const jwt = __importStar(require("jsonwebtoken"));
 const secret_1 = __importDefault(require("../../config/secret"));
 exports.secret = secret_1.default;
 const tokenProvider = jwt;
 exports.tokenProvider = tokenProvider;
+const expireTime = "24h";
+exports.expireTime = expireTime;
