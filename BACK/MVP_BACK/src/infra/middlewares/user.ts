@@ -1,31 +1,36 @@
 const {validate, Joi } = require ("express-validation");
+import { Request, Response, NextFunction } from "express";
 
 
 const validatePost = validate({
     body: Joi.object().keys ({
-        nome: Joi.string().required(),
-        email: Joi.string().required(),
+        name: Joi.string().required(),
+        email: Joi.string().email().required(),
+        password: Joi.string().min(8).max(30).required(),
+        credential: Joi.string().valid("ADM","CLI","INACTIVE"),
+
     })
 })
 
 const validateUpdate = validate({
     body: Joi.object().keys ({
-        nome: Joi.string().required(),
-        email: Joi.string().required(),
-        passaword: Joi.string().required()
+        name: Joi.string(),
+        email: Joi.string(),
+        password: Joi.string().min(8).max(30),
+        credential: Joi.string().valid("ADM","CLI","INACTIVE"),
     })
 })
 
 
-const middlewareUser = {
-    newUser: async (require: any,response: any, next: any) =>{
-        await validatePost(require, response,next)
+const middlewareUsers = {
+    newUser: async (request: Request,response: Response, next: NextFunction) =>{
+        await validatePost(request, response, next)
     },
     
-    updateUser: async (require: any,response: any, next: any) =>{
-        await  validateUpdate(require ,response,next);
+    updateUser: async (request: Request,response: Response, next: NextFunction) =>{
+        await  validateUpdate(request ,response, next);
     } 
    
 }
 
-module.exports = middlewareUser;
+module.exports = middlewareUsers;

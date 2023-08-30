@@ -8,26 +8,30 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const { validate, Joi } = require("express-validation");
 const validatePost = validate({
     body: Joi.object().keys({
-        nome: Joi.string().required(),
-        email: Joi.string().required(),
+        name: Joi.string().required(),
+        email: Joi.string().email().required(),
+        password: Joi.string().min(8).max(30).required(),
+        credential: Joi.string().valid("ADM", "CLI", "INACTIVE"),
     })
 });
 const validateUpdate = validate({
     body: Joi.object().keys({
-        nome: Joi.string().required(),
-        email: Joi.string().required(),
-        passaword: Joi.string().required()
+        name: Joi.string(),
+        email: Joi.string(),
+        password: Joi.string().min(8).max(30),
+        credential: Joi.string().valid("ADM", "CLI", "INACTIVE"),
     })
 });
-const middlewareUser = {
-    newUser: (require, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-        yield validatePost(require, response, next);
+const middlewareUsers = {
+    newUser: (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+        yield validatePost(request, response, next);
     }),
-    updateUser: (require, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-        yield validateUpdate(require, response, next);
+    updateUser: (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+        yield validateUpdate(request, response, next);
     })
 };
-module.exports = middlewareUser;
+module.exports = middlewareUsers;
