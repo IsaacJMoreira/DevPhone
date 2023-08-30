@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 import { User } from "../../models";
 import cryptoProvider from "../../infra/providers/CryptoProvider"; 
 import errors from "../errors";
-import {tokenProvider, secret} from '../../infra/providers/Token'
+import {tokenProvider, secret, expireTime} from '../../infra/providers/Token'
 
 const isTest = true;//ATTENTION!!!! REMOVE!
 
@@ -29,7 +29,12 @@ const authControllers = {
             email: DBResponse.email,
             name: DBResponse.name
         },
-            secret.key
+        
+        secret.key,
+        
+        {
+            expiresIn: expireTime 
+        }
         );
 
         return response.status(200).json(token);;

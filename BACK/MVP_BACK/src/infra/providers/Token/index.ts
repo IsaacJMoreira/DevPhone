@@ -4,6 +4,8 @@ import secret from "../../config/secret"
 
 const tokenProvider = jwt;
 
-export {tokenProvider, secret};
+const expireTime = "24h";
+
+export {tokenProvider, secret, expireTime};
 
 
