@@ -9,6 +9,7 @@ interface ProductProps{
     Price: number;
     Src: string;
     Alt: string;
+    Stock: number;
 }
 
 export const ProductCard: React.FC<ProductProps> = ({
@@ -17,8 +18,13 @@ export const ProductCard: React.FC<ProductProps> = ({
     Price,
     Src,
     Alt,
-}) =>(
-    <>
+    Stock
+}) =>{
+    const btnColor = !Stock? "gray" : ""; 
+    const btnText = !Stock? "Acabou!": "Comprar";
+    
+    return(
+    
         <Card>
             <div>
                 <img src={Src} alt={Alt} />
@@ -29,9 +35,9 @@ export const ProductCard: React.FC<ProductProps> = ({
             </div>
             <div>
                 <h6>R${Price}</h6>
-                <ButtonGlobal>Comprar</ButtonGlobal>
+                <ButtonGlobal style={{backgroundColor: `${btnColor}`}}>{btnText}</ButtonGlobal>
             </div>
             
         </Card>
-    </>
-)
+    
+)}

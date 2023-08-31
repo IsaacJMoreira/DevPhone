@@ -1,5 +1,6 @@
 
 import { styled } from "styled-components";
+import THEME from "../../../../theme";
 // 🔮 Translated to TypeScript by ChatGPT 🚀
 // 📅 Date: 2023-08-27
 
@@ -39,8 +40,8 @@ margin: 10px;
   position: absolute;
   top: 2px;
   left: 2px;
-  width: 22px;
-  height: 22px;
+  width: 21px;
+  height: 21px;
   border-radius: 25px;
   transition: 0.2s;
   background: black;
@@ -48,13 +49,21 @@ margin: 10px;
 }
 
 .react-switch-checkbox:checked + .react-switch-label .react-switch-button {
-  left: calc(100% - 2px);
-  transform: translateX(-100%);
+  left: calc(99%);
+  transform: translateX(-101%);  
+  background: ${THEME.COLORS.WHITE}
 }
 
 .react-switch-label:active .react-switch-button {
-  width: 60px;
+  width: 50px;
+  ;
 }
+
+.react-switch-checkbox:checked + .react-switch-label {
+  background: ${THEME.COLORS.ORANGE_HIGHLIGHT} ;
+}
+
+
 `;
 
 

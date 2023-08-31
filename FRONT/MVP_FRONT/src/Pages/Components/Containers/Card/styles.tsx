@@ -33,7 +33,9 @@ export const Card = styled.section`
         object-fit: cover;
         width: 15vw;
         height: 15vw;
-        border-radius: 5px;        
+        border-radius: 5px; 
+        min-width: 200px;
+        min-height: 200px;
     }
 
     .button:hover{

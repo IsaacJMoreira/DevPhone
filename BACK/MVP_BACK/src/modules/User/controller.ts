@@ -1,24 +1,27 @@
 import { Request,Response, response } from "express";
 import { User } from "../../models";
-const errors = require ("../errors")
+import errors from "../errors";
+import cryptoProvider from "../../infra/providers/CryptoProvider";
 
 const isTest= true;
 
-const userController = {
+const userControllers = {
  async create(req:Request,res:Response){
     const{
-        nome,
+        name,
         email,
         credential,
         password
     }= req.body;
 
+    const newEncryptedPass =  cryptoProvider.hashSync(password, 10);
+
     try {
         const newUser= await User.create({
-        nome,
+        name,
         email,
         credential,
-        password,
+        password : newEncryptedPass,
     });
       if(isTest) console.log(newUser)
       return res.status(201).json(newUser);
@@ -62,10 +65,13 @@ const userController = {
 
    const {id} = req.params
    const {
-         nome,
+         name,
          email,
-         password
+         password,
+         credential
         }= req.body;
+
+        const newEncryptedPass =  cryptoProvider.hashSync(password, 10);
 
     try {
         const updateUser= await User.updateOne({
@@ -73,13 +79,14 @@ const userController = {
           },
           {
             $set: {
-               nome,
+               name,
                email,
-               password,
+               password: newEncryptedPass,
+               credential
             }
         });
 
-        return res.sendStatus(204).json(updateUser);
+        return res.status(204).json(updateUser);
 
 
     } catch (error) {
@@ -88,21 +95,15 @@ const userController = {
     }
 
  },
- async delete(req:Request,res:Response){
-   const {id} = req.params;
-    try {
 
-       const deletUser =  await User.findByIdAndDelete(id);
+ /*  I REMOVED THE DELETE METHOD. 
+     A USER WILL NOT BE DELETED. 
+     IT WILL BE FLAGED 🚩 WITH THE
+     "INACTIVE" CREDENTIAL.
+     (WITH THE UPDATE METHOD) 
+     */
 
-        return res.sendStatus(204)
-        
-    } catch (error) {
-        if(isTest) console.log(error);
-            response.status(500).json(errors.internal_server_error); 
-    }
-    
- },
 };
 
 
-export default userController; 
+export default userControllers; 
