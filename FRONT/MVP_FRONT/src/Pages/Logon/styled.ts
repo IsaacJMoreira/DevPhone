@@ -15,53 +15,53 @@ justify-content: center;
 `
 
 export const FormStyled = styled.form `
-margin-top: 10vh;
+margin-top: 3vh;
 padding: 20px;
 background-color: #FFFFFF;
-max-height: 250px;
+height: 350px;
 width: 35vh;
 display: flex;
-gap: 10px;
+gap: 13px;
 flex-direction: column;
 
-h1 {
-    padding-bottom: 10px;
-}
-
 p {
-    opacity: 60%;
-    padding-bottom: 10px;
+    opacity: 50%;
 }
 
-li {
-    list-style: none;
-    text-align: center;
-    border: 1px solid #E1E4EB;
-    border-radius: 5px;
+input {
     padding: 10px;
+    font-size: 15px;
 }
 
-a.Link {
+label {
+    font-size: 15px;
+    margin-left: 5px;
+    opacity: 80%;
+}
+
+button {
+    font-size: 17px;
+    cursor: pointer;
+    background: none;
+    border: none;
+
+    &:hover {
+        transition: 0.8s;
+        opacity: 50%;
+    }
+}
+
+a.contajacriada {
     text-decoration: none;
     color: #000000;
+    opacity: 60%;
     cursor: pointer;
-}
-
-p.posicao {
     text-align: center;
-    margin-top: 48px;
+    margin-top: 20px;
 
     &:hover {
         opacity: 100%;
         transition: 1s;
     }
 }
-
-a.linkk {
-    text-decoration: none;
-    color: #000000;
-    cursor: pointer;
-}
-
-
 `

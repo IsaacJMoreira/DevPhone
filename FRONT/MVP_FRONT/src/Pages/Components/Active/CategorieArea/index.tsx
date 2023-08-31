@@ -17,8 +17,10 @@ export const CategorieArea = ()=>{
     //usar async await - aulas
     React.useEffect ( ()=>{
         axios.get<Categorie[]>(`${baseURL}/categories`).then((response)=>{
+
             setCategories(response.data);
         } )
+
         .catch(error=>{
             console.log("Error fetching data", error);
         });

@@ -8,6 +8,7 @@ justify-content: center;
 width: 100%;
 padding-bottom: 10px;
 padding-top: 20px;
+position: relative;
 
 
 div{
