@@ -2,7 +2,10 @@ import { Router } from 'express';
 import productRoutes from '../../modules/Product/routes';
 import orderRoutes from '../../modules/Order/routes';
 import categorieRoutes from '../../modules/Categorie/routes';
-import AuthRoutes from "../../modules/Auth/routes"
+import userRoutes from '../../modules/User/routes';
+import authRoutes from '../../modules/Auth/routes';
+import globalErrorHandler from "../../infra/middlewares/handleError";
+
 
 
 const routes= Router();
@@ -10,6 +13,9 @@ const routes= Router();
 routes.use(productRoutes);
 routes.use(orderRoutes);
 routes.use(categorieRoutes);
-routes.use(AuthRoutes);
+routes.use(userRoutes);
+routes.use(authRoutes);
+
+routes.use(globalErrorHandler);
 
 export default routes;

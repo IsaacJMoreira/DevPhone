@@ -1,10 +1,12 @@
 import { Router } from 'express';
-import AuthValidation from '../../validations/auth/login'
-import AuthController from './controller';
-import userController from '../User/controller';
+import authControllers from './controller';
+import middlewareAuth from '../../infra/middlewares/login'
+//TODO: IMPORT MIDDLEWARES
 
-const AuthRoutes = Router()
+const authRoutes = Router();
 
-AuthRoutes.post("/loginteste", AuthValidation, AuthController.login)
+authRoutes.get('/login', middlewareAuth.login, authControllers.login);
 
-export default AuthRoutes;
+
+
+export default authRoutes;

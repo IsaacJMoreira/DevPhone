@@ -8,18 +8,18 @@ import techadv from "../../img/techadv.png"
 import tnw from "../../img/tnw.png"
 
 //Styleds:
-import { MainStyled, BodyStyled, FormStyled } from "./styled"
+import { MainStyled, FormStyled } from "./styled"
 
 //Components:
 import HeaderMenu from "../Components/HeaderMenu"
 import Footer from "../Components/Footer"
 import { faEnvelope, faG } from '@fortawesome/free-solid-svg-icons';
-import ButtonShop from '../Components/ButtonShop';
+import ButtonShop from '../Components/Buttons/ButtonShop';
 import { CompaniesStyled } from './styled';
 
 
 export default function Home() {
-    return <BodyStyled>
+    return <>
         <HeaderMenu />
         <MainStyled>
             <FormStyled>
@@ -37,5 +37,5 @@ export default function Home() {
         </MainStyled>
       
         <Footer />
-    </BodyStyled>
+    </>
 }

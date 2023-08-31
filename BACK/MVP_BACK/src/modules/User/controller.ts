@@ -1,20 +1,109 @@
-import { Request, Response } from "express";
-import bcrypt from "bcryptjs";
+import { Request,Response, response } from "express";
 import { User } from "../../models";
+import errors from "../errors";
+import cryptoProvider from "../../infra/providers/CryptoProvider";
 
+const isTest= true;
 
-const userController = {
-    async UserCadastro(req: Request, res: Response) {
-        const {name, email, password} = req.body;
-        const newPassword = bcrypt.hashSync(password, 10);
-        const newUser = await User.create({name, email, password: newPassword})
-        return res.status(201).json(newUser);
-    },
+const userControllers = {
+ async create(req:Request,res:Response){
+    const{
+        name,
+        email,
+        credential,
+        password
+    }= req.body;
+
+    const newEncryptedPass =  cryptoProvider.hashSync(password, 10);
+
+    try {
+        const newUser= await User.create({
+        name,
+        email,
+        credential,
+        password : newEncryptedPass,
+    });
+      if(isTest) console.log(newUser)
+      return res.status(201).json(newUser);
+    } catch (error) {
+
+        if(isTest) console.log(error);
+        return res.status(500).json(errors.internal_server_error)
+    }
     
+ },
+
+ async findAll (req:Request,res:Response){
     
+    try {
+        const users= await User.find();
+
+        if(!users.length) return res.status(404).json(errors.not_found);
+        return res.status(200).json(users);
+        
+    } catch (error) {
+
+        if(isTest) console.log(error);
+        response.status(500).json(errors.internal_server_error);
+    }
+ },
+
+ async findOne(req:Request,res:Response){
+    const{id} = req.params
+    try {
+        const user = await User.findById(id)
+
+        if(!user) return res.status(404).json(errors.not_found) 
+        return res.status(200).json(user);
+    } catch (error) {
+
+        if(isTest) console.log(error);
+        return res.status(500).json(errors.internal_server_error)
+    }
+ },
+ async update(req:Request,res:Response){
+
+   const {id} = req.params
+   const {
+         name,
+         email,
+         password,
+         credential
+        }= req.body;
+
+        const newEncryptedPass =  cryptoProvider.hashSync(password, 10);
+
+    try {
+        const updateUser= await User.updateOne({
+            _id: id,
+          },
+          {
+            $set: {
+               name,
+               email,
+               password: newEncryptedPass,
+               credential
+            }
+        });
+
+        return res.status(204).json(updateUser);
 
 
+    } catch (error) {
+        if(isTest) console.log(error);
+        res.status(500).json(errors.internal_server_error);
+    }
+
+ },
+
+ /*  I REMOVED THE DELETE METHOD. 
+     A USER WILL NOT BE DELETED. 
+     IT WILL BE FLAGED 🚩 WITH THE
+     "INACTIVE" CREDENTIAL.
+     (WITH THE UPDATE METHOD) 
+     */
 
 };
 
-export default userController;
+
+export default userControllers; 
