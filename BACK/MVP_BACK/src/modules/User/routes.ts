@@ -11,4 +11,5 @@ userRoutes.get('/allusers', decryptProvider, userControllers.findAll);
 userRoutes.get('/profile/:id', decryptProvider, userControllers.findOne);
 userRoutes.put('/profile/:id', decryptProvider, middlewareUsers.updateUser , userControllers.update);
 
+
 export default userRoutes;
