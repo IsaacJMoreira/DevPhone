@@ -12,9 +12,9 @@ const orderControllers = {
 
     create: async (request: Request, response: Response) => {
 
-        const { ownerID } = request.params;
         
         const {
+            ownerID,
             items
         } = request.body;
         
