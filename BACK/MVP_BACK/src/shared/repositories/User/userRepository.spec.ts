@@ -1,5 +1,5 @@
 import { number } from "joi";
-import { controller } from "../../../shared/repositories/User/index";
+import { controller } from "./index";
 
 describe('User crud repository', ()=>{
     test('create user and save in DB', async ()=> {
