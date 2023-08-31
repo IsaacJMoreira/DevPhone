@@ -20,8 +20,7 @@ const errors_1 = __importDefault(require("../errors"));
 const isTest = true; //ATTENTION!!!! REMOVE!
 const orderControllers = {
     create: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { ownerID } = request.params;
-        const { items } = request.body;
+        const { ownerID, items } = request.body;
         try {
             const DBResponse = yield models_1.Order.create({
                 ownerID: ownerID.toString(),

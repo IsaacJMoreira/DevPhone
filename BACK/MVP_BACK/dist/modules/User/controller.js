@@ -96,11 +96,11 @@ const userControllers = {
             }
         });
     },
-    /*  I REMOVED THE DELETE METHOD.
-        A USER WILL NOT BE DELETED.
-        IT WILL BE FLAGED 🚩 WITH THE
-        "INACTIVE" CREDENTIAL.
-        (WITH THE UPDATE METHOD)
-        */
 };
+/*  I REMOVED THE DELETE METHOD.
+    A USER WILL NOT BE DELETED.
+    IT WILL BE FLAGED 🚩 WITH THE
+    "INACTIVE" CREDENTIAL.
+    (WITH THE UPDATE METHOD)
+    */
 exports.default = userControllers;
