@@ -6,8 +6,8 @@ import decryptProvider from '../../infra/middlewares/auth';
 const categorieRoutes = Router();
 
 categorieRoutes.get('/categories', categorieControllers.findAll);
-categorieRoutes.get('/categorie/:name', categorieControllers.findOneByName);
-categorieRoutes.put('/categorie/:name', decryptProvider, categorieControllers.update);
+categorieRoutes.get('/category/:name', categorieControllers.findOneByName);
+categorieRoutes.put('/category/:name', decryptProvider, categorieControllers.update);
 categorieRoutes.post('/categorie', decryptProvider, categorieControllers.create);
 
 

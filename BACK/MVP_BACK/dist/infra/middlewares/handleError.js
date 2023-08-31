@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const { ValidationError } = require("express-validation");
-const { UnauthorizedError } = require('express-jwt');
+const express_validation_1 = require("express-validation");
+const express_jwt_1 = require("express-jwt");
 const globalErrorHandler = (error, request, response, next) => {
-    if (error instanceof ValidationError)
+    if (error instanceof express_validation_1.ValidationError)
         return response.status(error.statusCode).json(error);
-    if (error instanceof UnauthorizedError)
+    if (error instanceof express_jwt_1.UnauthorizedError)
         return response.status(error.status).json(error);
     return response.status(500).json(error);
 };

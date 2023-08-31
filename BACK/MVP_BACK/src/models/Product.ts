@@ -36,6 +36,7 @@ interface IProduct{
     description: string;
     shortDescription: string;
     alt: string;
+    enabled: boolean
 };
 
 const productSchema = new Schema<IProduct>(
@@ -68,6 +69,7 @@ const productSchema = new Schema<IProduct>(
      description: { type: String, required: true},
      shortDescription: { type: String, required: true},
      alt: { type: String, required: true},
+     enabled: { type: Boolean, required: true, default: true }
 
     },
     {
