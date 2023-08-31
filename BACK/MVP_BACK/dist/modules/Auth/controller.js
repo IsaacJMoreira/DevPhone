@@ -1,7 +1,4 @@
 "use strict";
-/*****************************************
- *        🤓 ISAAC ESTEVE AQUI 🤓       *
- *****************************************/
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -16,28 +13,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
-const CryptoProvider_1 = __importDefault(require("../../infra/providers/CryptoProvider"));
-const errors_1 = __importDefault(require("../errors"));
-const Token_1 = require("../../infra/providers/Token");
-const isTest = true; //ATTENTION!!!! REMOVE!
-const authControllers = {
-    login: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const suposedUser = request.body;
-        const DBResponse = yield models_1.User.findOne({ "email": suposedUser.email });
-        if (!DBResponse)
-            return response.status(404).json(errors_1.default.not_found);
-        if (!CryptoProvider_1.default.compareSync(suposedUser.password, DBResponse.password)) {
-            return response.status(401).json(errors_1.default.unauthorized);
-        }
-        const token = Token_1.tokenProvider.sign({
-            id: DBResponse._id,
-            email: DBResponse.email,
-            name: DBResponse.name
-        }, Token_1.secret.key, {
-            expiresIn: Token_1.expireTime
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const secret_1 = __importDefault(require("../../infra/config/secret"));
+const AuthController = {
+    login(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { email, password } = req.body;
+            const usuarios = yield models_1.User.findOne({
+                where: {
+                    email,
+                },
+            });
+            if (!usuarios) {
+                return res.status(400).json("email invalido!");
+            }
+            if (!bcryptjs_1.default.compareSync(password, usuarios.password)) {
+                return res.status(401).json("password invalido!");
+            }
+            const token = jsonwebtoken_1.default.sign({ id: usuarios.id, email: usuarios.email, name: usuarios.name }, secret_1.default.key);
+            return res.json(token);
         });
-        return response.status(200).json(token);
-        ;
-    })
+    },
 };
-exports.default = authControllers;
+exports.default = AuthController;

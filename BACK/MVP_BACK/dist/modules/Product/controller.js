@@ -129,17 +129,5 @@ const productControllers = {
             response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
         }
     }),
-    delete: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { id } = request.params;
-        try {
-            const DBResponse = yield models_1.Product.findByIdAndDelete(id);
-            return response.header("Access-Control-Allow-Origin", "*").status(204);
-        }
-        catch (error) {
-            if (isTest)
-                console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
-        }
-    }),
 };
 exports.default = productControllers;

@@ -8,7 +8,7 @@ const controller_1 = __importDefault(require("./controller"));
 const auth_1 = __importDefault(require("../../infra/middlewares/auth"));
 //TODO: IMPORT MIDDLEWARES
 const orderRoutes = (0, express_1.Router)();
-orderRoutes.post('/order/:ownerID', auth_1.default, controller_1.default.create);
+orderRoutes.post('/order/', auth_1.default, controller_1.default.create);
 orderRoutes.get('/orders', auth_1.default, controller_1.default.findAll);
 orderRoutes.get('/orders/:ownerID', auth_1.default, controller_1.default.findByOwnerId);
 orderRoutes.put('/order/:ownerID', auth_1.default, controller_1.default.update);
