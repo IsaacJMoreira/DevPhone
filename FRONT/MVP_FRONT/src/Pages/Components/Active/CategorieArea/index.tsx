@@ -13,18 +13,20 @@ type Categorie = {
 export const CategorieArea = ()=>{
 
 
-    const [categorie, setCategorie] = React.useState<Categorie[]>([]);
-
+    const [categories, setCategories] = React.useState<Categorie[]>([]);
+    //usar async await - aulas
     React.useEffect ( ()=>{
         axios.get<Categorie[]>(`${baseURL}/categories`).then((response)=>{
-            setCategorie(response);
-        })
+
+            setCategories(response.data);
+        } )
+
         .catch(error=>{
             console.log("Error fetching data", error);
         });
     }, [])
 
-    if(!categorie.data) return (
+    if(!categories) return (
         <>
             <h6>Sorry, nothing to select here 😥</h6>
         </>
@@ -39,7 +41,7 @@ export const CategorieArea = ()=>{
             </div>  
           
           <br />
-            {categorie.data.map((categorie: Categorie)=>{
+            {categories.map((categorie: Categorie)=>{
                         return(                               
                             <CategoriesUL
                                 key = {categorie._id} 

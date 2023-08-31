@@ -160,23 +160,6 @@ const productControllers = {
             response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);            
         }
     },
-
-    delete: async (request: Request, response: Response) => {
-
-        const { id } = request.params;
-
-        try {
-            
-            const DBResponse = await Product.findByIdAndDelete(id);
-
-            return response.header("Access-Control-Allow-Origin", "*").status(204);
-
-
-        } catch (error) {
-            if(isTest) console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);  
-        }        
-    },
 }
 
 export default productControllers;

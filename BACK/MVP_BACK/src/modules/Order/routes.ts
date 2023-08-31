@@ -5,7 +5,7 @@ import decryptProvider from '../../infra/middlewares/auth';
 
 const orderRoutes = Router();
 
-orderRoutes.post('/order/:ownerID', decryptProvider, orderControllers.create);
+orderRoutes.post('/order/', decryptProvider, orderControllers.create);
 orderRoutes.get('/orders',decryptProvider, orderControllers.findAll);
 orderRoutes.get('/orders/:ownerID', decryptProvider, orderControllers.findByOwnerId);
 orderRoutes.put('/order/:ownerID', decryptProvider, orderControllers.update);
