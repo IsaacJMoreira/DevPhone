@@ -32,6 +32,7 @@ const productSchema = new mongoose_1.Schema({
     description: { type: String, required: true },
     shortDescription: { type: String, required: true },
     alt: { type: String, required: true },
+    enabled: { type: Boolean, required: true, default: true }
 }, {
     timestamps: true,
 });

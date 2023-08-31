@@ -8,7 +8,7 @@ const mongoose_1 = require("mongoose");
 const userSchema = new mongoose_1.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
-    credential: { type: String, required: true, default: "CLIENT" },
+    credential: { type: String, required: true, default: "CLI" },
     password: { type: String, required: true },
     address: [{
             nikName: { type: String, required: true },
