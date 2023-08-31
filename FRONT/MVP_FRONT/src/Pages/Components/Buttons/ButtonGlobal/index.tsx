@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import THEME from "../../../theme"
+import THEME from "../../../../theme"
 
 export const ButtonGlobal = styled.button `
 border: ${THEME.COLORS.BLACK};
@@ -9,6 +9,8 @@ font-weight: bolder;
 font-size: 18px;
 padding: 13px;
 width: 10vw;
+height: 3.3vw;
+min-height: 50px;
 min-width: 120px;
 cursor: pointer;
 

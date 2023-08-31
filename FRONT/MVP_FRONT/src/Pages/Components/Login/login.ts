@@ -1,5 +1,3 @@
-import { Request, Response } from "express";
-
 export function login({ email, password }: any) {
 
     return new Promise<void>((resolve, reject) => {

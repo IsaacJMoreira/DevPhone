@@ -1,3 +1,9 @@
-export default {
-    key: 'DevPhone-2023',
+interface ISecret {
+    key: string
 }
+
+const secret: ISecret= {
+        key: "brick-phone"
+    }
+
+export default secret;

@@ -1,9 +1,3 @@
-import { expressjwt } from "express-jwt";
-import secret from "../config/secret";
+import decryptProvider from "../providers/Decrypt/indext";
 
-
-export default expressjwt({ secret: secret.key, algorithms: ["HS256"]})
-
-        
-        
-   
+export default decryptProvider;

@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom"
 import { FormEventHandler, useState } from "react"
-import { login } from "../../services/LoginTs/login"
-import { logar } from '../../services/LoginTs/logar'
-
+import { login } from "../Components/Login/login"
 //Styleds:
 import { MainStyled, BodyStyled, FormStyled} from "./styled"
 
@@ -19,15 +17,6 @@ export default function Login({}) {
 
     const logar: FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault()
-
-        const response = await 
-
-        try {
-            
-        } catch (error) {
-            
-        }
-
     };
 
     const handleSubmit = () => {
@@ -57,7 +46,7 @@ export default function Login({}) {
                 <Link to="/" className="forgetPass">Forgot Password?</Link>
                 <button type="submit" onClick={handleSubmit} disabled={email == '' || password.length < 6 || isRequestng}>logar</button>
                 {error && <div className="error">{error}</div>}
-                <Link to="/" className='posicao'>Or create an account</Link>
+                <Link to="/logon" className='posicao'>Or create an account</Link>
          </FormStyled>
         </MainStyled>
         <Footer/>
