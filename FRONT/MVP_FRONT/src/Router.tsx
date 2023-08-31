@@ -6,6 +6,7 @@ import LoginContas from "./Pages/Login/LoginAccounts"
 import {ButtonGlobal} from './Pages/Components/Buttons/ButtonGlobal';
 import Inicio from './Pages/Home';
 import Shop from './Pages/Shop';
+import Carrinho from './Pages/ShopCart';
 
 export default function Router(){
     const routes = createBrowserRouter([{
@@ -26,6 +27,11 @@ export default function Router(){
     {
         path: "/Shop",
         element: <Shop/>
+    },    
+    {
+        path: "/ShopCart",
+        element: <Carrinho/>
+    
     }]);
 
     return <RouterProvider router={routes}/>
