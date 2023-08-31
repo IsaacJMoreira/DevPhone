@@ -6,7 +6,7 @@ color: #FFFAFA;
 display: flex;
 padding: 1em;
 justify-content: center;
-width: 100%;
+max-width: 100%;
 
 h1 {
     margin-top: 10px;

@@ -16,7 +16,11 @@ const shoppingCartSchema = new mongoose_1.Schema({
     ],
     ownerID: { type: String, required: true },
     shippingCode: { type: String, required: true, default: " " },
+<<<<<<< HEAD
     enabled: { trype: Boolean, required: true, default: true }
+=======
+    enabled: { type: Boolean, required: true, default: true },
+>>>>>>> dev
 }, {
     timestamps: true,
 });

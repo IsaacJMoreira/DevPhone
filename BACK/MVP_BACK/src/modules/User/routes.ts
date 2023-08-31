@@ -1,8 +1,8 @@
+import userControllers from "./controller"
+import middlewareUsers from "../../infra/middlewares/user"
 import { Router } from 'express';
-import userControllers from './controller';
-import middlewareUsers from '../../infra/middlewares/user';
-import decryptProvider from '../../infra/middlewares/auth';
-//TODO: IMPORT MIDDLEWARES
+import decryptProvider from "../../infra/middlewares/auth";
+
 
 const userRoutes = Router();
 

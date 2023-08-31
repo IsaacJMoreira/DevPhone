@@ -12,7 +12,7 @@ const userControllers = {
         email,
         credential,
         password
-    }= req.body;
+    } = req.body;
 
     const newEncryptedPass =  cryptoProvider.hashSync(password, 10);
 
@@ -30,7 +30,6 @@ const userControllers = {
         if(isTest) console.log(error);
         return res.status(500).json(errors.internal_server_error)
     }
-    
  },
 
  async findAll (req:Request,res:Response){
@@ -94,7 +93,9 @@ const userControllers = {
         res.status(500).json(errors.internal_server_error);
     }
 
- },
+},
+
+ };
 
  /*  I REMOVED THE DELETE METHOD. 
      A USER WILL NOT BE DELETED. 
@@ -102,8 +103,6 @@ const userControllers = {
      "INACTIVE" CREDENTIAL.
      (WITH THE UPDATE METHOD) 
      */
-
-};
 
 
 export default userControllers; 
