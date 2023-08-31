@@ -31,8 +31,7 @@ const shoppingCartSchema = new Schema<IOrder>(
             }
         ],
         ownerID: { type: String, required: true },
-        shippingCode: { type: String, required: true, default: " " },
-        enabled: { trype: Boolean, required: true, default: true }
+        shippingCode: { type: String, required: true, default: " " }
     },
     {
         timestamps: true,
