@@ -43,7 +43,7 @@ const userControllers = {
         const newUser= await User.create({
         name,
         email,
-        credential: 'ADM',
+        credential: "ADM",
         password : newEncryptedPass,
     });
       if(isTest) console.log(newUser)
