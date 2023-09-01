@@ -33,6 +33,7 @@ export default function Logon() {
 
       if(response.status === 201) {
         alert('Cadastro feito!')
+        
         setName(''),
         setEmail(''),
         setPassword(''),
@@ -48,7 +49,7 @@ export default function Logon() {
         <HeaderMenu/>
          <MainStyled>
           <FormStyled onSubmit={registro}>
-            <h1>Resgitro</h1>
+            <h1>Registro</h1>
             <p>register in our store</p>
             <input type="name" placeholder="Name" required value={name} onChange={(e) => setName(e.target.value)}></input>
             <input type="email" placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)}></input>

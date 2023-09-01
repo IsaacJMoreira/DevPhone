@@ -10,6 +10,7 @@ const userControllers = {
     const{
         name,
         email,
+        credential,
         password
     } = req.body;
 

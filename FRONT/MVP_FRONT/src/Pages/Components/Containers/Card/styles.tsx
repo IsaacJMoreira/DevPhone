@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import THEME from '../../../../theme';
 
 export const Card = styled.section`
     display: flex;
@@ -7,17 +6,18 @@ export const Card = styled.section`
     justify-content: space-around;
 
     width: 15vw;
-    min-width: 200px;
-    background-color: ${ THEME.COLORS.WHITE };      
     
+    background-color: #F8F8FF;      
     
-    gap: 15px;
-    padding: 2vw;  
-    border-width: 10px;
+    gap: 10px;
+    padding: 0.7vw;  
     border-radius: 5px;
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
     border: none;
     margin: 5px;
+    margin-bottom: 40px;
+    min-width: 200px;
+    min-height: 200px;
 
     p, h1, h2, h3, h4, h5, h6{
         box-sizing: border-box;
@@ -31,9 +31,10 @@ export const Card = styled.section`
 
     img{
         object-fit: cover;
-        width: 15vw;
-        height: 15vw;
+        width: 10vw;
+        height: 10vw;
         border-radius: 5px; 
+        
         min-width: 200px;
         min-height: 200px;
     }
