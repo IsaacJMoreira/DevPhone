@@ -11,19 +11,19 @@ import errors from "../errors";
     async login(req: Request, res: Response){
         const {email, password} = req.body
 
-        const usuarios = await User.findOne({
-            where: {
-              email,
-            },
-        });
-        if(!usuarios){
+        const usuario = await User.findOne(
+            {
+              email: email,
+            }
+        );
+        if(!usuario){
             return res.status(400).json(errors.bad_request)
         }
-        if(!bcrypt.compareSync(password, usuarios.password)){
+        if(!bcrypt.compareSync(password, usuario.password)){
             return res.status(401).json(errors.shall_not_pass);//🧙 U SHALL NOT PASS
         }
 
-        const token = jwt.sign({id: usuarios.id, email: usuarios.email, name: usuarios.name}, secret.key);
+        const token = jwt.sign({id: usuario.id, email: usuario.email, name: usuario.name, credential: usuario.credential}, secret.key);
         return res.json(token);
     },
 

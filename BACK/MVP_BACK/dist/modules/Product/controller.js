@@ -62,12 +62,21 @@ const productControllers = {
             response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
         }
     }),
+    //This can implement other search Items:
+    // Symbol.find(
+    //     {
+    //       $or: [
+    //         { 'symbol': { '$regex': input, '$options': 'i' } },
+    //         { 'name': { '$regex': input, '$options': 'i' } }
+    //       ]
+    //     }
+    //   ) 
     search: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         const category = request.query.category;
         if (!category)
             return response.status(400).header("Access-Control-Allow-Origin", "*").json(errors_1.default.bad_request);
         try {
-            const DBResponse = yield models_1.Product.find({ 'category.name': category }); //🧙 Black Magic
+            const DBResponse = yield models_1.Product.find({ 'category.name': category });
             if (!DBResponse.length)
                 return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors_1.default.not_found);
             return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
