@@ -2,6 +2,7 @@ import * as React from 'react'
 import CategoriesUL from '../CategoriesUL'
 import axios from 'axios'
 import baseURL from '../../../../../baseURL'
+import { UlStyled } from './styled'
 
 
 type Categorie = {
@@ -35,12 +36,11 @@ export const CategorieArea = ()=>{
     return (
         <>
             
-          <ul>
-            <div>
+          <UlStyled>
+            <div className='div'>
                 <h3>Categories</h3> 
             </div>  
-          
-          <br />
+          <div>
             {categories.map((categorie: Categorie)=>{
                         return(                               
                             <CategoriesUL
@@ -50,8 +50,8 @@ export const CategorieArea = ()=>{
                             />                    
                            );   
                          })
-            } 
-            </ul>    
+            } </div>
+            </UlStyled>    
         </>      
     ); 
     
