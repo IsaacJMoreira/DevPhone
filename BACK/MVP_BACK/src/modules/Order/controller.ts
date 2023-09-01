@@ -4,7 +4,7 @@
 
 import { Request, Response } from "express";
 import { Order } from "../../models";
-const errors = require("../errors");
+import errors from "../errors";
 
 const isTest = true;//ATTENTION!!!! REMOVE!
 
@@ -12,9 +12,9 @@ const orderControllers = {
 
     create: async (request: Request, response: Response) => {
 
-        const { ownerID } = request.params;
         
         const {
+            ownerID,
             items
         } = request.body;
         
@@ -37,7 +37,7 @@ const orderControllers = {
         const { ownerID } = request.params;
         try {
 
-            const DBResponse = await    Order.find({
+            const DBResponse = await Order.find({
                 ownerID: ownerID
             });
 

@@ -11,14 +11,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
-const errors = require("../errors");
+const errors_1 = __importDefault(require("../errors"));
 const isTest = true; //ATTENTION!!!! REMOVE!
 const orderControllers = {
     create: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { ownerID } = request.params;
-        const { items } = request.body;
+        const { ownerID, items } = request.body;
         try {
             const DBResponse = yield models_1.Order.create({
                 ownerID: ownerID.toString(),
@@ -31,7 +33,7 @@ const orderControllers = {
         catch (error) {
             if (isTest)
                 console.log(error);
-            return response.status(500).json(errors.internal_server_error);
+            return response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
     findByOwnerId: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -41,26 +43,26 @@ const orderControllers = {
                 ownerID: ownerID
             });
             if (!DBResponse.length)
-                return response.status(404).json(errors.not_found);
+                return response.status(404).json(errors_1.default.not_found);
             return response.status(200).json(DBResponse);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            response.status(500).json(errors.internal_server_error);
+            response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
     findAll: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const DBResponse = yield models_1.Order.find();
             if (!DBResponse.length)
-                return response.status(404).json(errors.not_found);
+                return response.status(404).json(errors_1.default.not_found);
             return response.status(200).json(DBResponse);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            response.status(500).json(errors.internal_server_error);
+            response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
     update: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -79,7 +81,7 @@ const orderControllers = {
         catch (error) {
             if (isTest)
                 console.log(error);
-            response.status(500).json(errors.internal_server_error);
+            response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
 };

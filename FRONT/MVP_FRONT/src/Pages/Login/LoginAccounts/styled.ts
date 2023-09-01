@@ -4,7 +4,7 @@ export const BodyStyled = styled.body `
 display: flex;
 flex-direction: column;
 background-color: #EFF2F6;
-min-height: 100vh;
+min-height: 98vh;
 `
 
 export const MainStyled = styled.header `
@@ -49,7 +49,7 @@ a.Link {
 
 p.posicao {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 48px;
 
     &:hover {
         opacity: 100%;

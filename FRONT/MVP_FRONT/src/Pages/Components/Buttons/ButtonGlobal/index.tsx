@@ -9,6 +9,8 @@ font-weight: bolder;
 font-size: 18px;
 padding: 13px;
 width: 10vw;
+height: 3.3vw;
+min-height: 50px;
 min-width: 120px;
 cursor: pointer;
 
@@ -16,4 +18,22 @@ cursor: pointer;
     color: ${THEME.COLORS.ORANGE_HIGHLIGHT};
     transition: 0.9s;
 }
+
 `
+
+export const ButtonShoparea = styled.button `
+    
+    width: 30px;
+    height: 30px;
+    background-color: #C0C0C0;
+    border: none;
+    font-size: 20px;
+    margin-right: 3px;
+    
+    
+
+    a.seguinte {
+        color: black;
+    }
+`
+

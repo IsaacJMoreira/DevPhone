@@ -17,18 +17,20 @@ interface IAddress{
 
 
 interface IUser{
+    _id: string;
     name: string;
     email: string;
-    credential: string;// client | admin | other
+    credential: string;// CLI | ADM | INACTIVE
     password: string;
-    address: IAddress;
+    address: IAddress;    
 };
 
 const userSchema = new Schema<IUser>({
     name: { type: String, required: true},
     email: { type: String, required: true},
-    credential: { type: String, required: true, default: "CLIENT"},
+    credential: { type: String, required: true, default: "CLI"},
     password: { type: String, required: true},//every new user is a client by default. Will be usefull when we need to create the routes
+
     address: [{
         nikName: { type: String, required: true},
         street: { type: String, required: true},
