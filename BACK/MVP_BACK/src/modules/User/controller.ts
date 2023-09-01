@@ -10,6 +10,7 @@ const userControllers = {
     const{
         name,
         email,
+        credential,
         password
     } = req.body;
 
@@ -19,31 +20,7 @@ const userControllers = {
         const newUser= await User.create({
         name,
         email,
-        password : newEncryptedPass,
-    });
-      if(isTest) console.log(newUser)
-      return res.status(201).json(newUser);
-    } catch (error) {
-
-        if(isTest) console.log(error);
-        return res.status(500).json(errors.internal_server_error)
-    }
- },
-
- async createADM(req:Request,res:Response){
-    const{
-        name,
-        email,
-        password
-    } = req.body;
-
-    const newEncryptedPass =  cryptoProvider.hashSync(password, 10);
-
-    try {
-        const newUser= await User.create({
-        name,
-        email,
-        credential: 'ADM',
+        credential,
         password : newEncryptedPass,
     });
       if(isTest) console.log(newUser)
