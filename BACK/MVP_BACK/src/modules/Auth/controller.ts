@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import secret from "../../infra/config/secret"
+import errors from "../errors";
 
 
  const AuthController = {
@@ -16,10 +17,10 @@ import secret from "../../infra/config/secret"
             },
         });
         if(!usuarios){
-            return res.status(400).json("email invalido!")
+            return res.status(400).json(errors.bad_request)
         }
         if(!bcrypt.compareSync(password, usuarios.password)){
-            return res.status(401).json("password invalido!");
+            return res.status(401).json(errors.shall_not_pass);//🧙 U SHALL NOT PASS
         }
 
         const token = jwt.sign({id: usuarios.id, email: usuarios.email, name: usuarios.name}, secret.key);

@@ -62,24 +62,12 @@ const productControllers = {
             response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
         }
     }),
-    findByCategory: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { category } = request.params;
+    search: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+        const category = request.query.category;
+        if (!category)
+            return response.status(400).header("Access-Control-Allow-Origin", "*").json(errors_1.default.bad_request);
         try {
-            const DBResponse = yield models_1.Product.find({ "category.name": category });
-            if (!DBResponse.length)
-                return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors_1.default.not_found);
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
-        }
-        catch (error) {
-            if (isTest)
-                console.log(error);
-            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
-        }
-    }),
-    findByName: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { name } = request.params;
-        try {
-            const DBResponse = yield models_1.Product.find({ name: name });
+            const DBResponse = yield models_1.Product.find({ 'category.name': category }); //🧙 Black Magic
             if (!DBResponse.length)
                 return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors_1.default.not_found);
             return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
