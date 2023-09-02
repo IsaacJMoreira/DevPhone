@@ -37,7 +37,7 @@ const orderControllers = {
         const { ownerID } = request.params;
         try {
 
-            const DBResponse = await    Order.find({
+            const DBResponse = await Order.find({
                 ownerID: ownerID
             });
 
