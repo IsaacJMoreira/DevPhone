@@ -138,27 +138,30 @@ export const ShopArea = () => {
             Description={product.shortDescription}
             Stock={product.stock}
           />
+
+        </a >
+
+      ))}
+
+      <DivButtons>
+        <ButtonGlobal
+          onClick={() => goToPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </ButtonGlobal>
+        {Array.from({ length: totalPages }, (_, i) => (
+          <ButtonGlobal key={i} onClick={() => goToPage(i + 1)}>
+            {i + 1}
+          </ButtonGlobal>
         ))}
-  
-        <div>
-          <ButtonGlobal
-            onClick={() => goToPage(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </ButtonGlobal>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <ButtonGlobal key={i} onClick={() => goToPage(i + 1)}>
-              {i + 1}
-            </ButtonGlobal>
-          ))}
-          <ButtonGlobal
-            onClick={() => goToPage(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </ButtonGlobal>
-        </div>
-      </>
-    );
-  };
+        <ButtonGlobal
+          onClick={() => goToPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </ButtonGlobal>
+      </DivButtons>
+    </>
+  );
+};
