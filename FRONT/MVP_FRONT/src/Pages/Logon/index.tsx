@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
-import { apiLogin } from "../Components/Login/logon"
 import * as React from 'react'
+import baseURL from '../../../baseURL'
+import axios from "axios"
 
 //components
 import HeaderMenu from "../Components/HeaderMenu"
@@ -17,7 +18,7 @@ export default function Logon() {
   const [isChecked, setIsChecked] = React.useState(false)
    
 
-  const registro: React.FormEventHandler<HTMLFormElement> = async (event) => {
+  const handleRegister: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
     console.log(name)
     console.log(email)
@@ -25,13 +26,13 @@ export default function Logon() {
     console.log(confirmPassword)
 
     try {
-      const response = await apiLogin.logon({
+      const response = await axios.post(`${baseURL}/Logon`, {
         name: name,
         email: email,
-        password: password
+        password: password,
       })
 
-      if(response.status === 201) {
+      if (response.status === 201){
         alert('Cadastro feito!')
         
         setName(''),
@@ -48,7 +49,7 @@ export default function Logon() {
     return <BodyStyled>
         <HeaderMenu/>
          <MainStyled>
-          <FormStyled onSubmit={registro}>
+          <FormStyled onSubmit={handleRegister}>
             <h1>Registro</h1>
             <p>register in our store</p>
             <input type="name" placeholder="Name" required value={name} onChange={(e) => setName(e.target.value)}></input>

@@ -6,7 +6,7 @@ import cryptoProvider from "../../infra/providers/CryptoProvider";
 const isTest= true;
 
 const userControllers = {
- async create(req:Request,res:Response){
+ async create(req:Request, res:Response){
     const{
         name,
         email,
@@ -23,15 +23,17 @@ const userControllers = {
         credential,
         password : newEncryptedPass,
     });
-      if(isTest) console.log(newUser)
+     
+      console.log(newUser)
       return res.status(201).json(newUser);
     } catch (error) {
 
-        if(isTest) console.log(error);
+        console.log(error);
         return res.status(500).json(errors.internal_server_error)
     }
  },
 
+ 
  async findAll (req:Request,res:Response){
     
     try {
