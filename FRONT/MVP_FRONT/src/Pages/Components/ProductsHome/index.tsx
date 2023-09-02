@@ -20,19 +20,14 @@ export const ProductsHome: React.FC<ProductProps> = ({
 }) => {
 
     return (
-
         <CardHome>
-            <div>
-                <img src={Src} alt={Alt} />
-            </div>
-            <div>
-                <h3>{Title}</h3>
-                <p>{Description}</p>
-            </div>
-
+          <div>
+            <img src={Src} alt={Alt} style={{ maxWidth: '100%', height: 'auto' }} />
+          </div>
+          <div>
+            <h3>{Title}</h3>
+            <p>{Description}</p>
+          </div>
         </CardHome>
-
-
-
-    )
-}
+      );
+    };

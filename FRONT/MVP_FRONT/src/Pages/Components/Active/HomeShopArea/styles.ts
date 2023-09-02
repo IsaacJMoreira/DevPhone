@@ -2,7 +2,6 @@ import { styled } from "styled-components";
 
 
 
-
 export const DivStyled = styled.div`
 
 
@@ -26,5 +25,13 @@ export const CardProd = styled.section`
     justify-content: center;
     padding-bottom: 100px;
     margin-left: 200px;
-    max-width: auto; 
+    max-width: auto;  
+
+
+    @media (max-width: 768px) {
+    .CardProd {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+    }
+    }
+
 `

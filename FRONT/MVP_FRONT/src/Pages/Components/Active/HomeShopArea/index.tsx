@@ -9,68 +9,49 @@ type Product = {
     imgURL: string;
     alt: string;
     name: string;
-    price: number;
     shortDescription: string;
-    stock: number;
-}
 
+}
 export const HomeShopArea = () => {
     const [products, setProducts] = React.useState<Product[]>([]);
+    const productsToShow = 3;
+
+    const fetchData = async () => {
+        try {
+          const response = await axios.get<Product[]>(`${baseURL}/product/allproducts`);
+          setProducts(response.data);
+        } catch (error) {
+          console.log('Error fetching data', error);
+        }
+      };
     
-    try {
-        React.useEffect(() => {
-            axios.get<Product[]>(`${baseURL}/allproducts`)
-                .then((response) => {
-                    setProducts(response.data);
-                })
-                .catch(error => {
-                    console.log("Error fetching data", error);
-                });
-        }, []);
-    } catch (error) {
-        console.log(error);
-    }
-
-    try {
-        console.log("Total de produtos:", products.length);
-
-        const productsPerPage = 3;
-        const fullPages = Math.floor(products.length / productsPerPage);
-        const remainderOfProducts = products.length % productsPerPage;
-        console.log("Pgs completas:", fullPages, "|Última pg terá:", remainderOfProducts, "produtos");
-        const pages: number = fullPages + (remainderOfProducts > 0 ? 1 : 0);
-        console.log("Total de pgs: ", pages);
-
-        const toRender: Product[][] = [];
-
-        for (let i = 0; i < fullPages; i++) {
-            toRender.push(products.slice(i * productsPerPage, (i + 1) * productsPerPage));
-        }
-
-        if (remainderOfProducts) {
-            toRender.push(products.slice(fullPages * productsPerPage));
-        }
-
-
+      React.useEffect(() => {
+        fetchData();
+      }, []);
+    
+      if (!products.length) {
         return (
-            <>
-                {toRender[0] && toRender[0].map((product: Product) => (
-                    <CardProd>
-                    <ProductsHome
-                        key={`${product._id}`}
-                        Src={product.imgURL}
-                        Alt={product.alt}
-                        Title={product.name}
-                        Description={product.shortDescription}
-                    />
-                    </CardProd>
-                ))}
-                
-            </>
+          <>
+            <h6>Sorry, nothing to buy here</h6>
+          </>
         );
-    } catch (error) {
-        console.log("erro ao buscar dados: ", error);
-    }
-
-    return null;
-};
+      }
+    
+  
+  
+    return (
+      <>
+        {products.slice(0, productsToShow).map((product: Product) => (
+          <CardProd key={product._id}>
+            <ProductsHome
+              key={`${product._id}`}
+              Src={product.imgURL}
+              Alt={product.alt}
+              Title={product.name}
+              Description={product.shortDescription}
+            />
+          </CardProd>
+        ))}
+      </>
+    );
+  };
