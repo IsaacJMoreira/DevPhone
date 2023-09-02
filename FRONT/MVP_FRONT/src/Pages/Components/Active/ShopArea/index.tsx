@@ -3,6 +3,8 @@ import { ProductCard } from '../../ProductCard';
 import axios from 'axios';
 import baseURL from '../../../../../baseURL';
 import { ButtonGlobal } from '../../Buttons/ButtonGlobal';
+import { DivButtons, DivCards } from './styles';
+import { Link } from 'react-router-dom';
 
 type Product = {
   _id: string;
@@ -15,42 +17,45 @@ type Product = {
 };
 
 export const ShopArea = () => {
-    const [products, setProducts] = React.useState<Product[]>([]);
-    const [currentPage, setCurrentPage] = React.useState<number>(1);
-    const productsPerPage = 10;
-  
-    const fetchData = async () => {
-        try {
-          const response = await axios.get<Product[]>(`${baseURL}/product/allproducts`);
-          setProducts(response.data);
-        } catch (error) {
-          console.log('Error fetching data', error);
-        }
-      };
-    
-      React.useEffect(() => {
-        fetchData();
-      }, []);
-    
-      if (!products.length) {
-        return (
-          <>
-            <h6>Sorry, nothing to buy here</h6>
-          </>
-        );
-      }
-  
-    const totalPages = Math.ceil(products.length / productsPerPage);
-    const startIndex = (currentPage - 1) * productsPerPage;
-    const endIndex = Math.min(startIndex + productsPerPage, products.length);
-  
-    const goToPage = (page: number) => {
-      setCurrentPage(page);
-    };
-  
+  const [products, setProducts] = React.useState<Product[]>([]);
+  const [currentPage, setCurrentPage] = React.useState<number>(1);
+  const productsPerPage = 10;
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get<Product[]>(`${baseURL}/product/allproducts`);
+      setProducts(response.data);
+    } catch (error) {
+      console.log('Error fetching data', error);
+    }
+  };
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (!products.length) {
     return (
       <>
-        {products.slice(startIndex, endIndex).map((product: Product) => (
+        <h6>Sorry, nothing to buy here</h6>
+      </>
+    );
+  }
+
+  const totalPages = Math.ceil(products.length / productsPerPage);
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const endIndex = Math.min(startIndex + productsPerPage, products.length);
+
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  return (
+    <>
+      {products.slice(startIndex, endIndex).map((product: Product) => (
+
+        <a key={product._id} href={`/product/${product._id}`}>
+
           <ProductCard
             key={`${product._id}`}
             Src={product.imgURL}
@@ -60,27 +65,30 @@ export const ShopArea = () => {
             Description={product.shortDescription}
             Stock={product.stock}
           />
+
+        </a >
+
+      ))}
+
+      <DivButtons>
+        <ButtonGlobal
+          onClick={() => goToPage(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </ButtonGlobal>
+        {Array.from({ length: totalPages }, (_, i) => (
+          <ButtonGlobal key={i} onClick={() => goToPage(i + 1)}>
+            {i + 1}
+          </ButtonGlobal>
         ))}
-  
-        <div>
-          <ButtonGlobal
-            onClick={() => goToPage(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </ButtonGlobal>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <ButtonGlobal key={i} onClick={() => goToPage(i + 1)}>
-              {i + 1}
-            </ButtonGlobal>
-          ))}
-          <ButtonGlobal
-            onClick={() => goToPage(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </ButtonGlobal>
-        </div>
-      </>
-    );
-  };
+        <ButtonGlobal
+          onClick={() => goToPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </ButtonGlobal>
+      </DivButtons>
+    </>
+  );
+};

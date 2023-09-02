@@ -8,6 +8,7 @@ import Inicio from './Pages/Home';
 import Shop from './Pages/Shop';
 import Logon from "./Pages/Logon";
 import ProductDetails from './Pages/ProductDetails';
+import Sucesso from './Pages/Sucesso';
 
 export default function Router(){
     const routes = createBrowserRouter([{
@@ -36,6 +37,10 @@ export default function Router(){
      {
         path: "/product/:productId",
         element: <ProductDetails/>
+     },
+     {
+        path: "/Sucesso",
+        element: <Sucesso/>
      },]);
 
     return <RouterProvider router={routes}/>

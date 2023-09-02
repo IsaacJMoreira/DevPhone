@@ -51,7 +51,7 @@ export const ProductsDetailsId: React.FC<ProductsDetailsIdProps> = ({ productId 
         <img
           src={product.imgURL}
           alt={product.alt}
-          style={{ width: '550px', height: '550px' }} // Set width and height here
+          style={{ width: '550px', height: '550px' }} 
         />
       </DivImg>
         <ProductDetailsSection>
