@@ -1,14 +1,12 @@
 import styled from 'styled-components';
-import THEME from '../../../../theme';
 
 export const CardContainer = styled.section`
-    background-color: ${THEME.COLORS.WHITE};
+    background-color: #F8F8FF;
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     box-sizing : border-box;
-    background-color: transparent;      
     justify-content: space-evenly;
     gap: 5px;    
     text-align: center;
@@ -21,6 +19,7 @@ export const CardContainer = styled.section`
     }
     h1{
         font-size: 55px;
+        padding: 15px;
     }
 `;
 

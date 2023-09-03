@@ -24,7 +24,7 @@ export default function Shop() {
             
                 <CardContainer> 
                     <div>
-                        <h1>{"Compre"}</h1>
+                        <h1>{"Recentes"}</h1>
                     </div>
                     
                     <ShopArea />

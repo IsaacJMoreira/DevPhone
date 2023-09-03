@@ -1,15 +1,30 @@
 import { Router } from 'express';
 import productControllers from './controller';
 import decryptProvider from '../../infra/middlewares/auth';
-//TODO: IMPORT MIDDLEWARES
+import validateCredential from '../../infra/middlewares/validadeCredential';
+import upload from '../../infra/middlewares/imgUpload';
+import middlewareProducts from '../../infra/middlewares/products';
 
 const productRoutes = Router();
 
-productRoutes.post('/newproduct', decryptProvider, productControllers.create);
+productRoutes.post('/newproduct',
+                    decryptProvider, 
+                    validateCredential.ADM, 
+                    middlewareProducts.newProduct,
+                    productControllers.create);
+productRoutes.post('/uploadimg',
+                    decryptProvider, 
+                    validateCredential.ADM, 
+                    upload.single('file'), //field name
+                    productControllers.imgUpload);
+
 productRoutes.get('/allproducts', productControllers.findAll);
 productRoutes.get('/product/:id', productControllers.findOne);
-productRoutes.get('/product/category/:category', productControllers.findByCategory);
-productRoutes.get('/product/name/:name', productControllers.findByName);
-productRoutes.put('/product/:id', decryptProvider, productControllers.update);
+productRoutes.get('/products/search', productControllers.search);
+productRoutes.put('/product/:id',
+                   decryptProvider, 
+                   validateCredential.ADM, 
+                   middlewareProducts.updateProduct, 
+                   productControllers.update);
 
 export default productRoutes;

@@ -20,8 +20,7 @@ const errors_1 = __importDefault(require("../errors"));
 const isTest = true; //ATTENTION!!!! REMOVE!
 const orderControllers = {
     create: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { ownerID } = request.params;
-        const { items } = request.body;
+        const { ownerID, items } = request.body;
         try {
             const DBResponse = yield models_1.Order.create({
                 ownerID: ownerID.toString(),
@@ -29,12 +28,12 @@ const orderControllers = {
             });
             if (isTest)
                 console.log(DBResponse);
-            return response.sendStatus(200);
+            return response.header("Access-Control-Allow-Origin", "*").sendStatus(200);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            return response.status(500).json(errors_1.default.internal_server_error);
+            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
         }
     }),
     findByOwnerId: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -44,26 +43,26 @@ const orderControllers = {
                 ownerID: ownerID
             });
             if (!DBResponse.length)
-                return response.status(404).json(errors_1.default.not_found);
-            return response.status(200).json(DBResponse);
+                return response.header("Access-Control-Allow-Origin", "*").status(404).json(errors_1.default.not_found);
+            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            response.status(500).json(errors_1.default.internal_server_error);
+            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
         }
     }),
     findAll: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         try {
             const DBResponse = yield models_1.Order.find();
             if (!DBResponse.length)
-                return response.status(404).json(errors_1.default.not_found);
-            return response.status(200).json(DBResponse);
+                return response.header("Access-Control-Allow-Origin", "*").status(404).json(errors_1.default.not_found);
+            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            response.status(500).json(errors_1.default.internal_server_error);
+            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
         }
     }),
     update: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -77,12 +76,12 @@ const orderControllers = {
                 shippingCode,
                 status
             });
-            return response.status(204).json(DBResponse);
+            return response.header("Access-Control-Allow-Origin", "*").status(204).json(DBResponse);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            response.status(500).json(errors_1.default.internal_server_error);
+            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
         }
     }),
 };

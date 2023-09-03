@@ -24,10 +24,10 @@ const orderControllers = {
                 items: items
             }); 
             if(isTest) console.log(DBResponse);
-            return response.sendStatus(200);
+            return response.header("Access-Control-Allow-Origin", "*").sendStatus(200);
         } catch (error) {
             if(isTest) console.log(error);
-            return response.status(500).json(errors.internal_server_error);           
+            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);           
         }  
        
     },
@@ -37,18 +37,18 @@ const orderControllers = {
         const { ownerID } = request.params;
         try {
 
-            const DBResponse = await    Order.find({
+            const DBResponse = await Order.find({
                 ownerID: ownerID
             });
 
-            if(!DBResponse.length) return response.status(404).json(errors.not_found);
+            if(!DBResponse.length) return response.header("Access-Control-Allow-Origin", "*").status(404).json(errors.not_found);
 
-            return response.status(200).json(DBResponse);
+            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
          
         } catch (error) {
             
             if(isTest) console.log(error);
-            response.status(500).json(errors.internal_server_error);
+            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);
         }
     },    
 
@@ -58,13 +58,13 @@ const orderControllers = {
             
             const DBResponse = await Order.find();
             
-            if(!DBResponse.length) return response.status(404).json(errors.not_found);
+            if(!DBResponse.length) return response.header("Access-Control-Allow-Origin", "*").status(404).json(errors.not_found);
 
-            return response.status(200).json(DBResponse);
+            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
 
         } catch (error) {
             if(isTest) console.log(error);
-            response.status(500).json(errors.internal_server_error);            
+            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);            
         }
 
     },
@@ -91,12 +91,12 @@ const orderControllers = {
                 }
             );
 
-            return response.status(204).json(DBResponse);
+            return response.header("Access-Control-Allow-Origin", "*").status(204).json(DBResponse);
        
             
         } catch (error) {
             if(isTest) console.log(error);
-            response.status(500).json(errors.internal_server_error);            
+            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);            
         }
 
     },

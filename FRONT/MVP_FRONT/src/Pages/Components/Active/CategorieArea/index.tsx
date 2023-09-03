@@ -1,7 +1,9 @@
-import * as React from 'react';
-import CategoriesUL from '../CategoriesUL';
-import axios from 'axios';
-import baseURL from '../../../../../baseURL';
+import * as React from 'react'
+import CategoriesUL from '../CategoriesUL'
+import axios from 'axios'
+import baseURL from '../../../../../baseURL'
+import { UlStyled } from './styled'
+
 
 type Categorie = {
     _id: string;
@@ -35,20 +37,24 @@ export const CategorieArea = () => {
 
     return (
         <>
-            <ul>
-                <div>
-                    <h3>Categories</h3>
-                </div>
-
-                <br />
-                {categories.map((categorie: Categorie) => (
-                    <CategoriesUL
-                        key={categorie._id}
-                        id={`i${categorie._id}`}
-                        name={categorie.name}
-                    />
-                ))}
-            </ul>
-        </>
-    );
+            
+          <UlStyled>
+            <div className='div'>
+                <h3>Categories</h3> 
+            </div>  
+          <div>
+            {categories.map((categorie: Categorie)=>{
+                        return(                               
+                            <CategoriesUL
+                                key = {categorie._id} 
+                                id = {`i${categorie._id}`}
+                                name = {categorie.name}
+                            />                    
+                           );   
+                         })
+            } </div>
+            </UlStyled>    
+        </>      
+    ); 
+    
 };

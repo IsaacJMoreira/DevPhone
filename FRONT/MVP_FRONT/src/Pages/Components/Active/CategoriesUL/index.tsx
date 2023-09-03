@@ -10,21 +10,9 @@ const CategoriesUL: React.FC<RadioButtonProps> = (props) => {
     return (
         <>
             <RadioButtonWrapper>
-                <input 
-                    type="checkbox"
-                    className = "react-switch-checkbox"
-                    id = {props.id}
-                     />                
-                    {props.name}
-                
-                <label 
-                    htmlFor={props.id}
-                    className="react-switch-label"
-                >
-                    <span className={`react-switch-button`} />    
-                </label>
-            
-               
+                <input type="checkbox" className = "react-switch-checkbox" id = {props.id}/> 
+               {props.name}<label
+                htmlFor={props.id} className="react-switch-label"> <span className={`react-switch-button`}/></label>
             </RadioButtonWrapper>
         </>
         

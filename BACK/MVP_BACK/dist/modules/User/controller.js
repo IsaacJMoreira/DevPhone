@@ -26,17 +26,38 @@ const userControllers = {
                 const newUser = yield models_1.User.create({
                     name,
                     email,
-                    credential,
                     password: newEncryptedPass,
                 });
                 if (isTest)
                     console.log(newUser);
-                return res.status(201).json(newUser);
+                return res.header("Access-Control-Allow-Origin", "*").status(201).json(newUser);
             }
             catch (error) {
                 if (isTest)
                     console.log(error);
-                return res.status(500).json(errors_1.default.internal_server_error);
+                return res.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
+            }
+        });
+    },
+    createADM(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { name, email, password } = req.body;
+            const newEncryptedPass = CryptoProvider_1.default.hashSync(password, 10);
+            try {
+                const newUser = yield models_1.User.create({
+                    name,
+                    email,
+                    credential: "ADM",
+                    password: newEncryptedPass,
+                });
+                if (isTest)
+                    console.log(newUser);
+                return res.header("Access-Control-Allow-Origin", "*").status(201).json(newUser);
+            }
+            catch (error) {
+                if (isTest)
+                    console.log(error);
+                return res.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
             }
         });
     },
@@ -46,12 +67,12 @@ const userControllers = {
                 const users = yield models_1.User.find();
                 if (!users.length)
                     return res.status(404).json(errors_1.default.not_found);
-                return res.status(200).json(users);
+                return res.header("Access-Control-Allow-Origin", "*").status(200).json(users);
             }
             catch (error) {
                 if (isTest)
                     console.log(error);
-                express_1.response.status(500).json(errors_1.default.internal_server_error);
+                express_1.response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
             }
         });
     },
@@ -61,13 +82,13 @@ const userControllers = {
             try {
                 const user = yield models_1.User.findById(id);
                 if (!user)
-                    return res.status(404).json(errors_1.default.not_found);
-                return res.status(200).json(user);
+                    return res.header("Access-Control-Allow-Origin", "*").status(404).json(errors_1.default.not_found);
+                return res.header("Access-Control-Allow-Origin", "*").status(200).json(user);
             }
             catch (error) {
                 if (isTest)
                     console.log(error);
-                return res.status(500).json(errors_1.default.internal_server_error);
+                return res.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
             }
         });
     },
@@ -87,20 +108,20 @@ const userControllers = {
                         credential
                     }
                 });
-                return res.status(204).json(updateUser);
+                return res.header("Access-Control-Allow-Origin", "*").status(204).json(updateUser);
             }
             catch (error) {
                 if (isTest)
                     console.log(error);
-                res.status(500).json(errors_1.default.internal_server_error);
+                res.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
             }
         });
     },
-    /*  I REMOVED THE DELETE METHOD.
-        A USER WILL NOT BE DELETED.
-        IT WILL BE FLAGED 🚩 WITH THE
-        "INACTIVE" CREDENTIAL.
-        (WITH THE UPDATE METHOD)
-        */
 };
+/*  I REMOVED THE DELETE METHOD.
+    A USER WILL NOT BE DELETED.
+    IT WILL BE FLAGED 🚩 WITH THE
+    "INACTIVE" CREDENTIAL.
+    (WITH THE UPDATE METHOD)
+    */
 exports.default = userControllers;

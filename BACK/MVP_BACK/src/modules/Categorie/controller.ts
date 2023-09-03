@@ -17,14 +17,14 @@ const catergorieControllers = {
         try {
             const DBResponse = await Categorie.find({ name: newCategorie.name }).count();
             //By demand, we need to check that no category is duplicated
-            if(DBResponse) return response.status(403).json(errors.forbidden);
+            if(DBResponse) return response.header("Access-Control-Allow-Origin", "*").status(403).json(errors.forbidden);
            
             await Categorie.create({...newCategorie});
             if(isTest) console.log("New Category created!");
-            return response.sendStatus(200);           
+            return response.header("Access-Control-Allow-Origin", "*").sendStatus(200);           
         } catch (error) {
             if(isTest) console.log(error);
-            return response.status(500).json(errors.internal_server_error);
+            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);
         }
 
     },
@@ -35,12 +35,12 @@ const catergorieControllers = {
         try {
             const DBResponse = await Categorie.findOne({ name: name });
 
-            if(!DBResponse) return response.status(404).json(errors.not_found);
+            if(!DBResponse) return response.header("Access-Control-Allow-Origin", "*").status(404).json(errors.not_found);
 
-            return response.status(200).json(DBResponse); 
+            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse); 
 
         } catch (error) {
-            return response.status(500).json(errors.internal_server_error);
+            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);
         }
     },
 
@@ -49,13 +49,13 @@ const catergorieControllers = {
             
             const DBResponse = await Categorie.find();
             
-            if(!DBResponse.length) return response.status(404).json(errors.not_found);
+            if(!DBResponse.length) return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors.not_found);
 
             return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
 
         } catch (error) {
             if(isTest) console.log(error);
-            response.status(500).json(errors.internal_server_error);            
+            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);            
         }        
     },
     update: async (request: Request, response: Response) => {
@@ -76,13 +76,13 @@ const catergorieControllers = {
                     new: true
                 });
             
-            if(!DBResponse) return response.status(404).json(errors.not_found);
+            if(!DBResponse) return response.header("Access-Control-Allow-Origin", "*").status(404).json(errors.not_found);
 
-            return response.status(200).json(DBResponse);
+            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
 
         } catch (error) {
             if(isTest) console.log(error);
-            response.status(500).json(errors.internal_server_error);            
+            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);            
         }     
     }
 

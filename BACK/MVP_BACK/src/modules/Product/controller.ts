@@ -11,6 +11,7 @@ const isTest = true;//ATTENTION!!!! REMOVE!
 const productControllers = {
 
     create: async (request: Request, response: Response) => {
+
                 
         const {
             dimensions,
@@ -50,6 +51,14 @@ const productControllers = {
         }       
     },
 
+    imgUpload: async (request: Request, response: Response)=>{
+        const { file } = request;
+        
+        if(!file?.destination) return response.status(400).header("Access-Control-Allow-Origin", "*").json(errors.bad_request);
+        return response.header("Access-Control-Allow-Origin", "*").sendStatus(201);
+
+    },
+
     findOne: async (request: Request, response: Response) => {
             
         const { id } = request.params;
@@ -68,13 +77,24 @@ const productControllers = {
         }
     },
 
-    findByCategory: async (request: Request, response: Response) => {
+    //This can implement other search Items:
+    // Symbol.find(
+    //     {
+    //       $or: [
+    //         { 'symbol': { '$regex': input, '$options': 'i' } },
+    //         { 'name': { '$regex': input, '$options': 'i' } }
+    //       ]
+    //     }
+    //   ) 
+    search: async (request: Request, response: Response) => {
+             const category = request.query.category;
 
-            const { category } = request.params;
+             if(!category) return response.status(400).header("Access-Control-Allow-Origin", "*").json(errors.bad_request);
+             
 
         try {
-            
-            const DBResponse =  await Product.find({ "category.name": category });
+           
+            const DBResponse =  await Product.find({ 'category.name': category });
             
             if(!DBResponse.length) return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors.not_found);
 
@@ -86,23 +106,6 @@ const productControllers = {
         }
     },
 
-    findByName: async (request: Request, response: Response) => {
-
-            const { name } = request.params;
-
-        try {
-        
-            const DBResponse =  await Product.find({ name: name });            
-            
-            if(!DBResponse.length) return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors.not_found);
-
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
-
-        } catch (error) {
-            if(isTest) console.log(error);
-            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);          
-        }
-    },
 
     findAll: async (request: Request, response: Response) => {
 
