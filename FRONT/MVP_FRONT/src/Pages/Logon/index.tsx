@@ -32,13 +32,15 @@ export default function Logon() {
         password: password,
       })
 
-      if (response.status === 201){
-        alert('Cadastro feito!')
-        
-        setName(''),
-        setEmail(''),
-        setPassword(''),
-        setConfirmPassword('')
+      if(password === confirmPassword){
+        if (response.status === 201){
+          alert('Cadastro feito!')
+          
+          setName(''),
+          setEmail(''),
+          setPassword(''),
+          setConfirmPassword('')
+        }
       }
     } catch (error) {
       alert('Erro!')

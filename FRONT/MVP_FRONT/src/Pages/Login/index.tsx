@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom"
 import { FormEventHandler, useState } from "react"
 import { login } from "../Components/Login/login"
+import axios from "axios"
+import baseURL from '../../../baseURL'
+
 //Styleds:
 import { MainStyled, BodyStyled, FormStyled} from "./styled"
 
 //Components:
 import HeaderMenu from "../Components/HeaderMenu"
 import Footer from "../Components/Footer"
+
 
 
 export default function Login({}) {
@@ -17,6 +21,22 @@ export default function Login({}) {
 
     const logar: FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault()
+
+        try {
+         const response = await axios.post(`${baseURL}/Login`, {
+            email: email,
+            password: password,
+         })
+
+         if (response.status === 201){
+            alert('Login feito!')
+
+            setEmail('')
+            setPassword('')
+         }
+        } catch (error) {
+            alert(error)
+        }
     };
 
     const handleSubmit = () => {

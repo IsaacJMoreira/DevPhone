@@ -32,7 +32,6 @@ const userControllers = {
         return res.status(500).json(errors.internal_server_error)
     }
  },
-
  
  async findAll (req:Request,res:Response){
     
