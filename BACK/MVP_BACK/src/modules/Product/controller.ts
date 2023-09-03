@@ -54,7 +54,7 @@ const productControllers = {
     imgUpload: async (request: Request, response: Response)=>{
         const { file } = request;
         
-        if(!file?.destination) return response.status(400).header("Access-Control-Allow-Origin", "*").json(errors.bad_request);
+        if(!file?.destination) return response.header("Access-Control-Allow-Origin", "*").status(400).json(errors.bad_request);
         return response.header("Access-Control-Allow-Origin", "*").sendStatus(201);
 
     },
@@ -66,7 +66,7 @@ const productControllers = {
 
             const DBResponse = await Product.findById(id);
 
-            if(!DBResponse) return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors.not_found);
+            if(!DBResponse) return response.header("Access-Control-Allow-Origin", "*").status(404).json(errors.not_found);
 
             return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
          
@@ -114,14 +114,14 @@ const productControllers = {
             const DBResponse = await Product.find();
             if(isTest)console.log("Alguém tá tentando acessar!");
             
-            if(!DBResponse.length) return response.header("Access-Control-Allow-Origin", "*").status(404).json(errors.not_found);
+            if(!DBResponse.length) return response.status(404).json(errors.not_found);
 
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
+            return response.status(200).json(DBResponse);
             
 
         } catch (error) {
             if(isTest) console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);            
+            response.status(500).json(errors.internal_server_error);            
         }
     },
 

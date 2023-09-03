@@ -21,7 +21,7 @@ const userControllers = {
         name,
         email,
         password : newEncryptedPass,
-    });
+        });
       if(isTest) console.log(newUser)
       return res.header("Access-Control-Allow-Origin", "*").status(201).json(newUser);
     } catch (error) {
