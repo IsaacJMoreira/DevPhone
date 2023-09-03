@@ -1,6 +1,7 @@
 import Express, { Application } from 'express';
 import { mongoDB } from '../database'
 import BaseRoutes from './BaseRoutes'
+import cors from 'cors';
 
 
 type SetupOptions = {
@@ -24,6 +25,7 @@ export default class App{
         const selectedPort = options.port ? options.port : this.defaultPort;
         this.instance.use(Express.json());
         this.instance.use(Express.urlencoded());
+        this.instance.use(cors());
         this.instance.use(BaseRoutes);//this stays like this for now
 
         if(options.isTest) return;
