@@ -8,7 +8,8 @@ import Inicio from './Pages/Home';
 import Shop from './Pages/Shop';
 import Logon from "./Pages/Logon";
 import ProductDetails from './Pages/ProductDetails';
-import Sucesso from './Pages/Sucesso';
+import CompraRealizada from './Pages/CompraRealizada';
+
 
 export default function Router(){
     const routes = createBrowserRouter([{
@@ -39,8 +40,8 @@ export default function Router(){
         element: <ProductDetails/>
      },
      {
-        path: "/Sucesso",
-        element: <Sucesso/>
+        path: "/CompraRealizada",
+        element: <CompraRealizada/>
      },]);
 
     return <RouterProvider router={routes}/>

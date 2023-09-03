@@ -10,7 +10,7 @@ import Footer from "../Components/Footer"
 
 
 
-export default function Sucesso() {
+export default function CompraRealizada() {
     return <>
         <HeaderMenu />
             <BodySection>
