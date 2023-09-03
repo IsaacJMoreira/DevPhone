@@ -48,6 +48,12 @@ const productControllers = {
             return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
         }
     }),
+    imgUpload: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+        const { file } = request;
+        if (!(file === null || file === void 0 ? void 0 : file.destination))
+            return response.status(400).header("Access-Control-Allow-Origin", "*").json(errors_1.default.bad_request);
+        return response.header("Access-Control-Allow-Origin", "*").sendStatus(201);
+    }),
     findOne: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = request.params;
         try {

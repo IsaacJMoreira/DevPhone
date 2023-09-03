@@ -23,6 +23,7 @@ export default class App{
         mongoDB.createConnection();
         const selectedPort = options.port ? options.port : this.defaultPort;
         this.instance.use(Express.json());
+        this.instance.use(Express.urlencoded());
         this.instance.use(BaseRoutes);//this stays like this for now
 
         if(options.isTest) return;
