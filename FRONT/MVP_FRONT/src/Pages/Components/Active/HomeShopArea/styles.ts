@@ -26,7 +26,7 @@ export const CardProd = styled.section`
     padding-bottom: 100px;
     margin-left: 200px;
     max-width: auto;  
-
+    color: #000000;
 
     @media (max-width: 768px) {
     .CardProd {
