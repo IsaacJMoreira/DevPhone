@@ -20,7 +20,7 @@ const validatePost = validate({
             length: Joi.number().required(),
             dimension: Joi.string().min(1).max(3),
         }).required(),
-        category: Joi.objetc({
+        category: Joi.object({
             code: Joi.string().min(3).max(30).required(),
             name: Joi.string().min(3).max(30).required(),
             fatherCategory: Joi.string().min(1).max(30),
@@ -30,7 +30,7 @@ const validatePost = validate({
         imgURL: Joi.string().min(9).max(2048).required(),
         description: Joi.string().min(10).max(2048).required(),
         shortDesciption: Joi.string().min(30).max(140).required(),
-        alt: Joi.strinf().min(3).max(30).required(),
+        alt: Joi.string().min(3).max(30).required(),
         enabled: Joi.boolean(),
     })
 });
@@ -44,7 +44,7 @@ const validateUpdate = validate({
             length: Joi.number(),
             dimension: Joi.string().min(1).max(3),
         }),
-        category: Joi.objetc({
+        category: Joi.object({
             code: Joi.string().min(3).max(30),
             name: Joi.string().min(3).max(30),
             fatherCategory: Joi.string().min(1).max(30),
@@ -54,7 +54,7 @@ const validateUpdate = validate({
         imgURL: Joi.string().min(9).max(2048),
         description: Joi.string().min(10).max(2048),
         shortDesciption: Joi.string().min(30).max(140),
-        alt: Joi.strinf().min(3).max(30),
+        alt: Joi.string().min(3).max(30),
         enabled: Joi.boolean(),
     })
 });
