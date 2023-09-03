@@ -23,11 +23,11 @@ const userControllers = {
         password : newEncryptedPass,
     });
       if(isTest) console.log(newUser)
-      return res.status(201).json(newUser);
+      return res.header("Access-Control-Allow-Origin", "*").status(201).json(newUser);
     } catch (error) {
 
         if(isTest) console.log(error);
-        return res.status(500).json(errors.internal_server_error)
+        return res.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error)
     }
  },
 
@@ -48,11 +48,11 @@ const userControllers = {
         password : newEncryptedPass,
     });
       if(isTest) console.log(newUser)
-      return res.status(201).json(newUser);
+      return res.header("Access-Control-Allow-Origin", "*").status(201).json(newUser);
     } catch (error) {
 
         if(isTest) console.log(error);
-        return res.status(500).json(errors.internal_server_error)
+        return res.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error)
     }
  },
 
@@ -62,12 +62,12 @@ const userControllers = {
         const users= await User.find();
 
         if(!users.length) return res.status(404).json(errors.not_found);
-        return res.status(200).json(users);
+        return res.header("Access-Control-Allow-Origin", "*").status(200).json(users);
         
     } catch (error) {
 
         if(isTest) console.log(error);
-        response.status(500).json(errors.internal_server_error);
+        response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);
     }
  },
 
@@ -76,12 +76,12 @@ const userControllers = {
     try {
         const user = await User.findById(id)
 
-        if(!user) return res.status(404).json(errors.not_found) 
-        return res.status(200).json(user);
+        if(!user) return res.header("Access-Control-Allow-Origin", "*").status(404).json(errors.not_found) 
+        return res.header("Access-Control-Allow-Origin", "*").status(200).json(user);
     } catch (error) {
 
         if(isTest) console.log(error);
-        return res.status(500).json(errors.internal_server_error)
+        return res.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error)
     }
  },
  async update(req:Request,res:Response){
@@ -109,12 +109,12 @@ const userControllers = {
             }
         });
 
-        return res.status(204).json(updateUser);
+        return res.header("Access-Control-Allow-Origin", "*").status(204).json(updateUser);
 
 
     } catch (error) {
         if(isTest) console.log(error);
-        res.status(500).json(errors.internal_server_error);
+        res.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);
     }
 
 },
