@@ -11,12 +11,20 @@ import Footer from "../Components/Footer"
 import {FormStyled, MainStyled, BodyStyled} from "./styled"
 
 export default function Logon() {
-  const [name, setName] = React.useState('')
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
-  const [confirmPassword, setConfirmPassword] = React.useState('')
-  const [isChecked, setIsChecked] = React.useState(false)
+  const [error, setError] = React.useState('');
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [confirmPassword, setConfirmPassword] = React.useState('');
+  const [isChecked, setIsChecked] = React.useState(false);
    
+  const checkPassword = () => {
+    if(password != confirmPassword){
+      setError("senhas diferentes")
+    } else {
+      setError("")
+    }
+  };
 
   const handleRegister: React.FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
@@ -25,28 +33,31 @@ export default function Logon() {
     console.log(password)
     console.log(confirmPassword)
 
-    try {
-      const response = await axios.post(`${baseURL}/Logon`, {
-        name: name,
-        email: email,
-        password: password,
-      })
-
-      if(password === confirmPassword){
-        if (response.status === 201){
-          alert('Cadastro feito!')
-          
-          setName(''),
-          setEmail(''),
-          setPassword(''),
-          setConfirmPassword('')
-        }
+    if(password == confirmPassword){
+      try {
+        const response = await axios.post(`${baseURL}/logon`, {
+          name: name,
+          email: email,
+          password: password,
+        })
+  
+          if (response.status === 201){
+            alert('Cadastro feito!')
+            
+            setName(''),
+            setEmail(''),
+            setPassword(''),
+            setConfirmPassword('')
+          }
+        
+      } catch (error) {
+        alert('Erro!')
+        console.log(error)
       }
-    } catch (error) {
-      alert('Erro!')
-      console.log(error)
+    } else{
+      console.log("senha diferente.")
     }
-  }
+};
 
     return <BodyStyled>
         <HeaderMenu/>
@@ -60,7 +71,8 @@ export default function Logon() {
             <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></input>
             <div><input type="checkbox" checked={isChecked} onChange={() => setIsChecked(!isChecked)}/>
             <label>I agree to Terms of Service</label></div>
-            <button type="submit" disabled={ email == '' || password.length < 6 || !confirmPassword || !isChecked }>logon</button>
+            <button type="submit" disabled={ email == '' || password.length < 6 || !confirmPassword || !isChecked} onClick={checkPassword}>logon</button>
+            <div className="diverror">{error}</div>
             <Link to="/login" className='contajacriada'>Already have registration?</Link>
           </FormStyled>
          </MainStyled>

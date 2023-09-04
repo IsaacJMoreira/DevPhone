@@ -11,6 +11,7 @@ const isTest = true;//ATTENTION!!!! REMOVE!
 const productControllers = {
 
     create: async (request: Request, response: Response) => {
+
                 
         const {
             dimensions,
@@ -48,6 +49,14 @@ const productControllers = {
             if(isTest) console.log(error);
             return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);           
         }       
+    },
+
+    imgUpload: async (request: Request, response: Response)=>{
+        const { file } = request;
+        
+        if(!file?.destination) return response.status(400).header("Access-Control-Allow-Origin", "*").json(errors.bad_request);
+        return response.header("Access-Control-Allow-Origin", "*").sendStatus(201);
+
     },
 
     findOne: async (request: Request, response: Response) => {

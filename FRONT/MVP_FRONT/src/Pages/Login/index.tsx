@@ -30,7 +30,7 @@ export default function Login({}) {
 
          if (response.status === 201){
             alert('Login feito!')
-
+            
             setEmail('')
             setPassword('')
          }

@@ -15,6 +15,7 @@ class App {
         database_1.mongoDB.createConnection();
         const selectedPort = options.port ? options.port : this.defaultPort;
         this.instance.use(express_1.default.json());
+        this.instance.use(express_1.default.urlencoded());
         this.instance.use(BaseRoutes_1.default); //this stays like this for now
         if (options.isTest)
             return;
