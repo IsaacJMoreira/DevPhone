@@ -3,7 +3,7 @@ import { BodySection } from "./styled";
 import HeaderMenu from "../Components/HeaderMenu"
 import Footer from "../Components/Footer"
 
-export default function CartShop() {
+export default function ShopCheckout() {
     return <>
         <HeaderMenu />
             <BodySection>
