@@ -16,22 +16,21 @@ const models_1 = require("../../models");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const secret_1 = __importDefault(require("../../infra/config/secret"));
+const errors_1 = __importDefault(require("../errors"));
 const AuthController = {
     login(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { email, password } = req.body;
-            const usuarios = yield models_1.User.findOne({
-                where: {
-                    email,
-                },
+            const usuario = yield models_1.User.findOne({
+                email: email,
             });
-            if (!usuarios) {
-                return res.status(400).json("email invalido!");
+            if (!usuario) {
+                return res.status(400).header("Access-Control-Allow-Origin", "*").json(errors_1.default.bad_request);
             }
-            if (!bcryptjs_1.default.compareSync(password, usuarios.password)) {
-                return res.status(401).json("password invalido!");
+            if (!bcryptjs_1.default.compareSync(password, usuario.password)) {
+                return res.status(401).header("Access-Control-Allow-Origin", "*").json(errors_1.default.shall_not_pass); //🧙 U SHALL NOT PASS
             }
-            const token = jsonwebtoken_1.default.sign({ id: usuarios.id, email: usuarios.email, name: usuarios.name }, secret_1.default.key);
+            const token = jsonwebtoken_1.default.sign({ id: usuario.id, email: usuario.email, name: usuario.name, credential: usuario.credential }, secret_1.default.key);
             return res.json(token);
         });
     },

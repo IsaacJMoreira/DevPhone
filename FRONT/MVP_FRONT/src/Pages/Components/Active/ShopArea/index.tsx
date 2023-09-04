@@ -1,8 +1,13 @@
 import * as React from 'react'
 import { ProductCard } from '../../ProductCard'
 import axios from 'axios'
+import { DivStyled } from "./styles"
 import baseURL from '../../../../../baseURL'
-import { ButtonGlobal } from '../../Buttons/ButtonGlobal'
+import { ButtonShoparea } from '../../Buttons/ButtonGlobal'
+import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+
 
 
 type Product = {
@@ -26,7 +31,7 @@ export const ShopArea = ()=>{
     try{
         React.useEffect ( ()=>{
 
-            axios.get<Product[]>(`${baseURL}/product/allproducts`).then((response)=>{
+            axios.get<Product[]>(`${baseURL}/allproducts`).then((response)=>{
                 setProducts(response);
             } )
             .catch(error=>{
@@ -99,9 +104,9 @@ export const ShopArea = ()=>{
                     
             }  
 
-            <div>
-            <ButtonGlobal>1</ButtonGlobal>
-            </div>
+            <DivStyled>
+            <ButtonShoparea>1</ButtonShoparea><label>de 10</label><Link to="/" className='seguinte'>Seguinte <FontAwesomeIcon icon={faArrowRight}/></Link>
+            </DivStyled>
             
         </>      
     ); 

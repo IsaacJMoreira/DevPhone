@@ -6,12 +6,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const controller_1 = __importDefault(require("./controller"));
 const auth_1 = __importDefault(require("../../infra/middlewares/auth"));
-//TODO: IMPORT MIDDLEWARES
+const validadeCredential_1 = __importDefault(require("../../infra/middlewares/validadeCredential"));
+const imgUpload_1 = __importDefault(require("../../infra/middlewares/imgUpload"));
+const products_1 = __importDefault(require("../../infra/middlewares/products"));
 const productRoutes = (0, express_1.Router)();
-productRoutes.post('/newproduct', auth_1.default, controller_1.default.create);
+productRoutes.post('/newproduct', auth_1.default, validadeCredential_1.default.ADM, products_1.default.newProduct, controller_1.default.create);
+productRoutes.post('/uploadimg', auth_1.default, validadeCredential_1.default.ADM, imgUpload_1.default.single('file'), //field name
+controller_1.default.imgUpload);
 productRoutes.get('/allproducts', controller_1.default.findAll);
 productRoutes.get('/product/:id', controller_1.default.findOne);
-productRoutes.get('/product/category/:category', controller_1.default.findByCategory);
-productRoutes.get('/product/name/:name', controller_1.default.findByName);
-productRoutes.put('/product/:id', auth_1.default, controller_1.default.update);
+productRoutes.get('/products/search', controller_1.default.search);
+productRoutes.put('/product/:id', auth_1.default, validadeCredential_1.default.ADM, products_1.default.updateProduct, controller_1.default.update);
 exports.default = productRoutes;
