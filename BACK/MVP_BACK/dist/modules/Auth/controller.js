@@ -25,10 +25,10 @@ const AuthController = {
                 email: email,
             });
             if (!usuario) {
-                return res.status(400).header("Access-Control-Allow-Origin", "*").json(errors_1.default.bad_request);
+                return res.status(400).json(errors_1.default.bad_request);
             }
             if (!bcryptjs_1.default.compareSync(password, usuario.password)) {
-                return res.status(401).header("Access-Control-Allow-Origin", "*").json(errors_1.default.shall_not_pass); //🧙 U SHALL NOT PASS
+                return res.status(401).json(errors_1.default.shall_not_pass); //🧙 U SHALL NOT PASS
             }
             const token = jsonwebtoken_1.default.sign({ id: usuario.id, email: usuario.email, name: usuario.name, credential: usuario.credential }, secret_1.default.key);
             return res.json(token);
