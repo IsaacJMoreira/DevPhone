@@ -26,7 +26,7 @@ const AuthController = {
             });
             if (!usuario) {
                 return res.status(400).header("Access-Control-Allow-Origin", "*").json(errors_1.default.bad_request);
-            }
+            } // "compareSync" compara duas info, retorna true , false;
             if (!bcryptjs_1.default.compareSync(password, usuario.password)) {
                 return res.status(401).header("Access-Control-Allow-Origin", "*").json(errors_1.default.shall_not_pass); //🧙 U SHALL NOT PASS
             }

@@ -2,7 +2,7 @@ const {validate, Joi } = require ("express-validation");
 import { Request, Response, NextFunction } from "express";
 const validateLogin = validate({
     body: Joi.object().keys ({
-        email: Joi.string(),
+        email: Joi.string().required(),
         password: Joi.string().required(),
     })
 })
