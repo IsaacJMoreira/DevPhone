@@ -63,7 +63,6 @@ const productSchema = new Schema<IProduct>(
      },],
 
      stock: { type: Number, required: true, default: 0},
-
      price:  { type: Number, required: true, default: 0},
      imgURL: { type: String, required: true},
      description: { type: String, required: true},

@@ -40,32 +40,32 @@ const productControllers = {
             //IDEALY, WE WILL DEAL WITH THE IMAGES HERE
             if (isTest)
                 console.log(DBResponse);
-            return response.header("Access-Control-Allow-Origin", "*").sendStatus(200);
+            return response.sendStatus(200);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
+            return response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
     imgUpload: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         const { file } = request;
         if (!(file === null || file === void 0 ? void 0 : file.destination))
-            return response.header("Access-Control-Allow-Origin", "*").status(400).json(errors_1.default.bad_request);
-        return response.header("Access-Control-Allow-Origin", "*").sendStatus(201);
+            return response.status(400).json(errors_1.default.bad_request);
+        return response.sendStatus(201);
     }),
     findOne: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = request.params;
         try {
             const DBResponse = yield models_1.Product.findById(id);
             if (!DBResponse)
-                return response.header("Access-Control-Allow-Origin", "*").status(404).json(errors_1.default.not_found);
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
+                return response.status(404).json(errors_1.default.not_found);
+            return response.status(200).json(DBResponse);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
+            response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
     //This can implement other search Items:
@@ -80,17 +80,17 @@ const productControllers = {
     search: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         const category = request.query.category;
         if (!category)
-            return response.status(400).header("Access-Control-Allow-Origin", "*").json(errors_1.default.bad_request);
+            return response.status(400).json(errors_1.default.bad_request);
         try {
             const DBResponse = yield models_1.Product.find({ 'category.name': category });
             if (!DBResponse.length)
-                return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors_1.default.not_found);
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
+                return response.status(404).json(errors_1.default.not_found);
+            return response.status(200).json(DBResponse);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
+            return response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
     findAll: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -124,12 +124,12 @@ const productControllers = {
                     stock
                 }
             });
-            return response.header("Access-Control-Allow-Origin", "*").status(204).json(DBResponse);
+            return response.status(204).json(DBResponse);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
+            response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
 };
