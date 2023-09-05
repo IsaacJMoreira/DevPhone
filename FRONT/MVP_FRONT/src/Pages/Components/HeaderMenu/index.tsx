@@ -9,7 +9,7 @@ export default function HeaderMenu() {
         <HeaderStyled>
         <h1>DevPhone</h1>
         <ul>
-            <li><Link to="/" className='menu'>Shop</Link></li>
+            <li><Link to="/shop" className='menu'>Shop</Link></li>
             <li><Link to="/" className='menu'>Stories</Link></li>
             <li><Link to="/" className='menu'>About</Link></li>
             <input type="text" placeholder="Search"></input>
