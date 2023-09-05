@@ -74,7 +74,7 @@ const userControllers = {
  async findOne(req:Request,res:Response){
     const{id} = req.params
     try {
-        const user = await User.findById(id)
+        const user = await User.findById({_id: id})
 
         if(!user) return res.status(404).json(errors.not_found) 
         return res.status(200).json(user);

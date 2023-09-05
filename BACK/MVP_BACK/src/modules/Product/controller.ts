@@ -64,7 +64,7 @@ const productControllers = {
         const { id } = request.params;
         try {
 
-            const DBResponse = await Product.findById(id);
+            const DBResponse = await Product.findById({_id: id});
 
             if(!DBResponse) return response.status(404).json(errors.not_found);
 
