@@ -26,9 +26,6 @@ import errors from "../errors";
         const token = jwt.sign({id: usuario.id, email: usuario.email, name: usuario.name, credential: usuario.credential}, secret.key);
         return res.json(token);
     },
-
-
-
 };
 
 export default AuthController;
