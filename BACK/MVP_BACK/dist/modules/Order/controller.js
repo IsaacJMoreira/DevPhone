@@ -21,6 +21,17 @@ const isTest = true; //ATTENTION!!!! REMOVE!
 const orderControllers = {
     create: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         const { ownerID, items } = request.body;
+        try {
+            const userExistes = yield models_1.User.findById({ _id: ownerID }).count();
+            console.log(userExistes);
+            if (!userExistes)
+                return response.status(400).json(errors_1.default.bad_request);
+        }
+        catch (error) {
+            if (isTest)
+                console.log(error);
+            return response.status(500).json(errors_1.default.internal_server_error);
+        }
         let lowStockFlag = 0; //🚩 
         //WE TEST IF ANY ITEM IS EITHER LOW IN STOCK OR MISSING COMPLETELY
         try {
@@ -105,11 +116,11 @@ const orderControllers = {
         }
     }),
     update: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { ownerID } = request.params;
+        const { id } = request.params;
         const { items, shippingCode, status } = request.body;
         try {
             const DBResponse = yield models_1.Order.updateOne({
-                ownerID: ownerID
+                _id: id
             }, {
                 items,
                 shippingCode,

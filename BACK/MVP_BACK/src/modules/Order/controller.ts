@@ -3,7 +3,7 @@
  *****************************************/
 
 import { Request, Response } from "express";
-import { Order, Product } from "../../models";
+import { Order, Product, User } from "../../models";
 import errors from "../errors";
 
 const isTest = true;//ATTENTION!!!! REMOVE!
@@ -17,6 +17,20 @@ const orderControllers = {
             ownerID,
             items
         } = request.body;
+        
+
+        try {
+            const userExistes = await User.findById({ _id: ownerID }).count();
+
+            console.log(userExistes);
+            
+            if(!userExistes) return response.status(400).json(errors.bad_request);
+
+        } catch (error) {
+
+            if(isTest) console.log(error);
+            return response.status(500).json(errors.internal_server_error);            
+        }
 
        
 
@@ -122,7 +136,7 @@ const orderControllers = {
 
     update: async (request: Request, response: Response) => {
         
-        const  { ownerID }  = request.params
+        const  { id }  = request.params
         const { 
                 items,
                 shippingCode,
@@ -133,7 +147,7 @@ const orderControllers = {
 
             const DBResponse = await Order.updateOne(
                 {
-                    ownerID: ownerID
+                    _id: id
                 }, 
                 {
                     items,

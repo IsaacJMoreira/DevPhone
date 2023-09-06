@@ -80,7 +80,7 @@ const userControllers = {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
             try {
-                const user = yield models_1.User.findById(id);
+                const user = yield models_1.User.findById({ _id: id });
                 if (!user)
                     return res.status(404).json(errors_1.default.not_found);
                 return res.status(200).json(user);

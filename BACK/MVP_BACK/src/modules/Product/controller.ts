@@ -111,8 +111,30 @@ const productControllers = {
 
         try {
             
-            const DBResponse = await Product.find();
+            const DBResponse = await Product.find().count();
             if(isTest)console.log("Alguém tá tentando acessar!");
+            
+            if(!DBResponse) return response.status(404).json(errors.not_found);
+
+            return response.status(200).json(DBResponse);
+            
+
+        } catch (error) {
+            if(isTest) console.log(error);
+            response.status(500).json(errors.internal_server_error);            
+        }
+    },
+
+    paginate: async (request: Request, response: Response) => {
+
+        const { page, perPage } = request.query;
+
+        if(!(page && perPage)) return response.status(400).json(errors.bad_request);
+
+        try {
+            
+            const DBResponse = await Product.find().limit( Number(perPage) ).skip( Number(page) - 1 ).sort({ name: 'asc'});
+            if(isTest)console.log("page :" + page, "perPage: "+perPage);
             
             if(!DBResponse.length) return response.status(404).json(errors.not_found);
 

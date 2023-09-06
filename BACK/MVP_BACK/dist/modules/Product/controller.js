@@ -57,7 +57,7 @@ const productControllers = {
     findOne: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = request.params;
         try {
-            const DBResponse = yield models_1.Product.findById(id);
+            const DBResponse = yield models_1.Product.findById({ _id: id });
             if (!DBResponse)
                 return response.status(404).json(errors_1.default.not_found);
             return response.status(200).json(DBResponse);
@@ -95,9 +95,27 @@ const productControllers = {
     }),
     findAll: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         try {
-            const DBResponse = yield models_1.Product.find();
+            const DBResponse = yield models_1.Product.find().count();
             if (isTest)
                 console.log("Alguém tá tentando acessar!");
+            if (!DBResponse)
+                return response.status(404).json(errors_1.default.not_found);
+            return response.status(200).json(DBResponse);
+        }
+        catch (error) {
+            if (isTest)
+                console.log(error);
+            response.status(500).json(errors_1.default.internal_server_error);
+        }
+    }),
+    paginate: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+        const { page, perPage } = request.query;
+        if (!(page && perPage))
+            return response.status(400).json(errors_1.default.bad_request);
+        try {
+            const DBResponse = yield models_1.Product.find().limit(Number(perPage)).skip(Number(page) - 1).sort({ name: 'asc' });
+            if (isTest)
+                console.log("page :" + page, "perPage: " + perPage);
             if (!DBResponse.length)
                 return response.status(404).json(errors_1.default.not_found);
             return response.status(200).json(DBResponse);
