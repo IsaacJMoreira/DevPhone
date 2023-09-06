@@ -28,6 +28,13 @@ p {
     opacity: 50%;
 }
 
+div.diverror {
+    color: red;
+    position: relative;
+    top: 10px;
+    text-align: center;
+}
+
 input {
     padding: 10px;
     font-size: 15px;

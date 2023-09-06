@@ -23,4 +23,5 @@ describe('User crud repository', ()=>{
         expect(result).toBeTruthy()
         expect(typeof result.id === 'number').toBeTruthy()
     })
+    expect(test)
 })

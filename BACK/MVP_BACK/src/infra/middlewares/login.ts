@@ -1,19 +1,20 @@
 const {validate, Joi } = require ("express-validation");
 import { Request, Response, NextFunction } from "express";
-
-
 const validateLogin = validate({
     body: Joi.object().keys ({
-        email: Joi.string(),
+        email: Joi.string().required(),
         password: Joi.string().required(),
     })
+<<<<<<< HEAD
 
 })
 
+=======
+})
+>>>>>>> dev
 const middlewareAuth = {
     login: async (request: Request,response: Response, next: NextFunction) =>{
         await validateLogin(request, response, next)
-    },   
+    },
 }
-
 export default middlewareAuth;

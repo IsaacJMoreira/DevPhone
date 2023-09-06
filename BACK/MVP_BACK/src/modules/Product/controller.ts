@@ -44,18 +44,18 @@ const productControllers = {
             }); 
             //IDEALY, WE WILL DEAL WITH THE IMAGES HERE
             if(isTest) console.log(DBResponse);
-            return response.header("Access-Control-Allow-Origin", "*").sendStatus(200);
+            return response.sendStatus(200);
         } catch (error) {
             if(isTest) console.log(error);
-            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);           
+            return response.status(500).json(errors.internal_server_error);           
         }       
     },
 
     imgUpload: async (request: Request, response: Response)=>{
         const { file } = request;
         
-        if(!file?.destination) return response.header("Access-Control-Allow-Origin", "*").status(400).json(errors.bad_request);
-        return response.header("Access-Control-Allow-Origin", "*").sendStatus(201);
+        if(!file?.destination) return response.status(400).json(errors.bad_request);
+        return response.sendStatus(201);
 
     },
 
@@ -64,16 +64,16 @@ const productControllers = {
         const { id } = request.params;
         try {
 
-            const DBResponse = await Product.findById(id);
+            const DBResponse = await Product.findById({_id: id});
 
-            if(!DBResponse) return response.header("Access-Control-Allow-Origin", "*").status(404).json(errors.not_found);
+            if(!DBResponse) return response.status(404).json(errors.not_found);
 
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
+            return response.status(200).json(DBResponse);
          
         } catch (error) {
             
             if(isTest) console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);
+            response.status(500).json(errors.internal_server_error);
         }
     },
 
@@ -89,20 +89,20 @@ const productControllers = {
     search: async (request: Request, response: Response) => {
              const category = request.query.category;
 
-             if(!category) return response.status(400).header("Access-Control-Allow-Origin", "*").json(errors.bad_request);
+             if(!category) return response.status(400).json(errors.bad_request);
              
 
         try {
            
             const DBResponse =  await Product.find({ 'category.name': category });
             
-            if(!DBResponse.length) return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors.not_found);
+            if(!DBResponse.length) return response.status(404).json(errors.not_found);
 
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
+            return response.status(200).json(DBResponse);
 
         } catch (error) {
             if(isTest) console.log(error);
-            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);                       
+            return response.status(500).json(errors.internal_server_error);                       
         }
     },
 
@@ -111,8 +111,30 @@ const productControllers = {
 
         try {
             
-            const DBResponse = await Product.find();
+            const DBResponse = await Product.find().count();
             if(isTest)console.log("Alguém tá tentando acessar!");
+            
+            if(!DBResponse) return response.status(404).json(errors.not_found);
+
+            return response.status(200).json(DBResponse);
+            
+
+        } catch (error) {
+            if(isTest) console.log(error);
+            response.status(500).json(errors.internal_server_error);            
+        }
+    },
+
+    paginate: async (request: Request, response: Response) => {
+
+        const { page, perPage } = request.query;
+
+        if(!(page && perPage)) return response.status(400).json(errors.bad_request);
+
+        try {
+            
+            const DBResponse = await Product.find().limit( Number(perPage) ).skip( Number(page) - 1 ).sort({ name: 'asc'});
+            if(isTest)console.log("page :" + page, "perPage: "+perPage);
             
             if(!DBResponse.length) return response.status(404).json(errors.not_found);
 
@@ -155,12 +177,12 @@ const productControllers = {
                 }
             );
 
-            return response.header("Access-Control-Allow-Origin", "*").status(204).json(DBResponse);
+            return response.status(204).json(DBResponse);
        
             
         } catch (error) {
             if(isTest) console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);            
+            response.status(500).json(errors.internal_server_error);            
         }
     },
 }

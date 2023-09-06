@@ -12,20 +12,18 @@ export default function Footer(){
         </div>
         <ul>
             <h2>Shop</h2>
-            <li>Women’s</li>
-            <li>Men’s</li>
-            <li>Kids’</li>
-            <li>Shoes</li>
-            <li>Equipment</li>
-            <li>By Activity</li>
-            <li>Gift Cards</li>
-            <li>Sale</li>
+            <li>Iphone</li>
+            <li>Samsung</li>
+            <li>Xiaomi</li>
+            <li>Huawei</li>
+            <li>Sony</li>
+            <li>LG</li>
+            <li>Acessories</li>
         </ul>
         <ul>
             <h2>Help</h2>
             <li>Help Center</li>
             <li>Order Status</li>
-            <li>Size Chart</li>
             <li>Returns & Warranty</li>
             <li>Contact Us</li>
         </ul>
