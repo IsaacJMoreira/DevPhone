@@ -20,7 +20,7 @@ const errors_1 = __importDefault(require("../errors"));
 const isTest = true; //ATTENTION!!!! REMOVE!
 const orderControllers = {
     create: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { ownerID, items } = request.body;
+        const { ownerID, items, addressNickName } = request.body;
         try {
             const userExistes = yield models_1.User.findById({ _id: ownerID }).count();
             console.log(userExistes);
@@ -74,7 +74,8 @@ const orderControllers = {
         try {
             const DBResponse = yield models_1.Order.create({
                 ownerID: ownerID.toString(),
-                items: items
+                items: items,
+                addressNickName: addressNickName
             });
             if (isTest)
                 console.log(DBResponse);

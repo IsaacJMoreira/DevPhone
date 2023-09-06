@@ -15,7 +15,8 @@ const orderControllers = {
         
         const {
             ownerID,
-            items
+            items,
+            addressNickName
         } = request.body;
         
 
@@ -86,7 +87,8 @@ const orderControllers = {
         try {
             const DBResponse = await Order.create({
                 ownerID: ownerID.toString(),
-                items: items
+                items: items,
+                addressNickName: addressNickName
             }); 
             if(isTest) console.log(DBResponse);
             return response.sendStatus(200);
