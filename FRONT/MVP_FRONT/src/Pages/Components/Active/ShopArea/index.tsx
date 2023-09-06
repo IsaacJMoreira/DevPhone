@@ -31,7 +31,7 @@ export const ShopArea = ()=>{
     try{
         React.useEffect ( ()=>{
 
-            axios.get<Product[]>(`${baseURL}/allproducts`).then((response)=>{
+            axios.get<Product[]>(`${baseURL}/products/?page=1&perPage=5`).then((response)=>{
                 setProducts(response);
             } )
             .catch(error=>{

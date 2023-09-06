@@ -20,11 +20,11 @@ a.seguinte{
 `
 
 export const CardProd = styled.section`
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 100px;
-    margin-left: 200px;
+    padding-bottom: 10px;
+    margin: 25px;
     max-width: auto;  
     color: #000000;
 

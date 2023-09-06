@@ -19,12 +19,18 @@ import errors from "../errors";
         if(!usuario){
             return res.status(400).json(errors.bad_request)
         }
+        if(usuario.credential === "INACTIVE"){
+            return res.status(403).json(errors.forbidden);//can't login if user doesn't have a active account
+        }
         if(!bcrypt.compareSync(password, usuario.password)){
             return res.status(401).json(errors.shall_not_pass);//🧙 U SHALL NOT PASS
         }
 
         const token = jwt.sign({id: usuario.id, email: usuario.email, name: usuario.name, credential: usuario.credential}, secret.key);
-        return res.json(token);
+        return res.json({
+            credential: usuario.credential,
+            token: token
+        });
     },
 
 
