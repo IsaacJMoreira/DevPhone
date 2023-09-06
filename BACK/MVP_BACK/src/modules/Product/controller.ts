@@ -37,7 +37,7 @@ const productControllers = {
                 category,
                 stock,
                 price,
-                imgURL,
+                imgURL : `../../../../../uploads${imgURL}`,
                 description,
                 shortDescription,
                 alt
@@ -55,7 +55,7 @@ const productControllers = {
         const { file } = request;
         
         if(!file?.destination) return response.status(400).json(errors.bad_request);
-        return response.sendStatus(201);
+        return response.status(201).json(file.filename);
 
     },
 
