@@ -6,7 +6,7 @@ import cryptoProvider from "../../infra/providers/CryptoProvider";
 const isTest= true;
 
 const userControllers = {
- async create(req:Request,res:Response){
+ async create(req:Request, res:Response){
     const{
         name,
         email,
@@ -55,7 +55,7 @@ const userControllers = {
         return res.status(500).json(errors.internal_server_error)
     }
  },
-
+ 
  async findAll (req:Request,res:Response){
     
     try {

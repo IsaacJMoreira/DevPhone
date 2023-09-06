@@ -32,9 +32,6 @@ import errors from "../errors";
             token: token
         });
     },
-
-
-
 };
 
 export default AuthController;
