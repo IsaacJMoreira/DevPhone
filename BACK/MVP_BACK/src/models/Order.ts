@@ -18,6 +18,7 @@ interface IOrder{
     ownerID: string;
     shippingCode: string,
     enabled: boolean,
+    addressNickName: string,
 };
 
 const shoppingCartSchema = new Schema<IOrder>(
@@ -32,6 +33,7 @@ const shoppingCartSchema = new Schema<IOrder>(
         ],
         ownerID: { type: String, required: true },
         shippingCode: { type: String, required: true, default: " " },
+        addressNickName: { type: String, required: true },
         enabled: { type: Boolean, required: true, default: true },
     },
     {
