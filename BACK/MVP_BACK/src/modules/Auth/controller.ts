@@ -17,10 +17,10 @@ import errors from "../errors";
             }
         );
         if(!usuario){
-            return res.status(400).header("Access-Control-Allow-Origin", "*").json(errors.bad_request)
-        }         // "compareSync" compara duas info, retorna true , false;
+            return res.status(400).json(errors.bad_request)
+        }
         if(!bcrypt.compareSync(password, usuario.password)){
-            return res.status(401).header("Access-Control-Allow-Origin", "*").json(errors.shall_not_pass);//🧙 U SHALL NOT PASS
+            return res.status(401).json(errors.shall_not_pass);//🧙 U SHALL NOT PASS
         }
 
         const token = jwt.sign({id: usuario.id, email: usuario.email, name: usuario.name, credential: usuario.credential}, secret.key);
