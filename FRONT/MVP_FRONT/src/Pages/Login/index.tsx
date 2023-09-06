@@ -9,7 +9,6 @@ import { MainStyled, BodyStyled, FormStyled} from "./styled"
 //Components:
 import HeaderMenu from "../Components/HeaderMenu"
 import Footer from "../Components/Footer"
-import Home from "../Home"
 
 
 export default function Login({}) {
