@@ -11,31 +11,31 @@ import {
 
 interface HorizontalProductProps {
   productName: string;
-  size: string;
-  quantity: number;
-  price: string;
+  categoria: string;
+  quantidade: number;
+  preco: string;
   imageUrl: string; // Adicione a propriedade imageUrl
 }
 
 export const HorizontalProduct = ({
   productName,
-  size,
-  quantity,
-  price,
+  categoria,
+  quantidade,
+  preco,
   imageUrl, // Receba a propriedade imageUrl
 }: HorizontalProductProps): JSX.Element => {
     return (
         <HorizontalProductWrapper>
             <ProductImage>
-                <img src={imageUrl} alt={productName} /> {/* Use a tag <img /> aqui */}
+                <img src={imageUrl} alt={productName} />
             </ProductImage>
             <Frame>
                 <Title>{productName}</Title>
-                <TextWrapper>Size: {size}</TextWrapper>
-                <TextWrapper>Quantity: {quantity}</TextWrapper>
-                <Price>{price}</Price>
+                <TextWrapper>Categoria: {categoria}</TextWrapper>
+                <TextWrapper>Quantidade: {quantidade}</TextWrapper>
+                <Price>{preco}</Price>
             </Frame>
-            <RemoveButton>Remove</RemoveButton>
+            <RemoveButton>Retirar</RemoveButton>
         </HorizontalProductWrapper>
     );
 };

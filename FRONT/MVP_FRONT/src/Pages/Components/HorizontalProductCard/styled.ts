@@ -33,6 +33,8 @@ export const Frame = styled.div`
 
 export const Title = styled.div`
   color: #000000;
+  font-size: 25px;
+  font-weight: bold;
   margin-top: -1px;
   position: relative;
   white-space: nowrap;
@@ -47,21 +49,20 @@ export const TextWrapper = styled.div`
 
 export const Price = styled.div`
   color: #000000;
+  font-size: 25px;
   position: relative;
   width: 81px;
 `;
 
 export const RemoveButton = styled.div`
-  color: #000000;
+  display: flex;
+  justify-content: flex-end;
   font-family: "Public Sans-Regular", Helvetica;
   font-size: 14px;
   font-weight: 400;
-  height: 133px;
-  letter-spacing: -0.4px;
-  line-height: 20px;
-  margin-top: -1px;
-  position: relative;
   text-decoration: underline;
-  width: 50px;
   cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 `;
