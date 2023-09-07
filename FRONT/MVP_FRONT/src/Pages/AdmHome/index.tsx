@@ -33,7 +33,7 @@ export default function AdmHome({}) {
                 </thead>
                 <tbody>
                 <tr className="crud">
-                    <td>Peter</td>
+                    <td>i5 10120, foda</td>
                     <td>Computador</td>
                     <td>R$100</td>
                     <td>
