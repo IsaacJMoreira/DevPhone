@@ -12,7 +12,7 @@ productRoutes.post('/newproduct',
                     validateCredential.ADM, 
                     middlewareProducts.newProduct,
                     productControllers.create);
-productRoutes.post('/uploadimg',
+productRoutes.post('/uploadimg/:filename',
                     decryptProvider, 
                     validateCredential.ADM, 
                     upload.single('file'), //field name

@@ -12,6 +12,7 @@ type Product = {
   name: string;
   price: number;
   shortDescription: string;
+  description: string;
   stock: number;
 };
 
@@ -56,7 +57,7 @@ export const ProductsDetailsId: React.FC<ProductsDetailsIdProps> = ({ productId 
       </DivImg>
         <ProductDetailsSection>
           <h1>{product.name}</h1>
-          <p>{product.shortDescription}</p>
+          <p>{product.description}</p>
           <h2>Price: R$ {product.price.toFixed(2)}</h2>
           <DivGroupBut>
             <ButtonGlobal>Add to Cart</ButtonGlobal>

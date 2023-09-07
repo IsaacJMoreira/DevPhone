@@ -32,7 +32,7 @@ const productControllers = {
                 category,
                 stock,
                 price,
-                imgURL,
+                imgURL: `../../../../../uploads${imgURL}`,
                 description,
                 shortDescription,
                 alt
@@ -52,7 +52,7 @@ const productControllers = {
         const { file } = request;
         if (!(file === null || file === void 0 ? void 0 : file.destination))
             return response.status(400).json(errors_1.default.bad_request);
-        return response.sendStatus(201);
+        return response.status(201).json(file.filename);
     }),
     findOne: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = request.params;

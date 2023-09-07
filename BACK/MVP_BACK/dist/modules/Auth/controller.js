@@ -26,12 +26,18 @@ const AuthController = {
             });
             if (!usuario) {
                 return res.status(400).json(errors_1.default.bad_request);
-            } // "compareSync" compara duas info, retorna true , false;
+            }
+            if (usuario.credential === "INACTIVE") {
+                return res.status(403).json(errors_1.default.forbidden); //can't login if user doesn't have a active account
+            }
             if (!bcryptjs_1.default.compareSync(password, usuario.password)) {
                 return res.status(401).json(errors_1.default.shall_not_pass); //🧙 U SHALL NOT PASS
             }
             const token = jsonwebtoken_1.default.sign({ id: usuario.id, email: usuario.email, name: usuario.name, credential: usuario.credential }, secret_1.default.key);
-            return res.json(token);
+            return res.json({
+                credential: usuario.credential,
+                token: token
+            });
         });
     },
 };
