@@ -7,10 +7,11 @@ const multer_1 = __importDefault(require("multer"));
 const path_1 = __importDefault(require("path"));
 const storage = multer_1.default.diskStorage({
     destination: function (request, file, cb) {
-        cb(null, path_1.default.resolve('uploads'));
+        cb(null, path_1.default.resolve("../../uploads"));
     },
     filename: function (request, file, cb) {
-        cb(null, `${Date.now()}-${file.originalname.toLocaleLowerCase()}`);
+        const { filename } = request.params;
+        cb(null, `${filename}${path_1.default.extname(file.originalname).toLowerCase()}`);
     },
 });
 const upload = (0, multer_1.default)({

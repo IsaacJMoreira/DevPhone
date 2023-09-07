@@ -25,6 +25,7 @@ export const ShopArea = ()=>{
 
     try{
         React.useEffect ( ()=>{
+
             axios.get<Product[]>(`${baseURL}/allproducts`).then((response)=>{
                 setProducts(response);
             } )

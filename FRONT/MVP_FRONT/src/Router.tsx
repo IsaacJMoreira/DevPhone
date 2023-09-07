@@ -7,8 +7,9 @@ import {ButtonGlobal} from './Pages/Components/Buttons/ButtonGlobal';
 import Inicio from './Pages/Home';
 import Shop from './Pages/Shop';
 import Logon from "./Pages/Logon"
-import AdmHome from "./Pages/AdmHome"
-
+import AdmHome from './Pages/AdmHome';
+import ProductDetails from './Pages/ProductDetails';
+import CompraRealizada from './Pages/CompraRealizada';
 
 export default function Router(){
     const routes = createBrowserRouter([{
@@ -38,7 +39,15 @@ export default function Router(){
      {
         path: "/PainelAdm",
         element: <AdmHome/>
-     }]);
+     },
+     {
+        path: "/product/:productId",
+        element: <ProductDetails/>
+     },
+     {
+        path: "/CompraRealizada",
+        element: <CompraRealizada/>
+     },]);
 
     return <RouterProvider router={routes}/>
 }
