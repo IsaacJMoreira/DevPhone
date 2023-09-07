@@ -21,57 +21,48 @@ const isTest = true; //ATTENTION!!!! REMOVE!
 const orderControllers = {
     create: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         const { ownerID, items, addressNickName } = request.body;
+        //WE TEST IF ANY ITEM IS EITHER LOW IN STOCK OR MISSING COMPLETELY
         try {
             const userExistes = yield models_1.User.findById({ _id: ownerID }).count();
             console.log(userExistes);
             if (!userExistes)
                 return response.status(400).json(errors_1.default.bad_request);
-        }
-        catch (error) {
-            if (isTest)
-                console.log(error);
-            return response.status(500).json(errors_1.default.internal_server_error);
-        }
-        let lowStockFlag = 0; //🚩 
-        //WE TEST IF ANY ITEM IS EITHER LOW IN STOCK OR MISSING COMPLETELY
-        try {
             if (!items)
                 return response.status(400).json(errors_1.default.bad_request);
-            for (let i = 0; i < items.length; i++) {
-                const id = items[i].itemID;
-                const decrement = items[i].quantity;
-                const DBStockResponse = yield models_1.Product.findById({ _id: id });
-                if (!DBStockResponse)
-                    lowStockFlag++;
-                else if ((DBStockResponse.stock < decrement) || (!DBStockResponse.enabled))
-                    lowStockFlag++;
-            }
-            console.log("flag stock:", lowStockFlag);
-            if (lowStockFlag)
-                return response.status(400).json(errors_1.default.bad_request);
+            // for(let i = 0; i < items.length; i++){//
+            //     const id = items[i].itemID;
+            //     const decrement = items[i].quantity;
+            //     const DBStockResponse = await Product.findById({_id: id});
+            //     if(!DBStockResponse)  lowStockFlag++;
+            //     else if( (DBStockResponse.stock < decrement) || (!DBStockResponse.enabled) ) lowStockFlag++;
+            // }
+            const products = yield models_1.Product.find({
+                _id: {
+                    $in: items.map((item) => item.itemID) //type later ⚠ 
+                }
+            });
+            if (products.some((product) => product.stock <= 0))
+                return response.status(412).json("One or more products out of stock."); // errors
             //WE NEED TO TREAD LIGHTLY HERE. Any mistake means we fucked up opdating the new stock to the bank
-            let updateFlag = 0; //🚩 
-            for (let i = 0; i < items.length; i++) {
-                const id = items[i].itemID;
-                const decrement = items[i].quantity;
-                const DBUpdateResponse = yield models_1.Product.updateOne({
-                    _id: id
+            // let updateFlag: number = 0;//🚩 
+            // for(let i = 0; i < items.length; i++){
+            //     const id = items[i].itemID;
+            //     const decrement = items[i].quantity;
+            //     const DBUpdateResponse = await Product.updateOne({
+            //         _id: id
+            //     },{
+            //         $inc:{ stock: -decrement}
+            //     });
+            //     if(!DBUpdateResponse) updateFlag++;
+            // }
+            yield Promise.all(products.map((product) => {
+                const { quantity } = items.find((item) => item.itemID == product._id.toString());
+                return models_1.Product.updateOne({
+                    _id: product._id
                 }, {
-                    $inc: { stock: -decrement }
+                    $inc: { stock: -quantity }
                 });
-                if (!DBUpdateResponse)
-                    updateFlag++;
-            }
-            console.log("flag update:", updateFlag);
-            if (updateFlag)
-                throw new Error(`ERROR: ${new Date()} - Error updating stock while placing order.`);
-        }
-        catch (error) {
-            if (isTest)
-                console.log(error);
-            return response.status(500).json(errors_1.default.internal_server_error);
-        }
-        try {
+            }));
             const DBResponse = yield models_1.Order.create({
                 ownerID: ownerID.toString(),
                 items: items,
