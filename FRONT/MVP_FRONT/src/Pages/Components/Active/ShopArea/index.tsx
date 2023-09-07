@@ -1,12 +1,8 @@
 import * as React from 'react'
 import { ProductCard } from '../../ProductCard'
 import axios from 'axios'
-import { DivStyled } from "./styles"
 import baseURL from '../../../../../baseURL'
-import { ButtonShoparea } from '../../Buttons/ButtonGlobal'
-import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import Paginacao from '../../Paginacao'
 
 
 
@@ -21,24 +17,20 @@ type Product = {
 }
 
 export const ShopArea = ()=>{
-
-
     const [products, setProducts] = React.useState<Product[]>([]);
+
     let toRender: any = [];
     
    
 
     try{
         React.useEffect ( ()=>{
-
             axios.get<Product[]>(`${baseURL}/allproducts`).then((response)=>{
                 setProducts(response);
             } )
             .catch(error=>{
                 console.log("Error fetching data", error);
             });
-
-            
         }, []);
         }catch(error){
             console.log(error);
@@ -83,10 +75,8 @@ export const ShopArea = ()=>{
 
     return (
         <>
-               
             {toRender[0].map((product: Product)=>{
                         return(
-                            
                         <ProductCard
                         key = {`${product._id}`}
                         Src = {product.imgURL} 
@@ -96,19 +86,14 @@ export const ShopArea = ()=>{
                         Description= {product.shortDescription}
                         Stock={product.stock}
                         />
-
                         )
-                    
-
-                    })
-                    
-            }  
-
-            <DivStyled>
-            <ButtonShoparea>1</ButtonShoparea><label>de 10</label><Link to="/" className='seguinte'>Seguinte <FontAwesomeIcon icon={faArrowRight}/></Link>
-            </DivStyled>
-            
+                    })}
+            <Paginacao/>
         </>      
     ); 
     
 };
+
+//setSkip={function (value: React.SetStateAction<number>): void {
+//    throw new Error('Function not implemented.')
+//   }}

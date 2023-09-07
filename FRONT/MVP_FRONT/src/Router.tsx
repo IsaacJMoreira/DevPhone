@@ -7,6 +7,8 @@ import {ButtonGlobal} from './Pages/Components/Buttons/ButtonGlobal';
 import Inicio from './Pages/Home';
 import Shop from './Pages/Shop';
 import Logon from "./Pages/Logon"
+import AdmHome from "./Pages/AdmHome"
+
 
 export default function Router(){
     const routes = createBrowserRouter([{
@@ -14,13 +16,14 @@ export default function Router(){
         element: <Login/>
     },
     {
-        path: "LoginAccounts",
+        path: "/LoginAccounts",
         element: <LoginContas/>
      },
      {
          path: "/dev",
          element: <ButtonGlobal>Sou um botão</ButtonGlobal>
-     },{
+     },
+     {
          path: "/Home",
          element: <Inicio/>
      },
@@ -31,6 +34,10 @@ export default function Router(){
      {
         path: "/Logon",
         element: <Logon/>
+     },
+     {
+        path: "/PainelAdm",
+        element: <AdmHome/>
      }]);
 
     return <RouterProvider router={routes}/>
