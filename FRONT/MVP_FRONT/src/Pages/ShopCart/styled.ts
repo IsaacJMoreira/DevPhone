@@ -7,10 +7,15 @@ export const Line = styled.div`
     margin: 16px
     
 `
+export const BodySectionsContainer = styled.div`
+  display: flex;
+  justify-content: space-between; // Espaço entre as seções
+`
+
 export const BodySectionOne = styled.section`
 
-    display: flex;
-    justify-content: space-around;
+    flex: 1;
+    margin-left: 145px;
     padding: 50px 0;
     
     h1{
@@ -63,4 +68,30 @@ export const BodySectionOne = styled.section`
 `
 export const BodySectionTwo = styled.section`
 
+    flex: 1; 
+    margin-left: 145px;
+    padding: 50px 0; 
+
+    h1{
+        font-weight:bold;
+        font-size: 25px;
+    }
+    
 `
+export const InputCoupon = styled.input`
+  width: 400px;
+  padding: 10px;
+  font-size: 16px;
+  color: black; /* Cor do texto preto */
+  border: 2px solid #FFA500; /* Cor da borda laranja */
+  border-radius: 6px;
+
+  &::placeholder {
+    color: #999; /* Cor do texto de exemplo (placeholder) */
+  }
+
+  &:focus {
+    background-color: #fff; /* Cor de fundo ao focar no input */
+  }
+`;
+

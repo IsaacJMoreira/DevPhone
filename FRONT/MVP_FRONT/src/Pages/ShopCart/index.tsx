@@ -1,17 +1,27 @@
-import { BodySectionOne, BodySectionTwo,  Line } from "./styled";
+import { BodySectionsContainer,
+         BodySectionOne,
+         BodySectionTwo,
+         InputCoupon,
+         Line } from "./styled";
 import { Link } from "react-router-dom";
 
-import HeaderMenu from "../Components/HeaderMenu"
-import Footer from "../Components/Footer"
+import HeaderMenu from "../Components/HeaderMenu";
+import Footer from "../Components/Footer";
+import ButtonShop from "../Components/Buttons/ButtonShop";
 import PolicyBox from "../Components/PolicyBox";
+import PriceSummary from "../Components/PriceSummary";
 import { HorizontalProduct } from "../Components/HorizontalProductCard";
-import MotoG from "../../img/moto G antigo.jpg"
-import MotoE from "../../img/Moto E antigo.png"
+
+// Importações de imagens
+import MotoG from "../../img/moto G antigo.jpg";
+import MotoE from "../../img/Moto E antigo.png";
 
 
 export default function ShopCart() {
     return <>
         <HeaderMenu />
+
+            <BodySectionsContainer>
             <BodySectionOne>
                 <div>
                     <h1>{"Seu Carrinho"}</h1>
@@ -29,9 +39,15 @@ export default function ShopCart() {
             </BodySectionOne>
             <BodySectionTwo>
                 <div>
-
+                    <h1>Resumo do Pedido</h1>
+                    <InputCoupon type="text" placeholder="Coloque seu cupom aqui" />
+                    <PriceSummary />
+                    <Link to="/shopCheckout">
+                    <ButtonShop />
+                    </Link>
                 </div>
-            </BodySectionTwo>   
+            </BodySectionTwo> 
+            </BodySectionsContainer>  
         <Footer />
     </>
 }
