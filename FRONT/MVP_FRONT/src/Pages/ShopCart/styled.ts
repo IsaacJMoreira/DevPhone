@@ -82,16 +82,16 @@ export const InputCoupon = styled.input`
   width: 400px;
   padding: 10px;
   font-size: 16px;
-  color: black; /* Cor do texto preto */
-  border: 2px solid #FFA500; /* Cor da borda laranja */
+  color: black; 
+  border: 2px solid #FFA500; 
   border-radius: 6px;
 
   &::placeholder {
-    color: #999; /* Cor do texto de exemplo (placeholder) */
+    color: #999; 
   }
 
   &:focus {
-    background-color: #fff; /* Cor de fundo ao focar no input */
+    background-color: #fff; 
   }
 `;
 

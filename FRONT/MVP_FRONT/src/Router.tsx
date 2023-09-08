@@ -8,6 +8,7 @@ import Inicio from './Pages/Home';
 import Shop from './Pages/Shop';
 import Carrinho from './Pages/ShopCart';
 import Pagamento from './Pages/ShopCheckout';
+import AdmCadastro from './Pages/AdmCadastro';
 
 export default function Router(){
     const routes = createBrowserRouter([{
@@ -36,6 +37,11 @@ export default function Router(){
     {
         path: "/ShopCheckout",
         element: <Pagamento/>
+    },    
+    {
+        path: "/admCadastro",
+        element: <AdmCadastro/>
+        
     }]);
 
     return <RouterProvider router={routes}/>
