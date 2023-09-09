@@ -2,7 +2,8 @@ import * as React from 'react'
 import { ProductCard } from '../../ProductCard'
 import axios from 'axios'
 import baseURL from '../../../../../baseURL'
-import { ButtonGlobal } from '../../Buttons/ButtonGlobal'
+import Paginacao from '../../Paginacao'
+
 
 
 type Product = {
@@ -16,9 +17,8 @@ type Product = {
 }
 
 export const ShopArea = ()=>{
-
-
     const [products, setProducts] = React.useState<Product[]>([]);
+
     let toRender: any = [];
     
    
@@ -26,14 +26,12 @@ export const ShopArea = ()=>{
     try{
         React.useEffect ( ()=>{
 
-            axios.get<Product[]>(`${baseURL}/product/allproducts`).then((response)=>{
+            axios.get<Product[]>(`${baseURL}/allproducts`).then((response)=>{
                 setProducts(response);
             } )
             .catch(error=>{
                 console.log("Error fetching data", error);
             });
-
-            
         }, []);
         }catch(error){
             console.log(error);
@@ -78,10 +76,8 @@ export const ShopArea = ()=>{
 
     return (
         <>
-               
             {toRender[0].map((product: Product)=>{
                         return(
-                            
                         <ProductCard
                         key = {`${product._id}`}
                         Src = {product.imgURL} 
@@ -91,19 +87,14 @@ export const ShopArea = ()=>{
                         Description= {product.shortDescription}
                         Stock={product.stock}
                         />
-
                         )
-                    
-
-                    })
-                    
-            }  
-
-            <div>
-            <ButtonGlobal>1</ButtonGlobal>
-            </div>
-            
+                    })}
+            <Paginacao/>
         </>      
     ); 
     
 };
+
+//setSkip={function (value: React.SetStateAction<number>): void {
+//    throw new Error('Function not implemented.')
+//   }}

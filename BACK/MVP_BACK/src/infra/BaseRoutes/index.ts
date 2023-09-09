@@ -4,7 +4,6 @@ import orderRoutes from '../../modules/Order/routes';
 import categorieRoutes from '../../modules/Categorie/routes';
 import userRoutes from '../../modules/User/routes';
 import authRoutes from '../../modules/Auth/routes';
-import globalErrorHandler from "../../infra/middlewares/handleError";
 
 
 

@@ -54,7 +54,7 @@ const catergorieControllers = {
             const DBResponse = yield models_1.Categorie.find();
             if (!DBResponse.length)
                 return response.status(404).json(errors_1.default.not_found);
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
+            return response.status(200).json(DBResponse);
         }
         catch (error) {
             if (isTest)

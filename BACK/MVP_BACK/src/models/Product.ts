@@ -36,6 +36,7 @@ interface IProduct{
     description: string;
     shortDescription: string;
     alt: string;
+    enabled: boolean
 };
 
 const productSchema = new Schema<IProduct>(
@@ -62,12 +63,12 @@ const productSchema = new Schema<IProduct>(
      },],
 
      stock: { type: Number, required: true, default: 0},
-
      price:  { type: Number, required: true, default: 0},
      imgURL: { type: String, required: true},
      description: { type: String, required: true},
      shortDescription: { type: String, required: true},
      alt: { type: String, required: true},
+     enabled: { type: Boolean, required: true, default: true }
 
     },
     {

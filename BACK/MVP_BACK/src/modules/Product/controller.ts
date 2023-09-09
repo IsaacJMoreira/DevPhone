@@ -11,6 +11,7 @@ const isTest = true;//ATTENTION!!!! REMOVE!
 const productControllers = {
 
     create: async (request: Request, response: Response) => {
+
                 
         const {
             dimensions,
@@ -36,18 +37,26 @@ const productControllers = {
                 category,
                 stock,
                 price,
-                imgURL,
+                imgURL : `../../../../../uploads${imgURL}`,
                 description,
                 shortDescription,
                 alt
             }); 
             //IDEALY, WE WILL DEAL WITH THE IMAGES HERE
             if(isTest) console.log(DBResponse);
-            return response.header("Access-Control-Allow-Origin", "*").sendStatus(200);
+            return response.sendStatus(200);
         } catch (error) {
             if(isTest) console.log(error);
-            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);           
+            return response.status(500).json(errors.internal_server_error);           
         }       
+    },
+
+    imgUpload: async (request: Request, response: Response)=>{
+        const { file } = request;
+        
+        if(!file?.destination) return response.status(400).json(errors.bad_request);
+        return response.status(201).json(file.filename);
+
     },
 
     findOne: async (request: Request, response: Response) => {
@@ -55,70 +64,86 @@ const productControllers = {
         const { id } = request.params;
         try {
 
-            const DBResponse = await Product.findById(id);
+            const DBResponse = await Product.findById({_id: id});
 
-            if(!DBResponse) return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors.not_found);
+            if(!DBResponse) return response.status(404).json(errors.not_found);
 
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
+            return response.status(200).json(DBResponse);
          
         } catch (error) {
             
             if(isTest) console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);
+            response.status(500).json(errors.internal_server_error);
         }
     },
 
-    findByCategory: async (request: Request, response: Response) => {
+    //This can implement other search Items:
+    // Symbol.find(
+    //     {
+    //       $or: [
+    //         { 'symbol': { '$regex': input, '$options': 'i' } },
+    //         { 'name': { '$regex': input, '$options': 'i' } }
+    //       ]
+    //     }
+    //   ) 
+    search: async (request: Request, response: Response) => {
+             const category = request.query.category;
 
-            const { category } = request.params;
+             if(!category) return response.status(400).json(errors.bad_request);
+             
 
         try {
+           
+            const DBResponse =  await Product.find({ 'category.name': category });
             
-            const DBResponse =  await Product.find({ "category.name": category });
-            
-            if(!DBResponse.length) return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors.not_found);
+            if(!DBResponse.length) return response.status(404).json(errors.not_found);
 
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
+            return response.status(200).json(DBResponse);
 
         } catch (error) {
             if(isTest) console.log(error);
-            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);                       
+            return response.status(500).json(errors.internal_server_error);                       
         }
     },
 
-    findByName: async (request: Request, response: Response) => {
-
-            const { name } = request.params;
-
-        try {
-        
-            const DBResponse =  await Product.find({ name: name });            
-            
-            if(!DBResponse.length) return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors.not_found);
-
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
-
-        } catch (error) {
-            if(isTest) console.log(error);
-            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);          
-        }
-    },
 
     findAll: async (request: Request, response: Response) => {
 
         try {
             
-            const DBResponse = await Product.find();
+            const DBResponse = await Product.find().count();
             if(isTest)console.log("Alguém tá tentando acessar!");
             
-            if(!DBResponse.length) return response.header("Access-Control-Allow-Origin", "*").status(404).json(errors.not_found);
+            if(!DBResponse) return response.status(404).json(errors.not_found);
 
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
+            return response.status(200).json(DBResponse);
             
 
         } catch (error) {
             if(isTest) console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);            
+            response.status(500).json(errors.internal_server_error);            
+        }
+    },
+
+    paginate: async (request: Request, response: Response) => {
+
+        const { page, perPage } = request.query;
+
+        if(!(page && perPage)) return response.status(400).json(errors.bad_request);
+
+        try {
+            
+            const DBResponse = await Product.find().limit( Number(perPage) ).skip( Number(page) - 1 ).sort({ name: 'asc'});
+            if(isTest)console.log("page :" + page, "perPage: "+perPage);
+            
+            if(!DBResponse.length) return response.status(404).json(errors.not_found);
+
+            return response.status(200).json(DBResponse);
+            
+
+        } catch (error) {
+            if(isTest) console.log(error);
+            response.status(500).json(errors.internal_server_error);            
         }
     },
 
@@ -152,30 +177,13 @@ const productControllers = {
                 }
             );
 
-            return response.header("Access-Control-Allow-Origin", "*").status(204).json(DBResponse);
+            return response.status(204).json(DBResponse);
        
             
         } catch (error) {
             if(isTest) console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);            
+            response.status(500).json(errors.internal_server_error);            
         }
-    },
-
-    delete: async (request: Request, response: Response) => {
-
-        const { id } = request.params;
-
-        try {
-            
-            const DBResponse = await Product.findByIdAndDelete(id);
-
-            return response.header("Access-Control-Allow-Origin", "*").status(204);
-
-
-        } catch (error) {
-            if(isTest) console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors.internal_server_error);  
-        }        
     },
 }
 

@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const { validate, Joi } = require("express-validation");
 const validateLogin = validate({
     body: Joi.object().keys({
-        email: Joi.string(),
+        email: Joi.string().required(),
         password: Joi.string().required(),
     })
 });

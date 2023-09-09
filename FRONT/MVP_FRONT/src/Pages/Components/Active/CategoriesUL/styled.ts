@@ -8,21 +8,23 @@ import THEME from "../../../../theme";
 
 export const RadioButtonWrapper = styled.div`
 display:flex;
-flex-direction: row;
-justify-content: flex-end;
+justify-content: center;
 gap: 10px;
+font-size: 25px;
+border-bottom: 1px solid black;
+background-color: #F8F8FF;
+padding-top: 10px;
+padding-bottom: 10px;
 
 
-width: 200px;
-margin: 10px;
+
 
 .react-switch-checkbox {
-  height: 0;
-  width: 0;
   visibility: hidden;
 }
 
 .react-switch-label {
+  margin-top: 3px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -32,6 +34,7 @@ margin: 10px;
   background: grey;
   border-radius: 25px;
   position: relative;
+  
   transition: background-color .2s;
 }
 
@@ -46,6 +49,7 @@ margin: 10px;
   transition: 0.2s;
   background: black;
   box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+  
 }
 
 .react-switch-checkbox:checked + .react-switch-label .react-switch-button {
@@ -56,14 +60,12 @@ margin: 10px;
 
 .react-switch-label:active .react-switch-button {
   width: 50px;
-  ;
 }
 
 .react-switch-checkbox:checked + .react-switch-label {
-  background: ${THEME.COLORS.ORANGE_HIGHLIGHT} ;
+  background: ${THEME.COLORS.ORANGE_HIGHLIGHT};
 }
 
-
-`;
+`
 
 

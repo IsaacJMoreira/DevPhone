@@ -1,45 +1,37 @@
-/*****************************************
- *        🤓 ISAAC ESTEVE AQUI 🤓       *
- *****************************************/
-
-import { Request, Response } from "express";
 import { User } from "../../models";
-import cryptoProvider from "../../infra/providers/CryptoProvider"; 
+import bcrypt from "bcryptjs";
+import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import secret from "../../infra/config/secret"
 import errors from "../errors";
-import {tokenProvider, secret, expireTime} from '../../infra/providers/Token'
 
-const isTest = true;//ATTENTION!!!! REMOVE!
 
-const authControllers = {
-
-    login: async (request: Request, response: Response) => {
-        
-       const suposedUser = request.body;
-
-       const DBResponse = await User.findOne({ "email": suposedUser.email });
-
-       if(!DBResponse) return response.status(404).json(errors.not_found);
-
-        if(!cryptoProvider.compareSync(suposedUser.password, DBResponse.password)){
-            return response.status(401).json(errors.unauthorized);
-        }
-
-        const token = tokenProvider.sign({
-            id: DBResponse._id,
-            email: DBResponse.email,
-            name: DBResponse.name
-        },
-        
-        secret.key,
-        
-        {
-            expiresIn: expireTime 
-        }
-        );
-
-        return response.status(200).json(token);;
-    }
+ const AuthController = {
     
-}
+    async login(req: Request, res: Response){
+        const {email, password} = req.body
 
-export default  authControllers;
+        const usuario = await User.findOne(
+            {
+              email: email,
+            }
+        );
+        if(!usuario){
+            return res.status(400).json(errors.bad_request)
+        }
+        if(usuario.credential === "INACTIVE"){
+            return res.status(403).json(errors.forbidden);//can't login if user doesn't have a active account
+        }
+        if(!bcrypt.compareSync(password, usuario.password)){
+            return res.status(401).json(errors.shall_not_pass);//🧙 U SHALL NOT PASS
+        }
+
+        const token = jwt.sign({id: usuario.id, email: usuario.email, name: usuario.name, credential: usuario.credential}, secret.key);
+        return res.json({
+            credential: usuario.credential,
+            token: token
+        });
+    },
+};
+
+export default AuthController;

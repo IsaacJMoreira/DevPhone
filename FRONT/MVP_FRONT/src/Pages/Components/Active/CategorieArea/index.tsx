@@ -2,44 +2,48 @@ import * as React from 'react'
 import CategoriesUL from '../CategoriesUL'
 import axios from 'axios'
 import baseURL from '../../../../../baseURL'
+import { UlStyled } from './styled'
 
 
 type Categorie = {
     _id: string;
     name: string;
-    code: string
-}
+    code: string;
+};
 
-export const CategorieArea = ()=>{
+export const CategorieArea = () => {
+    const [categories, setCategories] = React.useState<Categorie[]>([]);
 
-
-    const [categorie, setCategorie] = React.useState<Categorie[]>([]);
-
-    React.useEffect ( ()=>{
-        axios.get<Categorie[]>(`${baseURL}/categories`).then((response)=>{
-            setCategorie(response);
-        } )
-        .catch(error=>{
+    const fetchData = async () => {
+        try {
+            const response = await axios.get<Categorie[]>(`${baseURL}/categories`);
+            setCategories(response.data);
+        } catch (error) {
             console.log("Error fetching data", error);
-        });
-    }, [])
+        }
+    };
 
-    if(!categorie.data) return (
-        <>
-            <h6>Sorry, nothing to select here 😥</h6>
-        </>
-    );
+    React.useEffect(() => {
+        fetchData();
+    }, []);
+
+    if (!categories.length) {
+        return (
+            <>
+                <h6>Sorry, nothing to select here 😥</h6>
+            </>
+        );
+    }
 
     return (
         <>
             
-          <ul>
-            <div>
+          <UlStyled>
+            <div className='div'>
                 <h3>Categories</h3> 
             </div>  
-          
-          <br />
-            {categorie.data.map((categorie: Categorie)=>{
+          <div>
+            {categories.map((categorie: Categorie)=>{
                         return(                               
                             <CategoriesUL
                                 key = {categorie._id} 
@@ -48,8 +52,8 @@ export const CategorieArea = ()=>{
                             />                    
                            );   
                          })
-            } 
-            </ul>    
+            } </div>
+            </UlStyled>    
         </>      
     ); 
     
