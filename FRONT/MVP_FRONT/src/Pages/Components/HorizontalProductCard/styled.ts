@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const HorizontalProductWrapper = styled.div`
-  align-items: flex-start;
   display: flex;
+  flex-wrap: wrap; 
   gap: 7px;
   position: relative;
-  width: 560px;
+  width: 100%; 
+  max-width: 560px; 
 `;
 
 export const ProductImage = styled.div`
@@ -13,6 +14,7 @@ export const ProductImage = styled.div`
   width: 129px;
   height: 133px;
   position: relative;
+
   img {
     width: 100%;
     height: 100%;
@@ -21,36 +23,30 @@ export const ProductImage = styled.div`
 `;
 
 export const Frame = styled.div`
-  align-items: flex-start;
   display: flex;
-  flex: 1;
   flex-direction: column;
-  flex-grow: 1;
   gap: 7px;
   padding: 6px 5px;
-  position: relative;
+  flex-grow: 1; 
 `;
 
 export const Title = styled.div`
   color: #000000;
   font-size: 25px;
   font-weight: bold;
-  margin-top: -1px;
-  position: relative;
   white-space: nowrap;
   width: fit-content;
 `;
 
 export const TextWrapper = styled.div`
   color: #000000;
-  position: relative;
-  width: 357px;
+  width: 100%; 
+  max-width: 357px; 
 `;
 
 export const Price = styled.div`
   color: #000000;
   font-size: 25px;
-  position: relative;
   width: 81px;
 `;
 
