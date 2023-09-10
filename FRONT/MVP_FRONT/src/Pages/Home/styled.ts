@@ -43,5 +43,34 @@ max-width: 620px;
 max-height: 90px; 
 }
 `
+export const CardContainerHome = styled.section`
+    background-color: #F8F8FF;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    box-sizing : border-box;
+    justify-content: space-evenly;
+    text-align: center;
 
+    width: 66vw; 
+    height: 30vw;
+    padding-top: 80px;;
+
+
+    div{
+        width: 100%;
+    }
+    h1{
+        font-size: 55px;
+        padding: 15px;
+        text-decoration: none;
+       
+    }
+
+    a.custom-link {
+     text-decoration: none; 
+     color: #000000;
+    }
+`;
 

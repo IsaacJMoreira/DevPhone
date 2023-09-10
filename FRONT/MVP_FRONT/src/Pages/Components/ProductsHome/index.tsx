@@ -6,6 +6,7 @@ import { CardHome } from './styled';
 interface ProductProps {
     Title: string;
     Description: string;
+    Price: number;
     Src: string;
     Alt: string;
 
@@ -14,6 +15,7 @@ interface ProductProps {
 export const ProductsHome: React.FC<ProductProps> = ({
     Title,
     Description,
+    Price,
     Src,
     Alt,
 
@@ -27,6 +29,7 @@ export const ProductsHome: React.FC<ProductProps> = ({
           <div>
             <h3>{Title}</h3>
             <p>{Description}</p>
+            <h6>R${Price}</h6>
           </div>
         </CardHome>
       );

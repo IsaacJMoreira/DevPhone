@@ -10,7 +10,10 @@ export const CardHome = styled.section`
     align-items:center;
     width: 15vw;
     max-height: 450px;
-    background-color: #F8F8FF;    
+    background-color: #F8F8FF;  
+    color: #000000;
+    text-decoration: none;
+    
     
     
     gap: 100px;
@@ -49,6 +52,10 @@ export const CardHome = styled.section`
 
     }
 
+    .custom-link {
+     text-decoration: none; 
+     color: #000000;
+    }
 `;
 
 

@@ -2,10 +2,9 @@ import * as React from 'react'
 import { ProductsHome } from '../../ProductsHome'
 import axios from 'axios'
 import baseURL from '../../../../../baseURL'
-import { CardProd } from './styles'
 import { Link } from 'react-router-dom'
-import { CardContainer } from '../../Containers/cardContainer/styles'
-import { ProductCard } from '../../ProductCard'
+import { CardContainerHome } from '../../../Home/styled'
+
 
 type Product = {
   _id: string;
@@ -40,31 +39,26 @@ export const HomeShopArea = () => {
     );
   }
 
-
+  
+  const displayedProducts = products.slice(0, productsToShow);
 
   return (
     <>
-      <CardContainer style={{width: "100vw"}}>
-      {products.map((product: Product) => (
-        
-        <Link to={`/product/${product._id}`} key={product._id}>
-          
-            
-                <ProductCard
-                  key = {`${product._id}`}
-                  Src = {product.imgURL} 
-                  Alt = {product.alt}
-                  Title= {product.name}
-                  Price= {product.price}
-                  Description= {product.shortDescription}
-                  Stock={product.stock}
-                />
-             
-          
-            
-        </Link>
-      ))}
-      </CardContainer>
+      <CardContainerHome style={{ width: "100vw" }}>
+        {displayedProducts.map((product: Product) => (
+          <Link to={`/product/${product._id}`} key={product._id}>
+            <ProductsHome
+              key={product._id}
+              Src={product.imgURL}
+              Alt={product.alt}
+              Title={product.name}
+              Price={product.price}
+              Description={product.shortDescription}
+
+            />
+          </Link>
+        ))}
+      </CardContainerHome>
     </>
   );
 };
