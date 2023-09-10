@@ -39,7 +39,7 @@ export default function AdmHome({}) {
                     <td>Computador</td>
                     <td>R$100</td>
                     <td>
-                        <button>ver detalhes</button>
+                        <button><Link to="/admDetails" className='admDetails' >ver detalhes</Link></button>
                         <button>excluir</button>
                     </td>
                 </tr>

@@ -52,10 +52,7 @@ export const CardHome = styled.section`
 
     }
 
-    .custom-link {
-     text-decoration: none; 
-     color: #000000;
-    }
+    
 `;
 
 

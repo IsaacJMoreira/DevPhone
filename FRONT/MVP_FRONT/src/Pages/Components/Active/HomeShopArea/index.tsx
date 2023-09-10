@@ -20,7 +20,7 @@ export const HomeShopArea = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get<Product[]>(`${baseURL}/products/?page=1&perPage=5`);
+      const response = await axios.get<Product[]>(`${baseURL}/products/`);
       setProducts(response.data);
     } catch (error) {
       console.log('Error fetching data', error);

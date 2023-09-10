@@ -13,6 +13,7 @@ import CompraRealizada from './Pages/CompraRealizada';
 import ShopCart from './Pages/ShopCart';
 import ShopCheckout from './Pages/ShopCheckout';
 import AdmCadastro from "./Pages/AdmCadastro"
+import AdmDetails from './Pages/AdmDetails';
 
 
 export default function Router(){
@@ -47,7 +48,11 @@ export default function Router(){
      {
       path: "/admCadastro",
       element: <AdmCadastro/>
-     } ,
+     },
+     {
+      path: "/admDetails",
+      element: <AdmDetails/>
+     },
      {
         path: "/product/:productId",
         element: <ProductDetails/>

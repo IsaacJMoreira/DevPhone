@@ -18,6 +18,7 @@ justify-content: center;
 export const SectionStyled = styled.section `
 
 
+
 div.divh1 {
     margin-bottom: 30px;
     h1 {
@@ -96,6 +97,11 @@ table {
             
             padding: 10px;
             margin: 10px;
+
+            .admDetails{
+                text-decoration: none;
+                color: ${THEME.COLORS.WHITE};
+            }
 
             &:hover {
                transition: 0.8s;
