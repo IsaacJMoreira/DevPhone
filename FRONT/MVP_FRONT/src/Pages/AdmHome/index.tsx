@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 //styleds: 
 import { BodyStyled, MainStyled, SectionStyled } from "./styled"
 
@@ -21,7 +23,7 @@ export default function AdmHome({}) {
                 <button className="buttonWhite">Usuários</button>
                 <button className="buttonWhite">Pedidos</button>
             </div>
-            <button className="adiconarNovo">Adicionar novo</button>
+            <Link to="/admCadastro" className="adiconarNovo">Adicionar novo</Link>
             <table>
                 <thead>
                 <tr>
