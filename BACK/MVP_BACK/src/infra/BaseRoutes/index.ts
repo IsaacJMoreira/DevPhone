@@ -4,6 +4,7 @@ import orderRoutes from '../../modules/Order/routes';
 import categorieRoutes from '../../modules/Categorie/routes';
 import userRoutes from '../../modules/User/routes';
 import authRoutes from '../../modules/Auth/routes';
+import globalErrorHandler from '../middlewares/handleError';
 
 
 
@@ -14,5 +15,7 @@ routes.use(orderRoutes);
 routes.use(categorieRoutes);
 routes.use(userRoutes);
 routes.use(authRoutes);
+
+routes.use(globalErrorHandler);
 
 export default routes;
