@@ -15,4 +15,6 @@ routes.use(categorieRoutes);
 routes.use(userRoutes);
 routes.use(authRoutes);
 
+routes.use(globalErrorHandler);
+
 export default routes;

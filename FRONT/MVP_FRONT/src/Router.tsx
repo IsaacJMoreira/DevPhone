@@ -6,10 +6,13 @@ import LoginContas from "./Pages/Login/LoginAccounts"
 import {ButtonGlobal} from './Pages/Components/Buttons/ButtonGlobal';
 import Inicio from './Pages/Home';
 import Shop from './Pages/Shop';
-import Logon from "./Pages/Logon";
+import Logon from "./Pages/Logon"
+import AdmHome from './Pages/AdmHome';
 import ProductDetails from './Pages/ProductDetails';
 import CompraRealizada from './Pages/CompraRealizada';
-
+import ShopCart from './Pages/ShopCart';
+import ShopCheckout from './Pages/ShopCheckout';
+import AdmCadastro from './Pages/AdmCadastro';
 
 export default function Router(){
     const routes = createBrowserRouter([{
@@ -17,13 +20,14 @@ export default function Router(){
         element: <Login/>
     },
     {
-        path: "LoginAccounts",
+        path: "/LoginAccounts",
         element: <LoginContas/>
      },
      {
          path: "/dev",
          element: <ButtonGlobal>Sou um botão</ButtonGlobal>
-     },{
+     },
+     {
          path: "/Home",
          element: <Inicio/>
      },
@@ -36,8 +40,24 @@ export default function Router(){
         element: <Logon/>
      },
      {
+        path: "/PainelAdm",
+        element: <AdmHome/>
+     },
+     {
+      path: "/admcadastro",
+      element: <AdmCadastro/>
+      },
+     {
         path: "/product/:productId",
         element: <ProductDetails/>
+     },
+     {
+        path: "/shopCart",
+        element: <ShopCart/>
+     },
+     {
+        path: "/shopCheckout",
+        element: <ShopCheckout/>
      },
      {
         path: "/CompraRealizada",
