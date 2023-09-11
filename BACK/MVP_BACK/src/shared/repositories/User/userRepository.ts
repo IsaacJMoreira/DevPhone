@@ -1,16 +1,18 @@
-import { ReturnDocument } from "mongodb";
 import { User } from "../../../models";
-import { UserModel, UserPayload } from "../../../models/User";
+import { UserPayload } from "../../../models/test/User";
+import IRepository from "../../../infra/core/IRepository";
+import { ModelStatic } from "sequelize";
 
 export default class UserRepository implements IRepository{
 
-model: UserModel
+model: ModelStatic <User>
 
-constructor(model: UserModel){
+constructor(model: ModelStatic<User>){
     this.model = model
 }
-async create (payload: Omit<UserPayload, 'created'|'updatedAt' >): Promise<IUser>{
-    throw new Error("Method not implemented.");
+async create (payload: Partial<User>): Promise<User>{
+    const result = await this.model.create({...payload,createdAt:new Date().toISOString(), updatedAt: new Date().toISOString()})
+    return result
 }
 async update (): Promise<void>{
     throw new Error("Method not implemented.");

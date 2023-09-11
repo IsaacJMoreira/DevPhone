@@ -1,6 +1,14 @@
 import {userRepository} from '.'
+import { db } from '../../../database/Db_test'
+import Scenario from '../../../infra/tests/Scenario' 
 
 describe('User repository', ()=> {
+    beforeEach(async()=>{
+        const scenario = new Scenario(db.instance)
+        await scenario.init()
+    })
+    
+    
     test('should create Use in Db',async () => {
         
     const payload = {
