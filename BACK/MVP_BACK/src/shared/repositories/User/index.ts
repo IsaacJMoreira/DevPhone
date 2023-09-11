@@ -1,4 +1,4 @@
 import { User } from "../../../models";
-import controller from "../../../modules/User/controller"; 
+import UserRepository from "./userRepository";
 
-export const controller = new controller(User); 
+export const userRepository = new UserRepository(User)

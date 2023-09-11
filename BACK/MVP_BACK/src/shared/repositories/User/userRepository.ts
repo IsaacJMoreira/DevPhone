@@ -1,19 +1,31 @@
-import { promises } from "dns"
-import User from "../../../modules/User/controller"
-import { error } from "console"
+import { ReturnDocument } from "mongodb";
+import { User } from "../../../models";
+import { UserModel, UserPayload } from "../../../models/User";
 
-export default class userRepository implements IRepository{
-    model: userModel 
+export default class UserRepository implements IRepository{
 
-    constructor(model:userModel){
-        this.model = model
-    }
+model: UserModel
 
-    async create(payload: Omit<userPayload, 'create'| 'update'>): promise<user>{
-       const result = await this.model.create({...payload, create:new Date().toISOString()})
-       return result
-    }
-    async update(): promise<void>{
-        throw new Error("Merhod not implement")
-    }
+constructor(model: UserModel){
+    this.model = model
+}
+async create (payload: Omit<UserPayload, 'created'|'updatedAt' >): Promise<IUser>{
+    throw new Error("Method not implemented.");
+}
+async update (): Promise<void>{
+    throw new Error("Method not implemented.");
+}
+async findone (): Promise<void>{
+    throw new Error("Method not implemented.");
+}
+async findall (): Promise<void>{
+    throw new Error("Method not implemented.");
+}
+async delete(): Promise<void>{
+    throw new Error("Method not implemented.");
+}
+async existBtid (): Promise<void>{
+    const result = await User.count({where: {id}})
+    return Boolean(result)
+}
 }

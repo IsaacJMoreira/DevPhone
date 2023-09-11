@@ -1,27 +1,18 @@
-import { number } from "joi";
-import { controller } from "./index";
+import {userRepository} from '.'
 
-describe('User crud repository', ()=>{
-    test('create user and save in DB', async ()=> {
+describe('User repository', ()=> {
+    test('should create Use in Db',async () => {
+        
+    const payload = {
+        nome: 'teste',
+        email: 'teste@email',
+        password: '10928310923' 
+    }
 
-        const payloadCreate = {
-        name:'Teste',
-        email:'Teste@email',
-        credential:'adm',
-        password:'12345',
-        };
-
-        const payloadUpdate = {
-        name:'Teste',
-        email:'Teste@email',
-        credential:'adm',
-        password:'12345',
-        };
-
-        const result = await controller.create(payloadCreate,payloadUpdate) 
-    
-        expect(result).toBeTruthy()
-        expect(typeof result.id === 'number').toBeTruthy()
+    const result = await userRepository.create(payload);
+    expect(result).toBeTruthy()
+    expect(typeof result.id === 'number').toBeTruthy()
+    expect(result.nome).toEqual(payload.nome)
+    expect(result.email).toEqual(payload.email)
     })
-    expect(test)
 })
