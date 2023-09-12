@@ -7,6 +7,6 @@ export class Scenario {
         this.instance = instance
     }
     async init() {
-        this.instance.query('')
+        this.instance.query('')//acrescentar as tabelas do banco 
     }
 }

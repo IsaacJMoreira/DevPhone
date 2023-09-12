@@ -4,7 +4,7 @@
   "description": "Final Project fot the BackEnd part of the GAMA FullStack BootCamp",
   "main": "dist/main.js",
   "scripts": {
-    "test": "NODE_ENV=test &&  jest",
+    "test": "jest",
     "start": "node -r dotenv/config dist/main.js",
     "build": "tsc",
     "dev": "ts-node-dev --respawn --ignore-watch node_modules -r dotenv/config src/index.ts dotenv_config_path=.env --files"
