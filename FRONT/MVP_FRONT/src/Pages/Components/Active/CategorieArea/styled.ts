@@ -6,7 +6,7 @@ export const UlStyled = styled.ul `
 div.div {
     text-align: center;
     font-size: 35px;
-    width: 30vw;
+    width: 20vw;
 }
 
 h3 { 

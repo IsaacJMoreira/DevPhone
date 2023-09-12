@@ -14,9 +14,15 @@ min-height: 50px;
 min-width: 120px;
 cursor: pointer;
 
-&:hover {
+a{
+    color: ${THEME.COLORS.WHITE};
+    text-decoration: none;
+}
+
+a:hover {
     color: ${THEME.COLORS.ORANGE_HIGHLIGHT};
     transition: 0.9s;
+    text-decoration: none;
 }
 
 `

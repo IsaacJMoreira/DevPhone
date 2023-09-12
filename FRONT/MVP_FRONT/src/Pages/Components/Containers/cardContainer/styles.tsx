@@ -12,7 +12,7 @@ export const CardContainer = styled.section`
     gap: 5px;    
     text-align: center;
     margin: none; 
-    width: 66vw; 
+    width: 75vw; 
     height: 50vw;
     overflow: auto;
     div{

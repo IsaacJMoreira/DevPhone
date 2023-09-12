@@ -6,7 +6,7 @@ import { Request, Response } from 'express'
 import { Categorie } from "../../models";
 import errors from "../errors";
 
-const isTest = true;//ATTENTION!!!! REMOVE!
+const isTest = false;//ATTENTION!!!! REMOVE!
 
 const catergorieControllers = {
 

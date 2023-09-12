@@ -11,7 +11,9 @@ import HeaderMenu from "../Components/HeaderMenu"
 import Footer from "../Components/Footer"
 import { CardContainer } from "../Components/Containers/cardContainer/styles";
 
-
+interface IShopArea {
+    categories: string[],
+};
 
 
 export default function Shop() {

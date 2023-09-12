@@ -13,6 +13,7 @@ type Product = {
     name: string;
     price: number;
     shortDescription: string;
+    link: string;
     stock: number,
 }
 
@@ -22,7 +23,7 @@ export const ShopArea = () => {
     const [productsList, setProductsList] = React.useState<Product[]>([]);
     const [page, setPage] = React.useState(1);
     const [totalPages, setTotalPage] = React.useState(1);
-    const [perPage, setPerPage] = React.useState(5);
+    const perPage = 8;
 
     const getProductList = async () => {
         try {
@@ -68,6 +69,7 @@ export const ShopArea = () => {
                         Price={product.price}
                         Description={product.shortDescription}
                         Stock={product.stock}
+                        link = {product._id}
                     />
                 )
             })}
