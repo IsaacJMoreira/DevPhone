@@ -17,7 +17,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const errors_1 = __importDefault(require("../errors"));
-const isTest = true; //ATTENTION!!!! REMOVE!
+const isTest = false; //ATTENTION!!!! REMOVE!
 const catergorieControllers = {
     create: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         const newCategorie = request.body;

@@ -25,7 +25,9 @@ const productSchema = new mongoose_1.Schema({
             code: { type: String, required: true },
             name: { type: String, required: true },
             fatherCategory: { type: String, required: true, default: "root" },
-        },],
+        }, {
+            _id: false
+        }],
     stock: { type: Number, required: true, default: 0 },
     price: { type: Number, required: true, default: 0 },
     imgURL: { type: String, required: true },
@@ -34,7 +36,7 @@ const productSchema = new mongoose_1.Schema({
     alt: { type: String, required: true },
     enabled: { type: Boolean, required: true, default: true }
 }, {
-    timestamps: true,
+    timestamps: true
 });
 const Product = (0, mongoose_1.model)('Product', productSchema);
 exports.default = Product;

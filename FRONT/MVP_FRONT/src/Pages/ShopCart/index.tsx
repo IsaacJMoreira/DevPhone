@@ -15,6 +15,7 @@ import { HorizontalProduct } from "../Components/HorizontalProductCard";
 // Importações de imagens
 import MotoG from "../../img/moto G antigo.jpg";
 import MotoE from "../../img/Moto E antigo.png";
+//import feio from "../../../../../uploads/feio.png"
 
 
 export default function ShopCart() {
@@ -23,7 +24,9 @@ export default function ShopCart() {
 
             <BodySectionsContainer>
             <BodySectionOne>
+                
                 <div>
+                    {/*console.log(feio)*/}
                     <h1>{"Seu Carrinho"}</h1>
                     <p>Não está pronto para finalizar a compra?</p>
                     <Link to="/Shop" className="shopLink">Continue comprando!</Link>

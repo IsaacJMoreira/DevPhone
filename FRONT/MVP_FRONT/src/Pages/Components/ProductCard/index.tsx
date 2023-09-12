@@ -3,7 +3,7 @@ import * as React from 'react'
 import { Card } from "../Containers/Card/styles";
 import { ButtonGlobal } from "../Buttons/ButtonGlobal";
 import { Link } from 'react-router-dom'
-interface ProductProps{
+interface ProductProps {
     Title: string;
     Description: string;
     Price: number;
@@ -19,15 +19,15 @@ export const ProductCard: React.FC<ProductProps> = ({
     Price,
     Src,
     Alt,
-    Stock, 
+    Stock,
     link
-}) =>{
-    const btnColor = !Stock? "gray" : "";
-    const btnText = !Stock? "Indisponível": "Comprar";
-    const enabled = !Stock? "none": "auto";
-    
-    return(
-    
+}) => {
+    const btnColor = !Stock ? "gray" : "";
+    const btnText = !Stock ? "Indisponível" : "Comprar";
+    const enabled = !Stock ? "none" : "auto";
+
+    return (
+
         <Card>
             <div>
                 <img src={Src} alt={Alt} />
@@ -38,9 +38,16 @@ export const ProductCard: React.FC<ProductProps> = ({
             </div>
             <div>
                 <h6>R${Price}</h6>
-                <ButtonGlobal style={{backgroundColor: `${btnColor}`, pointerEvents :`${enabled}`}}>{<Link to={`/product/${link}`} key={link}>{btnText}</Link>}</ButtonGlobal>
+                <ButtonGlobal style={{ backgroundColor: `${btnColor}`, pointerEvents: `${enabled}` }}>
+                    {
+                        <Link to={`/product/${link}`} key={link}>
+                            {btnText}
+                        </Link>
+                    }
+                </ButtonGlobal>
             </div>
-            
+
         </Card>
-    
-)}
+
+    )
+}
