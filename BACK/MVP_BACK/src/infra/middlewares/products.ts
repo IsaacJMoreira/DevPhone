@@ -12,16 +12,20 @@ const validatePost = validate({
             length: Joi.number().required(),
             dimension: Joi.string().min(1).max(3),
         }).required(),
-        category: Joi.object({
+        category: Joi.array().items(Joi.object({
             code: Joi.string().min(3).max(30).required(),
             name: Joi.string().min(3).max(30).required(),
             fatherCategory: Joi.string().min(1).max(30),
+        })).required(),
+        weight: Joi.object({
+            weight: Joi.number().min(1).required(),
+            dimension: Joi.string().min(1).max(10),
         }).required(),
         stock: Joi.number().required(),
         price: Joi.number().required(),
-        imgURL: Joi.string().min(9).max(2048).required(),
+        imgURL: Joi.string().min(5).max(2048).required(),
         description: Joi.string().min(10).max(2048).required(),
-        shortDesciption: Joi.string().min(30).max(140).required(),
+        shortDescription: Joi.string().min(30).max(140).required(),
         alt: Joi.string().min(3).max(30).required(),
         enabled: Joi.boolean(),        
     })
@@ -42,11 +46,15 @@ const validateUpdate = validate({
             name: Joi.string().min(3).max(30),
             fatherCategory: Joi.string().min(1).max(30),
         }),
+        weight: Joi.object({
+            weight: Joi.number().min(1),
+            dimension: Joi.string().min(2).max(10),
+        }),
         stock: Joi.number(),
         price: Joi.number(),
         imgURL: Joi.string().min(9).max(2048),
         description: Joi.string().min(10).max(2048),
-        shortDesciption: Joi.string().min(30).max(140),
+        shortDescription: Joi.string().min(30).max(140),
         alt: Joi.string().min(3).max(30),
         enabled: Joi.boolean(),        
     })

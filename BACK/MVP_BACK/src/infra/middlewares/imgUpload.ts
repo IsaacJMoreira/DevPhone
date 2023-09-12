@@ -6,6 +6,7 @@ import path from 'path';
 const storage = multer.diskStorage({
     destination: function (request, file, cb){
         cb(null, path.resolve("../../uploads"))
+        console.log(path.resolve("../../uploads"));
     },
     filename: function (request, file, cb){
         const { filename } = request.params

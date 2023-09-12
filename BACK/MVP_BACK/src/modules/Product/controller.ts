@@ -3,10 +3,11 @@
  *****************************************/
 
 import { Request, Response } from "express";
-import { Product } from "../../models";
+import { Product, Categorie } from "../../models";
 import errors from "../errors";
+import path from 'path';
 
-const isTest = true;//ATTENTION!!!! REMOVE!
+const isTest = false;//ATTENTION!!!! REMOVE!
 
 const productControllers = {
 
@@ -24,10 +25,20 @@ const productControllers = {
             imgURL,
             description,
             shortDescription,
-            alt
+            alt, 
         } = request.body;
-        //NEEDS TO RECEIVE E img FROM THE REQUEST
-        //USE THE FACTORY TO DEAL WITH THE IMAGE EXTENSIONS
+        
+        const categoryIsPresent = await Categorie.find({
+            code: {
+                $in: category.map((category: any) => category.code)//type later ⚠ 
+            }
+        });
+
+        console.log(categoryIsPresent);
+
+        if (categoryIsPresent.length <=0) return response.status(412).json("One or more category does not exist.");// errors
+        
+
         try {
             const DBResponse = await Product.create({
                 dimensions,
@@ -37,7 +48,7 @@ const productControllers = {
                 category,
                 stock,
                 price,
-                imgURL: `../../../../../uploads${imgURL}`,
+                imgURL:`${imgURL}`,//MUDE ISSO DE ACORDO COM SUA MAQUINA!!!
                 description,
                 shortDescription,
                 alt
@@ -53,9 +64,14 @@ const productControllers = {
 
     imgUpload: async (request: Request, response: Response) => {
         const { file } = request;
-
+        
         if (!file?.destination) return response.status(400).json(errors.bad_request);
-        return response.status(201).json(file.filename);
+        
+        const URL = `/@fs/${path.resolve("../../uploads")}/${file.filename}`;
+
+        const convertedURL = URL.replace(/^\\\\\?\\/,"").replace(/\\/g,'\/').replace(/\/\/+/g,'\/');
+        
+        return response.status(201).json(convertedURL);
 
     },
 
@@ -128,7 +144,7 @@ const productControllers = {
             const query = {};
 
             if (categories.length > 0) {
-                Object.assign(query, { 'category._id': { $in: categories } })
+                Object.assign(query, { 'category.code': { $in: categories } })
             }
 
             const totalProducts = await Product.count(query);

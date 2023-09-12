@@ -16,7 +16,7 @@ const express_1 = require("express");
 const models_1 = require("../../models");
 const errors_1 = __importDefault(require("../errors"));
 const CryptoProvider_1 = __importDefault(require("../../infra/providers/CryptoProvider"));
-const isTest = true;
+const isTest = false;
 const userControllers = {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {

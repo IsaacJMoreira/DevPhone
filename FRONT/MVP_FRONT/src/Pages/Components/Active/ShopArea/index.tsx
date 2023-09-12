@@ -2,7 +2,9 @@ import * as React from 'react'
 import { ProductCard } from '../../ProductCard'
 import axios from 'axios'
 import baseURL from '../../../../../baseURL';
-import {Paginate} from './styled';
+import { Paginate } from './styled';
+import { CardContainer } from '../../Containers/cardContainer/styles';
+import { CategorieArea } from '../CategorieArea';
 
 
 
@@ -13,6 +15,7 @@ type Product = {
     name: string;
     price: number;
     shortDescription: string;
+    link: string;
     stock: number,
 }
 
@@ -22,7 +25,7 @@ export const ShopArea = () => {
     const [productsList, setProductsList] = React.useState<Product[]>([]);
     const [page, setPage] = React.useState(1);
     const [totalPages, setTotalPage] = React.useState(1);
-    const [perPage, setPerPage] = React.useState(5);
+    const perPage = 8;
 
     const getProductList = async () => {
         try {
@@ -47,7 +50,7 @@ export const ShopArea = () => {
 
     React.useEffect(() => {
 
-        if(page > totalPages){
+        if (page > totalPages) {
             return
         }
 
@@ -57,35 +60,49 @@ export const ShopArea = () => {
     }, [page]);
 
     return (
+
         <>
-            {productsList.map((product: Product) => {
-                return (
-                    <ProductCard
-                        key={`${product._id}`}
-                        Src={product.imgURL}
-                        Alt={product.alt}
-                        Title={product.name}
-                        Price={product.price}
-                        Description={product.shortDescription}
-                        Stock={product.stock}
+            <div className="CategorieSection">
+                <CategorieArea />
+            </div>
+            <CardContainer>
+                <div>
+                    <h1>{"Recentes"}</h1>
+                </div>
+                {productsList.map((product: Product) => {
+                    return (
+                        <ProductCard
+                            key={`${product._id}`}
+                            Src={product.imgURL}
+                            Alt={product.alt}
+                            Title={product.name}
+                            Price={product.price}
+                            Description={product.shortDescription}
+                            Stock={product.stock}
+                            link={product._id}
+                        />
+                    )
+                })}
+
+                <div>
+                    <Paginate
+                        breakLabel="..."
+                        nextLabel="next >"
+                        onPageChange={handlePageClick}
+                        pageRangeDisplayed={5}
+                        pageCount={totalPages}
+                        previousLabel="< previous"
+                        renderOnZeroPageCount={null}
                     />
-                )
-            })}
-            
-                {/*<input type="number" value={perPage} onChange={(e)=> setPerPage(Number(e.target.value))} />*/}
-            <div>
-                <Paginate
-                    breakLabel="..."
-                    nextLabel="next >"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={5}
-                    pageCount={totalPages}
-                    previousLabel="< previous"
-                    renderOnZeroPageCount={null}
-                />
-            </div>   
-                     
-            
+                </div>
+
+            </CardContainer>
+
+
+            {/*<input type="number" value={perPage} onChange={(e)=> setPerPage(Number(e.target.value))} />*/}
+
+
+
         </>
     );
 
