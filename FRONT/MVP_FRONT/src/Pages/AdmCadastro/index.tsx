@@ -5,11 +5,6 @@ import {
      BodySection,
      SectionStyled,
      } from "./styled"
-import { useState } from "react"
-
-type types = {
-    setImage: FileList
-};
 
 export default function AdmCadastro() {
 

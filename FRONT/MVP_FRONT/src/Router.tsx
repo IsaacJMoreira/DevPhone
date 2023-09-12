@@ -29,7 +29,7 @@ export default function Router(){
          element: <ButtonGlobal>Sou um botão</ButtonGlobal>
      },
      {
-         path: "/Home",
+         path: "/",
          element: <Inicio/>
      },
      {
@@ -39,10 +39,6 @@ export default function Router(){
      {
         path: "/Logon",
         element: <Logon/>
-     },
-     {
-        path: "/PainelAdm",
-        element: <AdmHome/>
      },
      {
       path: "/admCadastro",

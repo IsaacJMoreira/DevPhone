@@ -63,4 +63,31 @@ a.carinho {
     text-decoration: none;
 }
 
+a.login {
+    color: #FFFAFA;
+    text-decoration: none;
+    position: relative;
+
+    &::after {
+      content: '';
+      width: 0%;
+      height: 2px;
+      background-color: #FFA500;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transition: 0.6s ease-in-out;
+   }
+
+   &:hover::after {
+      width: 100%;
+   }
+}
+
+`
+
+export const DivCarrinho = styled.div `
+display: flex;
+justify-content: flex-end;
+
 `

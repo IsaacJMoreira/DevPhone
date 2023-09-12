@@ -1,3 +1,4 @@
+import { useContext } from "react";
 
 //Styleds:
 import { MainStyled, FormStyled } from "./styled"
@@ -8,9 +9,8 @@ import Footer from "../Components/Footer"
 import ButtonShop from '../Components/Buttons/ButtonShop';
 import { HomeShopArea } from "../Components/Active/HomeShopArea";
 
-
-
 export default function Home() {
+    
     return <>
         <HeaderMenu />
         <MainStyled>
