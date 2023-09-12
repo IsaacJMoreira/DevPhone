@@ -12,7 +12,7 @@ const productControllers = {
 
     create: async (request: Request, response: Response) => {
 
-                
+
         const {
             dimensions,
             weight,
@@ -37,152 +37,158 @@ const productControllers = {
                 category,
                 stock,
                 price,
-                imgURL : `../../../../../uploads${imgURL}`,
+                imgURL: `../../../../../uploads${imgURL}`,
                 description,
                 shortDescription,
                 alt
-            }); 
+            });
             //IDEALY, WE WILL DEAL WITH THE IMAGES HERE
-            if(isTest) console.log(DBResponse);
+            if (isTest) console.log(DBResponse);
             return response.sendStatus(200);
         } catch (error) {
-            if(isTest) console.log(error);
-            return response.status(500).json(errors.internal_server_error);           
-        }       
+            if (isTest) console.log(error);
+            return response.status(500).json(errors.internal_server_error);
+        }
     },
 
-    imgUpload: async (request: Request, response: Response)=>{
+    imgUpload: async (request: Request, response: Response) => {
         const { file } = request;
-        
-        if(!file?.destination) return response.status(400).json(errors.bad_request);
+
+        if (!file?.destination) return response.status(400).json(errors.bad_request);
         return response.status(201).json(file.filename);
 
     },
 
     findOne: async (request: Request, response: Response) => {
-            
+
         const { id } = request.params;
         try {
 
-            const DBResponse = await Product.findById({_id: id});
+            const DBResponse = await Product.findById({ _id: id });
 
-            if(!DBResponse) return response.status(404).json(errors.not_found);
+            if (!DBResponse) return response.status(404).json(errors.not_found);
 
             return response.status(200).json(DBResponse);
-         
+
         } catch (error) {
-            
-            if(isTest) console.log(error);
+
+            if (isTest) console.log(error);
             response.status(500).json(errors.internal_server_error);
         }
     },
-
-    //This can implement other search Items:
-    // Symbol.find(
-    //     {
-    //       $or: [
-    //         { 'symbol': { '$regex': input, '$options': 'i' } },
-    //         { 'name': { '$regex': input, '$options': 'i' } }
-    //       ]
-    //     }
-    //   ) 
     search: async (request: Request, response: Response) => {
-             const category = request.query.category;
 
-             if(!category) return response.status(400).json(errors.bad_request);
-             
+        let { query } = request.query as {
+           query?: string
+        };
 
-        try {
-           
-            const DBResponse =  await Product.find({ 'category.name': category });
-            
-            if(!DBResponse.length) return response.status(404).json(errors.not_found);
+        console.log(query)
+        
 
-            return response.status(200).json(DBResponse);
-
-        } catch (error) {
-            if(isTest) console.log(error);
-            return response.status(500).json(errors.internal_server_error);                       
+        if (!query) {
+            query = "";
         }
-    },
 
-
-    findAll: async (request: Request, response: Response) => {
 
         try {
-            
-            const DBResponse = await Product.find().count();
-            if(isTest)console.log("Alguém tá tentando acessar!");
-            
-            if(!DBResponse) return response.status(404).json(errors.not_found);
+
+            const DBResponse = await Product.find(
+                {
+                    $or: [
+                        { 'category.name':  { '$regex': `${query}`, '$options': 'i'} },
+                        { 'name': { '$regex': `${query}`, '$options': 'i'}  }
+                    ]
+                });
+
+            if (!DBResponse.length) return response.status(404).json(errors.not_found);
+
+            console.log(DBResponse.length);
 
             return response.status(200).json(DBResponse);
-            
 
         } catch (error) {
-            if(isTest) console.log(error);
-            response.status(500).json(errors.internal_server_error);            
+            if (isTest) console.log(error);
+            return response.status(500).json(errors.internal_server_error);
         }
     },
 
     paginate: async (request: Request, response: Response) => {
 
-        const { page, perPage } = request.query;
+        const { page, perPage = 10, categories = [] } = request.query as {
+            page?: string,
+            perPage?: string,
+            categories?: string[]
+        };
 
-        if(!(page && perPage)) return response.status(400).json(errors.bad_request);
+        if (!(page && perPage)) return response.status(400).json(errors.bad_request);
 
         try {
-            
-            const DBResponse = await Product.find().limit( Number(perPage) ).skip( Number(page) - 1 ).sort({ name: 'asc'});
-            if(isTest)console.log("page :" + page, "perPage: "+perPage);
-            
-            if(!DBResponse.length) return response.status(404).json(errors.not_found);
+            const skip = (Number(page) - 1) * Number(perPage)
+            const limit = Number(perPage)
+            const query = {};
 
-            return response.status(200).json(DBResponse);
-            
+            if (categories.length > 0) {
+                Object.assign(query, { 'category._id': { $in: categories } })
+            }
+
+            const totalProducts = await Product.count(query);
+
+            const DBResponse = await Product.find(query).limit(limit).skip(skip).sort({ name: 'asc' });
+            if (isTest) console.log("page :" + page, "perPage: " + perPage);
+
+            if (!DBResponse.length) return response.status(404).json(errors.not_found);
+
+            const responseJSON = {
+                totalProducts: totalProducts,
+                totalPages: Math.ceil(totalProducts / Number(perPage)),
+                products: DBResponse,
+            }
+
+            return response.status(200).json(responseJSON);
+
 
         } catch (error) {
-            if(isTest) console.log(error);
-            response.status(500).json(errors.internal_server_error);            
+            if (isTest) console.log(error);
+            response.status(500).json(errors.internal_server_error);
         }
     },
 
     update: async (request: Request, response: Response) => {
-        
+
         const { id } = request.params
-        const { 
-                name, 
-                SKU, 
-                dimensions, 
-                weight, 
-                category, 
-                stock 
-            } = request.body;
+        const {
+            name,
+            SKU,
+            dimensions,
+            weight,
+            category,
+            stock
+        } = request.body;
 
         try {
 
             const DBResponse = await Product.updateOne(
                 {
                     _id: id
-                }, 
+                },
                 {
-                    $set:{
-                        name, 
-                        SKU, 
-                        dimensions, 
-                        weight, 
-                        category, 
+                    $set: {
+                        name,
+                        SKU,
+                        dimensions,
+                        weight,
+                        category,
                         stock
                     }
                 }
             );
 
             return response.status(204).json(DBResponse);
-       
-            
+
+
         } catch (error) {
-            if(isTest) console.log(error);
-            response.status(500).json(errors.internal_server_error);            
+            if (isTest) console.log(error);
+            response.status(500).json(errors.internal_server_error);
         }
     },
 }

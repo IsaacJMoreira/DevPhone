@@ -2,9 +2,10 @@ import styled from 'styled-components';
 
 export const PriceSummaryContainer = styled.div`
   font-size: 20px;
-  font-weight: bold;  
+  font-weight: bold;
   padding: 16px;
-  width: 300px;
+  max-width: 300px; 
+  width: 100%; 
 `;
 
 export const PriceLabel = styled.div`
@@ -12,7 +13,7 @@ export const PriceLabel = styled.div`
   font-weight: bold;
 `;
 
-export const PriceInput = styled.input`  
+export const PriceInput = styled.input`
   font-weight: bold;
   width: 100%;
   padding: 8px;

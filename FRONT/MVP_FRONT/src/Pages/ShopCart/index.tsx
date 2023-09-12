@@ -2,12 +2,12 @@ import { BodySectionsContainer,
          BodySectionOne,
          BodySectionTwo,
          InputCoupon,
-         Line } from "./styled";
+         Line, 
+         ButtonShopCheckout} from "./styled";
 import { Link } from "react-router-dom";
 
 import HeaderMenu from "../Components/HeaderMenu";
 import Footer from "../Components/Footer";
-import ButtonShop from "../Components/Buttons/ButtonShop";
 import PolicyBox from "../Components/PolicyBox";
 import PriceSummary from "../Components/PriceSummary";
 import { HorizontalProduct } from "../Components/HorizontalProductCard";
@@ -43,8 +43,7 @@ export default function ShopCart() {
                     <InputCoupon type="text" placeholder="Coloque seu cupom aqui" />
                     <PriceSummary />
                     <Link to="/shopCheckout">
-                    <ButtonShop />
-                    </Link>
+                    <ButtonShopCheckout>Finalizar Compras</ButtonShopCheckout></Link>
                 </div>
             </BodySectionTwo> 
             </BodySectionsContainer>  

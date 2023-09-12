@@ -109,16 +109,22 @@ const productControllers = {
         }
     }),
     paginate: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { page, perPage } = request.query;
+        const { page, perPage = 10, categories = [] } = request.query;
         if (!(page && perPage))
             return response.status(400).json(errors_1.default.bad_request);
         try {
-            const DBResponse = yield models_1.Product.find().limit(Number(perPage)).skip(Number(page) - 1).sort({ name: 'asc' });
+            const totalProducts = yield models_1.Product.count();
+            const DBResponse = yield models_1.Product.find({ 'category._id': { $in: categories } }).limit(Number(perPage)).skip(Number(page) - 1).sort({ name: 'asc' });
             if (isTest)
                 console.log("page :" + page, "perPage: " + perPage);
             if (!DBResponse.length)
                 return response.status(404).json(errors_1.default.not_found);
-            return response.status(200).json(DBResponse);
+            const responseJSON = {
+                totalProducts: totalProducts,
+                totalPages: Math.ceil(totalProducts / Number(perPage)),
+                products: DBResponse,
+            };
+            return response.status(200).json(responseJSON);
         }
         catch (error) {
             if (isTest)

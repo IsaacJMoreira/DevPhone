@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { ProductCard } from '../../ProductCard'
 import axios from 'axios'
-import baseURL from '../../../../../baseURL'
-import Paginacao from '../../Paginacao'
+import baseURL from '../../../../../baseURL';
+import {Paginate} from './styled';
 
 
 
@@ -13,88 +13,81 @@ type Product = {
     name: string;
     price: number;
     shortDescription: string;
-    stock: number
+    stock: number,
 }
 
-export const ShopArea = ()=>{
-    const [products, setProducts] = React.useState<Product[]>([]);
 
-    let toRender: any = [];
-    
-   
+export const ShopArea = () => {
 
-    try{
-        React.useEffect ( ()=>{
+    const [productsList, setProductsList] = React.useState<Product[]>([]);
+    const [page, setPage] = React.useState(1);
+    const [totalPages, setTotalPage] = React.useState(1);
+    const [perPage, setPerPage] = React.useState(5);
 
-            axios.get<Product[]>(`${baseURL}/allproducts`).then((response)=>{
-                setProducts(response);
-            } )
-            .catch(error=>{
-                console.log("Error fetching data", error);
-            });
-        }, []);
-        }catch(error){
+    const getProductList = async () => {
+        try {
+            const list = await axios.get(`${baseURL}/products/?page=${page}&perPage=${perPage}`);
+            setProductsList(list.data.products);
+
+            setTotalPage(list.data.totalPages)
+        } catch (error) {
             console.log(error);
         }
 
-    
-        try {
-            //TODO: Remove all the logs!!!
-            console.log("Total de produtos:",products.data.length);
-            const fullPages = Math.floor(products.data.length/10);
-            const remeinderOfProducts = products.data.length%10; 
-            console.log("Pgs completas:",fullPages, "|Última pg terá:", remeinderOfProducts, "produtos");
-            const pages: number = fullPages + (remeinderOfProducts > 0? 1 : 0);
-            console.log("Total de pgs: ", pages);
-            for(let i = 0; i < fullPages; i++){
-                 toRender.push([]);
-                
-                for(let j = 0; j < 10; j++){
-                    toRender[i].push(products.data[i*10+j]);
-                }
-            }
+    }
 
-            if(remeinderOfProducts) toRender.push([]);
 
-            for(let i = 10 * fullPages ; i < 10 * fullPages + remeinderOfProducts; i++ ){
-                
-                toRender[fullPages].push(products.data[i]);
-            }
+    // Invoke when user click to request another page.
+    const handlePageClick = (event: { selected: number }) => {
+        console.log(
+            `User requested page number ${event.selected}`
+        );
+        setPage(event.selected + 1);
+    };
 
-            console.log("O novo array de produtos agora é assim:",toRender);
+    React.useEffect(() => {
 
-        } catch (error) {
-            console.log("erro ao buscar dados: ", error);   
+        if(page > totalPages){
+            return
         }
-        
 
-    if(!products.data) return (
-        <>
-            <h6>Sorry, nothing to buy here</h6>
-        </>
-    );
+        getProductList();//gets the first page to be rendered
+
+
+    }, [page]);
 
     return (
         <>
-            {toRender[0].map((product: Product)=>{
-                        return(
-                        <ProductCard
-                        key = {`${product._id}`}
-                        Src = {product.imgURL} 
-                        Alt = {product.alt}
-                        Title= {product.name}
-                        Price= {product.price}
-                        Description= {product.shortDescription}
+            {productsList.map((product: Product) => {
+                return (
+                    <ProductCard
+                        key={`${product._id}`}
+                        Src={product.imgURL}
+                        Alt={product.alt}
+                        Title={product.name}
+                        Price={product.price}
+                        Description={product.shortDescription}
                         Stock={product.stock}
-                        />
-                        )
-                    })}
-            <Paginacao/>
-        </>      
-    ); 
-    
-};
+                    />
+                )
+            })}
+            
+                {/*<input type="number" value={perPage} onChange={(e)=> setPerPage(Number(e.target.value))} />*/}
+            <div>
+                <Paginate
+                    breakLabel="..."
+                    nextLabel="next >"
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={5}
+                    pageCount={totalPages}
+                    previousLabel="< previous"
+                    renderOnZeroPageCount={null}
+                />
+            </div>   
+                     
+            
+        </>
+    );
 
-//setSkip={function (value: React.SetStateAction<number>): void {
-//    throw new Error('Function not implemented.')
-//   }}
+
+}

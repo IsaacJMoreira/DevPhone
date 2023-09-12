@@ -1,97 +1,114 @@
 import styled from "styled-components"
 
 export const Line = styled.div`
-    width: 560px;
+    width: 100%;
     height: 2px;
     background-color: black;
-    margin: 16px
-    
+    margin: 16px;
 `
+
 export const BodySectionsContainer = styled.div`
-  display: flex;
-  justify-content: space-between; // Espaço entre as seções
+    display: flex;
+    flex-direction: column; 
+
+    @media (min-width: 768px) { 
+        flex-direction: row;
+    }
 `
 
 export const BodySectionOne = styled.section`
-
     flex: 1;
-    margin-left: 145px;
-    padding: 50px 0;
-    
-    h1{
+    padding: 5%;
+    margin-left: 2%;
+
+    h1 {
         font-weight: bold;
-        font-size: 45px;
+        font-size: 30px;
         margin-bottom: 15px;
     }
 
-    p{
-        font-size: 25px;
+    p {
+        font-size: 18px;
     }
 
-    a.shopLink{
+    a.shopLink {
         color: black;
-        font-size: 25px;
+        font-size: 18px;
         font-weight: bold;
-        text-decoration: none; 
+        text-decoration: none;
         position: relative;
-        
+
         &::after {
-        content: '';
-        width: 0%;
-        height: 2px;
-        background-color: #FFA500;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        transition: 0.6s ease-in-out;
+            content: '';
+            width: 0%;
+            height: 2px;
+            background-color: #FFA500;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            transition: 0.6s ease-in-out;
         }
 
         &:hover::after {
-        width: 100%;
+            width: 100%;
         }
     }
 
-    div.boxOne{
+    div.boxOne,
+    div.boxTwo {
         margin: 5%;
     }
 
-    div.boxTwo{
-        margin: 5%;
-    }
-
-    h1.pedidos{
+    h1.pedidos {
         font-weight: bold;
-        font-size: 25px;
-        margin-top: 20%;
+        font-size: 18px;
+        margin-top: 15%;
     }
-    
 `
+
 export const BodySectionTwo = styled.section`
+    flex: 1;
+    padding: 5%;
+    margin-left: 10%;
+    margin-top: 1%;
 
-    flex: 1; 
-    margin-left: 145px;
-    padding: 50px 0; 
-
-    h1{
-        font-weight:bold;
-        font-size: 25px;
+    h1 {
+        font-weight: bold;
+        font-size: 18px;
     }
-    
 `
+
 export const InputCoupon = styled.input`
-  width: 400px;
-  padding: 10px;
-  font-size: 16px;
-  color: black; 
-  border: 2px solid #FFA500; 
-  border-radius: 6px;
+    width: 75%;
+    padding: 10px;
+    font-size: 16px;
+    color: black;
+    border: 2px solid #FFA500;
+    border-radius: 6px;
 
-  &::placeholder {
-    color: #999; 
-  }
+    &::placeholder {
+        color: #999;
+    }
 
-  &:focus {
-    background-color: #fff; 
-  }
+    &:focus {
+        background-color: #fff;
+    }
 `;
 
+export const ButtonShopCheckout = styled.button`
+border-color: #000000;
+background-color: #ffffff;
+color: #000000;
+font-weight: bolder;
+font-size: 18px;
+padding: 10px 10px;
+width: 194px;
+cursor: pointer;
+margin-top: 50px;
+margin-left: 3%;
+
+&:hover {
+  color: #ffa500;
+  transition: 0.9s;
+}
+`;

@@ -24,7 +24,7 @@ return <>
                <h1>{"Finalize suas Compras"}</h1>
                <p>Escolha o frete</p>
 
-               <Link to="/shopCheckout">
+               <Link to="/comprarealizada">
                <ButtonShop />
                </Link>
             </div>    

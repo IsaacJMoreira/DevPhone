@@ -12,8 +12,7 @@ import ProductDetails from './Pages/ProductDetails';
 import CompraRealizada from './Pages/CompraRealizada';
 import ShopCart from './Pages/ShopCart';
 import ShopCheckout from './Pages/ShopCheckout';
-import AdmCadastro from "./Pages/AdmCadastro"
-
+import AdmCadastro from './Pages/AdmCadastro';
 
 export default function Router(){
     const routes = createBrowserRouter([{
@@ -41,9 +40,13 @@ export default function Router(){
         element: <Logon/>
      },
      {
-      path: "/admCadastro",
+        path: "/PainelAdm",
+        element: <AdmHome/>
+     },
+     {
+      path: "/admcadastro",
       element: <AdmCadastro/>
-     } ,
+      },
      {
         path: "/product/:productId",
         element: <ProductDetails/>
