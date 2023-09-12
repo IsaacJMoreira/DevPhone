@@ -13,7 +13,6 @@ const productRoutes = (0, express_1.Router)();
 productRoutes.post('/newproduct', auth_1.default, validadeCredential_1.default.ADM, products_1.default.newProduct, controller_1.default.create);
 productRoutes.post('/uploadimg/:filename', auth_1.default, validadeCredential_1.default.ADM, imgUpload_1.default.single('file'), //field name
 controller_1.default.imgUpload);
-productRoutes.get('/allproducts', controller_1.default.findAll);
 productRoutes.get('/products/', controller_1.default.paginate);
 productRoutes.get('/product/:id', controller_1.default.findOne);
 productRoutes.get('/products/search', controller_1.default.search);

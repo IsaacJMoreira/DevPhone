@@ -68,23 +68,22 @@ const productControllers = {
             response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
-    //This can implement other search Items:
-    // Symbol.find(
-    //     {
-    //       $or: [
-    //         { 'symbol': { '$regex': input, '$options': 'i' } },
-    //         { 'name': { '$regex': input, '$options': 'i' } }
-    //       ]
-    //     }
-    //   ) 
     search: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const category = request.query.category;
-        if (!category)
-            return response.status(400).json(errors_1.default.bad_request);
+        let { query } = request.query;
+        console.log(query);
+        if (!query) {
+            query = "";
+        }
         try {
-            const DBResponse = yield models_1.Product.find({ 'category.name': category });
+            const DBResponse = yield models_1.Product.find({
+                $or: [
+                    { 'category.name': { '$regex': `${query}`, '$options': 'i' } },
+                    { 'name': { '$regex': `${query}`, '$options': 'i' } }
+                ]
+            });
             if (!DBResponse.length)
                 return response.status(404).json(errors_1.default.not_found);
+            console.log(DBResponse.length);
             return response.status(200).json(DBResponse);
         }
         catch (error) {
@@ -93,28 +92,19 @@ const productControllers = {
             return response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
-    findAll: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            const DBResponse = yield models_1.Product.find().count();
-            if (isTest)
-                console.log("Alguém tá tentando acessar!");
-            if (!DBResponse)
-                return response.status(404).json(errors_1.default.not_found);
-            return response.status(200).json(DBResponse);
-        }
-        catch (error) {
-            if (isTest)
-                console.log(error);
-            response.status(500).json(errors_1.default.internal_server_error);
-        }
-    }),
     paginate: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         const { page, perPage = 10, categories = [] } = request.query;
         if (!(page && perPage))
             return response.status(400).json(errors_1.default.bad_request);
         try {
-            const totalProducts = yield models_1.Product.count();
-            const DBResponse = yield models_1.Product.find({ 'category._id': { $in: categories } }).limit(Number(perPage)).skip(Number(page) - 1).sort({ name: 'asc' });
+            const skip = (Number(page) - 1) * Number(perPage);
+            const limit = Number(perPage);
+            const query = {};
+            if (categories.length > 0) {
+                Object.assign(query, { 'category._id': { $in: categories } });
+            }
+            const totalProducts = yield models_1.Product.count(query);
+            const DBResponse = yield models_1.Product.find(query).limit(limit).skip(skip).sort({ name: 'asc' });
             if (isTest)
                 console.log("page :" + page, "perPage: " + perPage);
             if (!DBResponse.length)
