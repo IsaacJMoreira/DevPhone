@@ -8,7 +8,8 @@ import { UlStyled } from './styled'
 type Categorie = {
     _id: string;
     name: string;
-    code:string
+    code:string;
+    enabled: boolean;
 };
 
 interface ICategorieArea{
@@ -50,7 +51,8 @@ export const CategorieArea: React.FC<ICategorieArea> = ({
             </div>  
           <div>
             {categories.map((categorie: Categorie)=>{
-                        return(                               
+                        return(
+                            categorie.enabled &&                               
                             <CategoriesUL
                                 key = {categorie._id} 
                                 id = {`i${categorie._id}`}
