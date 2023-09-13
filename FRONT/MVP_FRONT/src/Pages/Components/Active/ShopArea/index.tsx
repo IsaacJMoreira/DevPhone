@@ -31,16 +31,19 @@ export const ShopArea: React.FC<ISearch> = ({
     const [productsList, setProductsList] = React.useState<Product[]>([]);
     const [page, setPage] = React.useState(1);
     const [totalPages, setTotalPage] = React.useState(1);
+    const [status, setStatus] = React.useState(200);
     const perPage = 8;
 
     const getProductList = async () => {
         try {
             const list = await axios.get(`${baseURL}/products/?page=${page}&perPage=${perPage}&searchTerm=${searchTerm}`);
             setProductsList(list.data.products);
+            setStatus(list.status);
+
 
             setTotalPage(list.data.totalPages)
         } catch (error) {
-            console.log(error);
+            setStatus(404);
         }
 
     }
@@ -73,25 +76,30 @@ export const ShopArea: React.FC<ISearch> = ({
             </div>
             <CardContainer>
                 <div>
-                    <h1>{searchTerm? `Reseultados para: "${searchTerm}"`: "Todos os Produtos"}</h1>
+                    <h1>{searchTerm ? `Resultados para: "${searchTerm}"` : "Todos os Produtos"}</h1>
+                    <div>
+                        <h2>{status === 404 ? "Nenhum resultado encontrado" : ""}</h2>
+                    </div>
                     <br />
                 </div>
                 {productsList.map((product: Product) => {
                     return (
-                        <ProductCard
-                            key={`${product._id}`}
-                            Src={product.imgURL}
-                            Alt={product.alt}
-                            Title={product.name}
-                            Price={product.price}
-                            Description={product.shortDescription}
-                            Stock={product.stock}
-                            link={product._id}
-                        />
+                        status === 200 &&
+                            <ProductCard
+                                key={`${product._id}`}
+                                Src={product.imgURL}
+                                Alt={product.alt}
+                                Title={product.name}
+                                Price={product.price}
+                                Description={product.shortDescription}
+                                Stock={product.stock}
+                                link={product._id}
+                            />
                     )
                 })}
 
-                <div>
+                {
+                status === 200 && <div>
                     <Paginate
                         breakLabel="..."
                         nextLabel="next >"
@@ -101,7 +109,7 @@ export const ShopArea: React.FC<ISearch> = ({
                         previousLabel="< previous"
                         renderOnZeroPageCount={null}
                     />
-                </div>
+                </div>}
 
             </CardContainer>
 
