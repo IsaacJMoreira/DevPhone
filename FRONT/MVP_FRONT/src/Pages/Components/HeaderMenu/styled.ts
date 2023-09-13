@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import THEME from "../../../theme"
 
 export const HeaderStyled = styled.header `
 background-color: #000000;
@@ -32,7 +33,7 @@ input {
     color: #FFFAFA;
     background-color: #000000;
     border: none;
-    width: 500px;
+    width: 33vw;
     outline: #000000;
 }
 
@@ -46,7 +47,7 @@ a.menu {
       content: '';
       width: 0%;
       height: 2px;
-      background-color: #FFA500;
+      background-color: ${THEME.COLORS.ORANGE_HIGHLIGHT};
       position: absolute;
       bottom: 0;
       left: 0;
@@ -61,6 +62,12 @@ a.menu {
 a.carinho {
     color: #FFFAFA;
     text-decoration: none;
+}
+
+a.searchIcon {
+    color: ${THEME.COLORS.WHITE};
+    text-decoration: none;
+    margin-right: none;
 }
 
 `
