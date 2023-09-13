@@ -8,10 +8,16 @@ import { UlStyled } from './styled'
 type Categorie = {
     _id: string;
     name: string;
-    code: string;
+    code:string
 };
 
-export const CategorieArea = () => {
+interface ICategorieArea{
+    onChangeFunction?: ()=> void;
+}
+
+export const CategorieArea: React.FC<ICategorieArea> = ({
+    onChangeFunction,
+}) => {
     const [categories, setCategories] = React.useState<Categorie[]>([]);
 
     const fetchData = async () => {
@@ -49,6 +55,8 @@ export const CategorieArea = () => {
                                 key = {categorie._id} 
                                 id = {`i${categorie._id}`}
                                 name = {categorie.name}
+                                handleCheckfunction={onChangeFunction}
+                                code = {categorie.code}
                             />                    
                            );   
                          })

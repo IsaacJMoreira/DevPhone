@@ -26,6 +26,7 @@ export default function Shop() {
 
             <ShopArea
                 searchTerm={searchInput}
+                categoriesList={[]}
             />
 
         </BodySection>
