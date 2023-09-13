@@ -26,8 +26,7 @@ interface ISearch {
 
 
 export const ShopArea: React.FC<ISearch> = ({
-    searchTerm,
-    categoriesList
+    searchTerm
 }) => {
 
     const [productsTotal, setProductsTotal] = React.useState(0);
