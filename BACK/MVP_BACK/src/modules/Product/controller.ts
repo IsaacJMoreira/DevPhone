@@ -25,9 +25,9 @@ const productControllers = {
             imgURL,
             description,
             shortDescription,
-            alt, 
+            alt,
         } = request.body;
-        
+
         const categoryIsPresent = await Categorie.find({
             code: {
                 $in: category.map((category: any) => category.code)//type later ⚠ 
@@ -36,8 +36,8 @@ const productControllers = {
 
         console.log(categoryIsPresent);
 
-        if (categoryIsPresent.length <=0) return response.status(412).json("One or more category does not exist.");// errors
-        
+        if (categoryIsPresent.length <= 0) return response.status(412).json("One or more category does not exist.");// errors
+
 
         try {
             const DBResponse = await Product.create({
@@ -48,7 +48,7 @@ const productControllers = {
                 category,
                 stock,
                 price,
-                imgURL:`${imgURL}`,//MUDE ISSO DE ACORDO COM SUA MAQUINA!!!
+                imgURL: `${imgURL}`,//MUDE ISSO DE ACORDO COM SUA MAQUINA!!!
                 description,
                 shortDescription,
                 alt
@@ -64,13 +64,13 @@ const productControllers = {
 
     imgUpload: async (request: Request, response: Response) => {
         const { file } = request;
-        
+
         if (!file?.destination) return response.status(400).json(errors.bad_request);
-        
+
         const URL = `/@fs/${path.resolve("../../uploads")}/${file.filename}`;
 
-        const convertedURL = URL.replace(/^\\\\\?\\/,"").replace(/\\/g,'\/').replace(/\/\/+/g,'\/');
-        
+        const convertedURL = URL.replace(/^\\\\\?\\/, "").replace(/\\/g, '\/').replace(/\/\/+/g, '\/');
+
         return response.status(201).json(convertedURL);
 
     },
@@ -95,11 +95,10 @@ const productControllers = {
     search: async (request: Request, response: Response) => {
 
         let { query } = request.query as {
-           query?: string
+            query?: string
         };
 
-        console.log(query)
-        
+
 
         if (!query) {
             query = "";
@@ -111,14 +110,13 @@ const productControllers = {
             const DBResponse = await Product.find(
                 {
                     $or: [
-                        { 'category.name':  { '$regex': `${query}`, '$options': 'i'} },
-                        { 'name': { '$regex': `${query}`, '$options': 'i'}  }
+                        { 'category.name': { '$regex': `${query}`, '$options': 'i' } },
+                        { 'name': { '$regex': `${query}`, '$options': 'i' } }
                     ]
                 });
 
             if (!DBResponse.length) return response.status(404).json(errors.not_found);
 
-            console.log(DBResponse.length);
 
             return response.status(200).json(DBResponse);
 
@@ -130,11 +128,15 @@ const productControllers = {
 
     paginate: async (request: Request, response: Response) => {
 
-        const { page, perPage = 10, categories = [] } = request.query as {
+        const { searchTerm, page, perPage = 10, categories = [] } = request.query as {
             page?: string,
             perPage?: string,
-            categories?: string[]
+            categories?: string[],
+            searchTerm?: string,
         };
+
+        let search = "";
+
 
         if (!(page && perPage)) return response.status(400).json(errors.bad_request);
 
@@ -142,9 +144,34 @@ const productControllers = {
             const skip = (Number(page) - 1) * Number(perPage)
             const limit = Number(perPage)
             const query = {};
+            ///////////////////////
+
+            if (searchTerm) search = searchTerm;
+            console.log("search: ", search);
+            console.log("categories ", categories);
+
 
             if (categories.length > 0) {
-                Object.assign(query, { 'category.code': { $in: categories } })
+                Object.assign(query, {
+
+                    $and: [
+                        { 'category.code': { $in: categories } },
+                        {
+                            $or:[
+                                { 'category.name': { '$regex': `${search}`, '$options': 'i' } },
+                                { 'name': { '$regex': `${search}`, '$options': 'i' } },
+                            ]
+                        }
+                    ]
+                })
+            }else{
+                Object.assign(query, {
+                    $or:[
+                        { 'category.name': { '$regex': `${search}`, '$options': 'i' } },
+                        { 'name': { '$regex': `${search}`, '$options': 'i' } },
+                    ]
+                });
+
             }
 
             const totalProducts = await Product.count(query);
@@ -153,13 +180,14 @@ const productControllers = {
             if (isTest) console.log("page :" + page, "perPage: " + perPage);
 
             if (!DBResponse.length) return response.status(404).json(errors.not_found);
+           
 
             const responseJSON = {
                 totalProducts: totalProducts,
                 totalPages: Math.ceil(totalProducts / Number(perPage)),
                 products: DBResponse,
             }
-
+            console.log("Returned: ",responseJSON.totalProducts);
             return response.status(200).json(responseJSON);
 
 
