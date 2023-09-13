@@ -8,10 +8,17 @@ import { UlStyled } from './styled'
 type Categorie = {
     _id: string;
     name: string;
-    code: string;
+    code:string;
+    enabled: boolean;
 };
 
-export const CategorieArea = () => {
+interface ICategorieArea{
+    onChangeFunction?: ()=> void;
+}
+
+export const CategorieArea: React.FC<ICategorieArea> = ({
+    onChangeFunction,
+}) => {
     const [categories, setCategories] = React.useState<Categorie[]>([]);
 
     const fetchData = async () => {
@@ -44,11 +51,14 @@ export const CategorieArea = () => {
             </div>  
           <div>
             {categories.map((categorie: Categorie)=>{
-                        return(                               
+                        return(
+                            categorie.enabled &&                               
                             <CategoriesUL
                                 key = {categorie._id} 
                                 id = {`i${categorie._id}`}
                                 name = {categorie.name}
+                                handleCheckfunction={onChangeFunction}
+                                code = {categorie.code}
                             />                    
                            );   
                          })

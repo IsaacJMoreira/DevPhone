@@ -7,7 +7,6 @@ import authRoutes from '../../modules/Auth/routes';
 import globalErrorHandler from '../middlewares/handleError';
 
 
-
 const routes= Router();
 
 routes.use(productRoutes);

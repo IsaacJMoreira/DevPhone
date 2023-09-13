@@ -18,7 +18,6 @@ productRoutes.post('/uploadimg/:filename',
                     upload.single('file'), //field name
                     productControllers.imgUpload);
 
-productRoutes.get('/allproducts', productControllers.findAll);
 productRoutes.get('/products/', productControllers.paginate);
 productRoutes.get('/product/:id', productControllers.findOne);
 productRoutes.get('/products/search', productControllers.search);

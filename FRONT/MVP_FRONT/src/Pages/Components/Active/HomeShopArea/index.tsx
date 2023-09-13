@@ -12,7 +12,7 @@ type Product = {
   alt: string;
   name: string;
   shortDescription: string;
-
+  products: any
 }
 export const HomeShopArea = () => {
   const [products, setProducts] = React.useState<Product[]>([]);
@@ -20,8 +20,8 @@ export const HomeShopArea = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get<Product[]>(`${baseURL}/products/`);
-      setProducts(response.data);
+      const response = await axios.get<Product>(`${baseURL}/products/?page=1&perPage=5`);
+      setProducts(response.data.products);
     } catch (error) {
       console.log('Error fetching data', error);
     }

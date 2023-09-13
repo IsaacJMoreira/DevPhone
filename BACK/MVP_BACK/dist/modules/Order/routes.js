@@ -7,10 +7,11 @@ const express_1 = require("express");
 const controller_1 = __importDefault(require("./controller"));
 const auth_1 = __importDefault(require("../../infra/middlewares/auth"));
 const validadeCredential_1 = __importDefault(require("../../infra/middlewares/validadeCredential"));
+const orders_1 = __importDefault(require("../../infra/middlewares/orders"));
 //TODO: IMPORT MIDDLEWARES
 const orderRoutes = (0, express_1.Router)();
-orderRoutes.post('/order/', auth_1.default, validadeCredential_1.default.CLI, controller_1.default.create);
+orderRoutes.post('/order/', auth_1.default, orders_1.default.create, validadeCredential_1.default.CLI, controller_1.default.create);
 orderRoutes.get('/orders', auth_1.default, validadeCredential_1.default.ADM, controller_1.default.findAll);
 orderRoutes.get('/orders/:ownerID', auth_1.default, validadeCredential_1.default.CLI, controller_1.default.findByOwnerId);
-orderRoutes.put('/order/:ownerID', auth_1.default, validadeCredential_1.default.ADM, controller_1.default.update);
+orderRoutes.put('/order/:ownerID', auth_1.default, orders_1.default.update, validadeCredential_1.default.ADM, controller_1.default.update);
 exports.default = orderRoutes;
