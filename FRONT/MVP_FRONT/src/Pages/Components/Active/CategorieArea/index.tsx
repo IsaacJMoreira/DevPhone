@@ -13,7 +13,7 @@ type Categorie = {
 };
 
 interface ICategorieArea{
-    onChangeFunction?: ()=> void;
+    onChangeFunction?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const CategorieArea: React.FC<ICategorieArea> = ({

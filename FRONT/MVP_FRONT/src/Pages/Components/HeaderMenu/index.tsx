@@ -17,8 +17,8 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
     searchHandler,
 }) => {
     return <>
-        <HeaderStyled>
-            <h1>DevPhone</h1>
+        <HeaderStyled>            
+            <Link to= '/Home'><h1>DevPhone</h1></Link>
             <ul>
                 <li><Link to="/shop" className='menu'>Shop</Link></li>
                 <li><Link to="/" className='menu'>Stories</Link></li>

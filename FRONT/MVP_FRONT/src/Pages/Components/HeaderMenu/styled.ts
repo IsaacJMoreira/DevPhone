@@ -58,6 +58,10 @@ a.menu {
       width: 100%;
    }
 }
+a{
+    text-decoration: none;
+    color: ${THEME.COLORS.WHITE};
+}
 
 a.carinho {
     color: #FFFAFA;
