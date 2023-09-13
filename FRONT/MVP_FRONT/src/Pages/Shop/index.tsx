@@ -1,35 +1,35 @@
 
 
-//Styleds:
-
 import { ShopArea } from "../Components/Active/ShopArea";
-import { CategorieArea } from "../Components/Active/CategorieArea";
 import { BodySection } from "./styled";
+import {useState} from "react"
 
-//Components:
 import HeaderMenu from "../Components/HeaderMenu"
 import Footer from "../Components/Footer"
-import { CardContainer } from "../Components/Containers/cardContainer/styles";
-
 
 
 
 export default function Shop() {
+
+    const  [searchInput, setSearchInput] = useState("");
+
+
+  
+
     return <>
-        <HeaderMenu />
-            <BodySection>
-                <div className="CategorieSection"> 
-                    <CategorieArea /> 
-                </div>
-            
-                <CardContainer> 
-                    <div>
-                        <h1>{"Recentes"}</h1>
-                    </div>
-                    
-                    <ShopArea />
-                </CardContainer>
-            </BodySection>   
+        <HeaderMenu
+            input={searchInput}
+            searchHandler={(e)=>setSearchInput(e.target.value)}
+            searchDisabled = {false}
+        />
+        <BodySection>
+
+            <ShopArea
+                searchTerm={searchInput}
+                categoriesList={[]}
+            />
+
+        </BodySection>
         <Footer />
     </>
 }

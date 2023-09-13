@@ -8,7 +8,7 @@ export const BodySection = styled.section`
     background-color: #DCDCDC;
     
     .CategorieSection{
-        width: 30vw;
+        width: 20vw;
         display: flex;
         flex-direction: row;
         align-items: baseline;
@@ -20,3 +20,5 @@ export const BodySection = styled.section`
 
 
 `
+
+

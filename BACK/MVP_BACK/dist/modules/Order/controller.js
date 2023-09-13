@@ -17,14 +17,56 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const errors_1 = __importDefault(require("../errors"));
-const isTest = true; //ATTENTION!!!! REMOVE!
+const isTest = false; //ATTENTION!!!! REMOVE!
 const orderControllers = {
     create: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { ownerID, items } = request.body;
+        const { ownerID, items, addressNickName } = request.body;
+        //WE TEST IF ANY ITEM IS EITHER LOW IN STOCK OR MISSING COMPLETELY
         try {
+            const userExistes = yield models_1.User.findById({ _id: ownerID }).count();
+            console.log(userExistes);
+            if (!userExistes)
+                return response.status(400).json(errors_1.default.bad_request);
+            if (!items)
+                return response.status(400).json(errors_1.default.bad_request);
+            // for(let i = 0; i < items.length; i++){//
+            //     const id = items[i].itemID;
+            //     const decrement = items[i].quantity;
+            //     const DBStockResponse = await Product.findById({_id: id});
+            //     if(!DBStockResponse)  lowStockFlag++;
+            //     else if( (DBStockResponse.stock < decrement) || (!DBStockResponse.enabled) ) lowStockFlag++;
+            // }
+            const products = yield models_1.Product.find({
+                _id: {
+                    $in: items.map((item) => item.itemID) //type later ⚠ 
+                }
+            });
+            if (products.some((product) => product.stock <= 0))
+                return response.status(412).json("One or more products out of stock."); // errors
+            //WE NEED TO TREAD LIGHTLY HERE. Any mistake means we fucked up opdating the new stock to the bank
+            // let updateFlag: number = 0;//🚩 
+            // for(let i = 0; i < items.length; i++){
+            //     const id = items[i].itemID;
+            //     const decrement = items[i].quantity;
+            //     const DBUpdateResponse = await Product.updateOne({
+            //         _id: id
+            //     },{
+            //         $inc:{ stock: -decrement}
+            //     });
+            //     if(!DBUpdateResponse) updateFlag++;
+            // }
+            yield Promise.all(products.map((product) => {
+                const { quantity } = items.find((item) => item.itemID == product._id.toString());
+                return models_1.Product.updateOne({
+                    _id: product._id
+                }, {
+                    $inc: { stock: -quantity }
+                });
+            }));
             const DBResponse = yield models_1.Order.create({
                 ownerID: ownerID.toString(),
-                items: items
+                items: items,
+                addressNickName: addressNickName
             });
             if (isTest)
                 console.log(DBResponse);
@@ -66,11 +108,11 @@ const orderControllers = {
         }
     }),
     update: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { ownerID } = request.params;
+        const { id } = request.params;
         const { items, shippingCode, status } = request.body;
         try {
             const DBResponse = yield models_1.Order.updateOne({
-                ownerID: ownerID
+                _id: id
             }, {
                 items,
                 shippingCode,

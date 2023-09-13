@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import THEME from '../../../../theme';
 
 export const CardContainer = styled.section`
-    background-color: #F8F8FF;
+    background-color: ${THEME.COLORS.WHITE};
     box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.15);
     display: flex;
     flex-wrap: wrap;
@@ -11,7 +12,7 @@ export const CardContainer = styled.section`
     gap: 5px;    
     text-align: center;
     margin: none; 
-    width: 66vw; 
+    width: 75vw; 
     height: 50vw;
     overflow: auto;
     div{

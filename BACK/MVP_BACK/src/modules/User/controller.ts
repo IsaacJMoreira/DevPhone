@@ -3,13 +3,14 @@ import { User } from "../../models";
 import errors from "../errors";
 import cryptoProvider from "../../infra/providers/CryptoProvider";
 
-const isTest= true;
+const isTest= false;
 
 const userControllers = {
- async create(req:Request,res:Response){
+ async create(req:Request, res:Response){
     const{
         name,
         email,
+        credential,
         password
     } = req.body;
 
@@ -20,7 +21,7 @@ const userControllers = {
         name,
         email,
         password : newEncryptedPass,
-    });
+        });
       if(isTest) console.log(newUser)
       return res.status(201).json(newUser);
     } catch (error) {
@@ -43,7 +44,7 @@ const userControllers = {
         const newUser= await User.create({
         name,
         email,
-        credential: 'ADM',
+        credential: "ADM",
         password : newEncryptedPass,
     });
       if(isTest) console.log(newUser)
@@ -54,7 +55,7 @@ const userControllers = {
         return res.status(500).json(errors.internal_server_error)
     }
  },
-
+ 
  async findAll (req:Request,res:Response){
     
     try {
@@ -73,7 +74,7 @@ const userControllers = {
  async findOne(req:Request,res:Response){
     const{id} = req.params
     try {
-        const user = await User.findById(id)
+        const user = await User.findById({_id: id})
 
         if(!user) return res.status(404).json(errors.not_found) 
         return res.status(200).json(user);

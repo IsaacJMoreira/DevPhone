@@ -14,9 +14,15 @@ min-height: 50px;
 min-width: 120px;
 cursor: pointer;
 
-&:hover {
+a{
+    color: ${THEME.COLORS.WHITE};
+    text-decoration: none;
+}
+
+a:hover {
     color: ${THEME.COLORS.ORANGE_HIGHLIGHT};
     transition: 0.9s;
+    text-decoration: none;
 }
 
 `
@@ -25,15 +31,17 @@ export const ButtonShoparea = styled.button `
     
     width: 30px;
     height: 30px;
-    background-color: #C0C0C0;
+    
     border: none;
     font-size: 20px;
-    margin-right: 3px;
+    margin-left: 10px;
+    cursor: pointer;
     
     
 
     a.seguinte {
         color: black;
+        background: none;
     }
 `
 

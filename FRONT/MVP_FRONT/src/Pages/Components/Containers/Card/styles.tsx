@@ -4,6 +4,7 @@ export const Card = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: flex-start;
 
     width: 15vw;
     
@@ -43,7 +44,5 @@ export const Card = styled.section`
      background-color: #9CCE76;
      box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
      }
-
+     
 `;
-
-

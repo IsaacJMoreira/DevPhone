@@ -17,12 +17,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const errors_1 = __importDefault(require("../errors"));
-const isTest = true; //ATTENTION!!!! REMOVE!
+const isTest = false; //ATTENTION!!!! REMOVE!
 const productControllers = {
     create: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { dimensions, weight, name, SKU, category, stock, price, imgURL, description, shortDescription, alt } = request.body;
-        //NEEDS TO RECEIVE E img FROM THE REQUEST
-        //USE THE FACTORY TO DEAL WITH THE IMAGE EXTENSIONS
+        const { dimensions, weight, name, SKU, category, stock, price, imgURL, description, shortDescription, alt, } = request.body;
+        const categoryIsPresent = yield models_1.Categorie.find({
+            code: {
+                $in: category.map((category) => category.code) //type later ⚠ 
+            }
+        });
+        if (categoryIsPresent.some((category) => (!category || !category.enabled)))
+            return response.status(412).json("One or more category does not exist."); // errors
         try {
             const DBResponse = yield models_1.Product.create({
                 dimensions,
@@ -32,7 +37,7 @@ const productControllers = {
                 category,
                 stock,
                 price,
-                imgURL,
+                imgURL: `../../../../../uploads${imgURL}`,
                 description,
                 shortDescription,
                 alt
@@ -40,66 +45,86 @@ const productControllers = {
             //IDEALY, WE WILL DEAL WITH THE IMAGES HERE
             if (isTest)
                 console.log(DBResponse);
-            return response.header("Access-Control-Allow-Origin", "*").sendStatus(200);
+            return response.sendStatus(200);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
+            return response.status(500).json(errors_1.default.internal_server_error);
         }
+    }),
+    imgUpload: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+        const { file } = request;
+        if (!(file === null || file === void 0 ? void 0 : file.destination))
+            return response.status(400).json(errors_1.default.bad_request);
+        return response.status(201).json(file.filename);
     }),
     findOne: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
         const { id } = request.params;
         try {
-            const DBResponse = yield models_1.Product.findById(id);
+            const DBResponse = yield models_1.Product.findById({ _id: id });
             if (!DBResponse)
-                return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors_1.default.not_found);
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
+                return response.status(404).json(errors_1.default.not_found);
+            return response.status(200).json(DBResponse);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
+            response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
-    //This can implement other search Items:
-    // Symbol.find(
-    //     {
-    //       $or: [
-    //         { 'symbol': { '$regex': input, '$options': 'i' } },
-    //         { 'name': { '$regex': input, '$options': 'i' } }
-    //       ]
-    //     }
-    //   ) 
     search: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const category = request.query.category;
-        if (!category)
-            return response.status(400).header("Access-Control-Allow-Origin", "*").json(errors_1.default.bad_request);
+        let { query } = request.query;
+        console.log(query);
+        if (!query) {
+            query = "";
+        }
         try {
-            const DBResponse = yield models_1.Product.find({ 'category.name': category });
+            const DBResponse = yield models_1.Product.find({
+                $or: [
+                    { 'category.name': { '$regex': `${query}`, '$options': 'i' } },
+                    { 'name': { '$regex': `${query}`, '$options': 'i' } }
+                ]
+            });
             if (!DBResponse.length)
-                return response.status(404).header("Access-Control-Allow-Origin", "*").json(errors_1.default.not_found);
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
+                return response.status(404).json(errors_1.default.not_found);
+            console.log(DBResponse.length);
+            return response.status(200).json(DBResponse);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            return response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
+            return response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
-    findAll: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+    paginate: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+        const { page, perPage = 10, categories = [] } = request.query;
+        if (!(page && perPage))
+            return response.status(400).json(errors_1.default.bad_request);
         try {
-            const DBResponse = yield models_1.Product.find();
+            const skip = (Number(page) - 1) * Number(perPage);
+            const limit = Number(perPage);
+            const query = {};
+            if (categories.length > 0) {
+                Object.assign(query, { 'category.code': { $in: categories } });
+            }
+            const totalProducts = yield models_1.Product.count(query);
+            const DBResponse = yield models_1.Product.find(query).limit(limit).skip(skip).sort({ name: 'asc' });
             if (isTest)
-                console.log("Alguém tá tentando acessar!");
+                console.log("page :" + page, "perPage: " + perPage);
             if (!DBResponse.length)
-                return response.header("Access-Control-Allow-Origin", "*").status(404).json(errors_1.default.not_found);
-            return response.header("Access-Control-Allow-Origin", "*").status(200).json(DBResponse);
+                return response.status(404).json(errors_1.default.not_found);
+            const responseJSON = {
+                totalProducts: totalProducts,
+                totalPages: Math.ceil(totalProducts / Number(perPage)),
+                products: DBResponse,
+            };
+            return response.status(200).json(responseJSON);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
+            response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
     update: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -118,12 +143,12 @@ const productControllers = {
                     stock
                 }
             });
-            return response.header("Access-Control-Allow-Origin", "*").status(204).json(DBResponse);
+            return response.status(204).json(DBResponse);
         }
         catch (error) {
             if (isTest)
                 console.log(error);
-            response.header("Access-Control-Allow-Origin", "*").status(500).json(errors_1.default.internal_server_error);
+            response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
 };

@@ -8,30 +8,39 @@ import { UlStyled } from './styled'
 type Categorie = {
     _id: string;
     name: string;
-    code: string
+    code:string;
+    enabled: boolean;
+};
+
+interface ICategorieArea{
+    onChangeFunction?: ()=> void;
 }
 
-export const CategorieArea = ()=>{
-
-
+export const CategorieArea: React.FC<ICategorieArea> = ({
+    onChangeFunction,
+}) => {
     const [categories, setCategories] = React.useState<Categorie[]>([]);
-    //usar async await - aulas
-    React.useEffect ( ()=>{
-        axios.get<Categorie[]>(`${baseURL}/categories`).then((response)=>{
 
+    const fetchData = async () => {
+        try {
+            const response = await axios.get<Categorie[]>(`${baseURL}/categories`);
             setCategories(response.data);
-        } )
-
-        .catch(error=>{
+        } catch (error) {
             console.log("Error fetching data", error);
-        });
-    }, [])
+        }
+    };
 
-    if(!categories) return (
-        <>
-            <h6>Sorry, nothing to select here 😥</h6>
-        </>
-    );
+    React.useEffect(() => {
+        fetchData();
+    }, []);
+
+    if (!categories.length) {
+        return (
+            <>
+                <h6>Sorry, nothing to select here 😥</h6>
+            </>
+        );
+    }
 
     return (
         <>
@@ -42,11 +51,14 @@ export const CategorieArea = ()=>{
             </div>  
           <div>
             {categories.map((categorie: Categorie)=>{
-                        return(                               
+                        return(
+                            categorie.enabled &&                               
                             <CategoriesUL
                                 key = {categorie._id} 
                                 id = {`i${categorie._id}`}
                                 name = {categorie.name}
+                                handleCheckfunction={onChangeFunction}
+                                code = {categorie.code}
                             />                    
                            );   
                          })
