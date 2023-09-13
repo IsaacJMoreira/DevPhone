@@ -11,7 +11,7 @@ import Footer from "../Components/Footer"
 
 export default function Shop() {
 
-    const  [searchInput, setSearchImput] = useState("");
+    const  [searchInput, setSearchInput] = useState("");
 
 
   
@@ -19,13 +19,14 @@ export default function Shop() {
     return <>
         <HeaderMenu
             input={searchInput}
-            searchHandler={(e)=>setSearchImput(e.target.value)}
+            searchHandler={(e)=>setSearchInput(e.target.value)}
             searchDisabled = {false}
         />
-        <h1>{searchInput}</h1>
         <BodySection>
 
-            <ShopArea />
+            <ShopArea
+                searchTerm={searchInput}
+            />
 
         </BodySection>
         <Footer />

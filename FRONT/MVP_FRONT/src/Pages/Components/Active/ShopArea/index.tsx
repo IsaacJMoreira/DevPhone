@@ -19,8 +19,14 @@ type Product = {
     stock: number,
 }
 
+interface ISearch {
+    searchTerm?: string;
+}
 
-export const ShopArea = () => {
+
+export const ShopArea: React.FC<ISearch> = ({
+    searchTerm,
+}) => {
 
     const [productsList, setProductsList] = React.useState<Product[]>([]);
     const [page, setPage] = React.useState(1);
@@ -29,7 +35,7 @@ export const ShopArea = () => {
 
     const getProductList = async () => {
         try {
-            const list = await axios.get(`${baseURL}/products/?page=${page}&perPage=${perPage}`);
+            const list = await axios.get(`${baseURL}/products/?page=${page}&perPage=${perPage}&searchTerm=${searchTerm}`);
             setProductsList(list.data.products);
 
             setTotalPage(list.data.totalPages)
@@ -57,7 +63,7 @@ export const ShopArea = () => {
         getProductList();//gets the first page to be rendered
 
 
-    }, [page]);
+    }, [searchTerm]);
 
     return (
 
@@ -67,7 +73,8 @@ export const ShopArea = () => {
             </div>
             <CardContainer>
                 <div>
-                    <h1>{"Recentes"}</h1>
+                    <h1>{searchTerm? `Reseultados para: "${searchTerm}"`: "Todos os Produtos"}</h1>
+                    <br />
                 </div>
                 {productsList.map((product: Product) => {
                     return (
