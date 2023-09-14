@@ -22,6 +22,7 @@ export const ProductCard: React.FC<ProductProps> = ({
     Stock,
     link
 }) => {
+    const isHomeShopAreaPage = window.location.pathname === '/home';
     const btnColor = !Stock ? "gray" : "";
     const btnText = !Stock ? "Indisponível" : "Comprar";
     const enabled = !Stock ? "none" : "auto";
@@ -38,6 +39,9 @@ export const ProductCard: React.FC<ProductProps> = ({
             </div>
             <div>
                 <h6>R${Price}</h6>
+                {isHomeShopAreaPage && Stock === 0 ? (
+                     <p>{btnText}</p>
+                 ) : (
                 <ButtonGlobal style={{ backgroundColor: `${btnColor}`, pointerEvents: `${enabled}` }}>
                     {
                         <Link to={`/product/${link}`} key={link}>
@@ -45,6 +49,7 @@ export const ProductCard: React.FC<ProductProps> = ({
                         </Link>
                     }
                 </ButtonGlobal>
+                 )}
             </div>
 
         </Card>

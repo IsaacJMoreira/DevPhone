@@ -1,10 +1,9 @@
-import * as React from 'react'
-import { ProductsHome } from '../../ProductsHome'
-import axios from 'axios'
-import baseURL from '../../../../../baseURL'
-import { Link } from 'react-router-dom'
-import { CardContainerHome } from '../../../Home/styled'
-
+import * as React from "react";
+import axios from "axios";
+import baseURL from "../../../../../baseURL";
+import { Link } from "react-router-dom";
+import { ProductCard } from "../../ProductCard";
+import { CustomCardContainer } from "../../Active/HomeShopArea/styles";
 
 type Product = {
   _id: string;
@@ -12,18 +11,19 @@ type Product = {
   alt: string;
   name: string;
   shortDescription: string;
-  products: any
-}
+  products: any;
+};
 export const HomeShopArea = () => {
   const [products, setProducts] = React.useState<Product[]>([]);
-  const productsToShow = 3;
 
   const fetchData = async () => {
     try {
-      const response = await axios.get<Product>(`${baseURL}/products/?page=1&perPage=5`);
+      const response = await axios.get<Product>(
+        `${baseURL}/products/?page=1&perPage=3`
+      );
       setProducts(response.data.products);
     } catch (error) {
-      console.log('Error fetching data', error);
+      console.log("Error fetching data", error);
     }
   };
 
@@ -39,26 +39,22 @@ export const HomeShopArea = () => {
     );
   }
 
-  
-  const displayedProducts = products.slice(0, productsToShow);
-
   return (
     <>
-      <CardContainerHome style={{ width: "100vw" }}>
-        {displayedProducts.map((product: Product) => (
-          <Link to={`/product/${product._id}`} key={product._id}>
-            <ProductsHome
-              key={product._id}
-              Src={product.imgURL}
-              Alt={product.alt}
-              Title={product.name}
-              Price={product.price}
-              Description={product.shortDescription}
-
-            />
-          </Link>
+      <CustomCardContainer style={{ width: "100%", height: "650px" }}>
+        {products.map((product: Product) => (
+          <ProductCard
+            key={`${product._id}`}
+            Src={product.imgURL}
+            Alt={product.alt}
+            Title={product.name}
+            Price={product.price}
+            Description={product.shortDescription}
+            Stock={product.stock}
+            link={product._id}
+          />
         ))}
-      </CardContainerHome>
+      </CustomCardContainer>
     </>
   );
 };
