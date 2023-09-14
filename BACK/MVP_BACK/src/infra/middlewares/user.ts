@@ -3,10 +3,6 @@ const {validate, Joi } = require ("express-validation");
 
 const validatePost = validate({
     body: Joi.object().keys ({
-<<<<<<< HEAD
-        nome: Joi.string().required(),
-        email: Joi.string().required(),
-=======
         name: Joi.string().required(),
         email: Joi.string().email().required(),
         password: Joi.string().min(8).max(30).required(),
@@ -22,17 +18,11 @@ const validatePost = validate({
             country: Joi.string().min(1).max(30).required(),
         }).required(),
 
->>>>>>> dev
     })
 })
 
 const validateUpdate = validate({
     body: Joi.object().keys ({
-<<<<<<< HEAD
-        nome: Joi.string().required(),
-        email: Joi.string().required(),
-        passaword: Joi.string().required()
-=======
         name: Joi.string(),
         email: Joi.string().email(),
         password: Joi.string().min(8).max(30),
@@ -48,7 +38,6 @@ const validateUpdate = validate({
             country: Joi.string().min(1).max(30),
         }),
 
->>>>>>> dev
     })
 })
 

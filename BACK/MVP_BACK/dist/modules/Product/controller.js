@@ -24,8 +24,8 @@ const productControllers = {
         const { dimensions, weight, name, SKU, category, stock, price, imgURL, description, shortDescription, alt, } = request.body;
         const categoryIsPresent = yield models_1.Categorie.find({
             code: {
-                $in: category.map((category) => category.code) //type later ⚠ 
-            }
+                $in: category.map((category) => category.code), //type later ⚠
+            },
         });
         console.log(categoryIsPresent);
         if (categoryIsPresent.length <= 0)
@@ -42,7 +42,7 @@ const productControllers = {
                 imgURL: `${imgURL}`,
                 description,
                 shortDescription,
-                alt
+                alt,
             });
             //IDEALY, WE WILL DEAL WITH THE IMAGES HERE
             if (isTest)
@@ -60,7 +60,9 @@ const productControllers = {
         if (!(file === null || file === void 0 ? void 0 : file.destination))
             return response.status(400).json(errors_1.default.bad_request);
         const URL = `/@fs/${path_1.default.resolve("../../uploads")}/${file.filename}`;
-        const convertedURL = URL.replace(/^\\\\\?\\/, "").replace(/\\/g, '\/').replace(/\/\/+/g, '\/');
+        const convertedURL = URL.replace(/^\\\\\?\\/, "")
+            .replace(/\\/g, "/")
+            .replace(/\/\/+/g, "/");
         return response.status(201).json(convertedURL);
     }),
     findOne: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
@@ -77,30 +79,8 @@ const productControllers = {
             response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
-    search: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        let { query } = request.query;
-        if (!query) {
-            query = "";
-        }
-        try {
-            const DBResponse = yield models_1.Product.find({
-                $or: [
-                    { 'category.name': { '$regex': `${query}`, '$options': 'i' } },
-                    { 'name': { '$regex': `${query}`, '$options': 'i' } }
-                ]
-            });
-            if (!DBResponse.length)
-                return response.status(404).json(errors_1.default.not_found);
-            return response.status(200).json(DBResponse);
-        }
-        catch (error) {
-            if (isTest)
-                console.log(error);
-            return response.status(500).json(errors_1.default.internal_server_error);
-        }
-    }),
     paginate: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { searchTerm, page, perPage = 10, categories = [] } = request.query;
+        const { searchTerm, page, perPage = 10, categories = [], } = request.query;
         let search = "";
         if (!(page && perPage))
             return response.status(400).json(errors_1.default.bad_request);
@@ -111,31 +91,32 @@ const productControllers = {
             ///////////////////////
             if (searchTerm)
                 search = searchTerm;
-            console.log("search: ", search);
-            console.log("categories ", categories);
             if (categories.length > 0) {
                 Object.assign(query, {
                     $and: [
-                        { 'category.code': { $in: categories } },
+                        { "category.code": { $in: categories } },
                         {
                             $or: [
-                                { 'category.name': { '$regex': `${search}`, '$options': 'i' } },
-                                { 'name': { '$regex': `${search}`, '$options': 'i' } },
-                            ]
-                        }
-                    ]
+                                { "category.name": { $regex: `${search}`, $options: "i" } },
+                                { name: { $regex: `${search}`, $options: "i" } },
+                            ],
+                        },
+                    ],
                 });
             }
             else {
                 Object.assign(query, {
                     $or: [
-                        { 'category.name': { '$regex': `${search}`, '$options': 'i' } },
-                        { 'name': { '$regex': `${search}`, '$options': 'i' } },
-                    ]
+                        { "category.name": { $regex: `${search}`, $options: "i" } },
+                        { name: { $regex: `${search}`, $options: "i" } },
+                    ],
                 });
             }
             const totalProducts = yield models_1.Product.count(query);
-            const DBResponse = yield models_1.Product.find(query).limit(limit).skip(skip).sort({ name: 'asc' });
+            const DBResponse = yield models_1.Product.find(query)
+                .limit(limit)
+                .skip(skip)
+                .sort({ name: "asc" });
             if (isTest)
                 console.log("page :" + page, "perPage: " + perPage);
             if (!DBResponse.length)
@@ -145,7 +126,6 @@ const productControllers = {
                 totalPages: Math.ceil(totalProducts / Number(perPage)),
                 products: DBResponse,
             };
-            console.log("Returned: ", responseJSON.totalProducts);
             return response.status(200).json(responseJSON);
         }
         catch (error) {
@@ -159,7 +139,7 @@ const productControllers = {
         const { name, SKU, dimensions, weight, category, stock } = request.body;
         try {
             const DBResponse = yield models_1.Product.updateOne({
-                _id: id
+                _id: id,
             }, {
                 $set: {
                     name,
@@ -167,8 +147,8 @@ const productControllers = {
                     dimensions,
                     weight,
                     category,
-                    stock
-                }
+                    stock,
+                },
             });
             return response.status(204).json(DBResponse);
         }

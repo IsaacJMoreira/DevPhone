@@ -5,13 +5,7 @@ const validateLogin = validate({
         email: Joi.string().required(),
         password: Joi.string().required(),
     })
-<<<<<<< HEAD
-
 })
-
-=======
-})
->>>>>>> dev
 const middlewareAuth = {
     login: async (request: Request,response: Response, next: NextFunction) =>{
         await validateLogin(request, response, next)
