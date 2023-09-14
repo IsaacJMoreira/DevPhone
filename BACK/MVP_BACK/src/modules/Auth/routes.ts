@@ -5,7 +5,7 @@ import { Router } from 'express';
 
 const authRoutes = Router();
 
-authRoutes.get('/login', middlewareAuth.login, authControllers.login);
+authRoutes.post('/login', middlewareAuth.login, authControllers.login);
 
 
 

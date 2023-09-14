@@ -1,12 +1,23 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
+import { faBagShopping, faSearch } from '@fortawesome/free-solid-svg-icons'
 import {  useContext, ReactNode } from 'react';
 import { LogadoContext } from '../../../Routes/Logado';
 import { HeaderStyled } from './styled';
 
-export default function HeaderMenu() {
+interface HeaderMenuProps {
+    input?: string;
+    searchDisabled?: boolean;
+    searchHandler?: (e: any) => void
+};
+
+
+const HeaderMenu: React.FC<HeaderMenuProps> = ({
+    input,
+    searchDisabled = true,
+    searchHandler,
+}) => {
     const {user} = useContext(LogadoContext)
 
     let Logado = {} as ReactNode;
@@ -18,7 +29,7 @@ export default function HeaderMenu() {
     }
     return <>
         <HeaderStyled>            
-            <Link to= '/Home'><h1>DevPhone</h1></Link>
+            <Link to= '/'><h1>DevPhone</h1></Link>
             <ul>
                 <li><Link to="/shop" className='menu'>Shop</Link></li>
                 <li><Link to="/" className='menu'>Stories</Link></li>
@@ -45,4 +56,5 @@ export default function HeaderMenu() {
     </>
 };
 
+export default HeaderMenu;
 
