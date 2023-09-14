@@ -106,7 +106,9 @@ const productControllers = {
             const limit = Number(perPage);
             const query = {};
             if (categories.length > 0) {
+
                 Object.assign(query, { 'category.code': { $in: categories } });
+
             }
             const totalProducts = yield models_1.Product.count(query);
             const DBResponse = yield models_1.Product.find(query).limit(limit).skip(skip).sort({ name: 'asc' });

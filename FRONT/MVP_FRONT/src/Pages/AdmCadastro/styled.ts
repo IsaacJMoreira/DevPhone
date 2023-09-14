@@ -7,9 +7,6 @@ flex-direction: column;
 background-color: #EFF2F6;
 min-height: 98vh;
 
-h1{
-  font-size: 36px;
-}
 
 main {
   margin-top: 60px;
@@ -75,6 +72,8 @@ input {
   font-size: 16px; 
 }
 
+
+
 div.foto {
   background-color: ${THEME.COLORS.WHITE};
   display: flex;
@@ -87,6 +86,7 @@ div.foto {
   cursor: pointer;
 
 
+
   input {
     cursor: pointer;
     border: none;
@@ -95,6 +95,7 @@ div.foto {
     color: ${THEME.COLORS.BLACK};
   }
 }
+
 
 button {
   width: 397px;

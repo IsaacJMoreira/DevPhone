@@ -15,36 +15,38 @@ import ShopCheckout from './Pages/ShopCheckout';
 import AdmCadastro from './Pages/AdmCadastro';
 import AdmDetails from './Pages/AdmDetails';
 
-export default function Router() {
-   const routes = createBrowserRouter([{
-      path: "/Login",
-      element: <Login />
-   },
-   {
-      path: "/LoginAccounts",
-      element: <LoginContas />
-   },
-   {
-      path: "/dev",
-      element: <ButtonGlobal>Sou um botão</ButtonGlobal>
-   },
-   {
-      path: "/Home",
-      element: <Inicio />
-   },
-   {
-      path: "/Shop",
-      element: <Shop />
-   },
-   {
-      path: "/Logon",
-      element: <Logon />
-   },
-   {
-      path: "/PainelAdm",
-      element: <AdmHome />
-   },
-   {
+
+export default function Router(){
+    const routes = createBrowserRouter([{
+        path: "/Login",
+        element: <Login/>
+    },
+    {
+        path: "/LoginAccounts",
+        element: <LoginContas/>
+     },
+     {
+         path: "/dev",
+         element: <ButtonGlobal>Sou um botão</ButtonGlobal>
+     },
+     {
+         path: "/",
+         element: <Inicio/>
+     },
+     {
+        path: "/Shop",
+        element: <Shop/>
+     },
+     {
+        path: "/Logon",
+        element: <Logon/>
+     },
+     {
+        path: "/PainelAdm",
+        element: <AdmHome/>
+     },
+     {
+
       path: "/admcadastro",
       element: <AdmCadastro />
    },
