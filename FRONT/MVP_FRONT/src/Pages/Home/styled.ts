@@ -43,5 +43,3 @@ max-width: 620px;
 max-height: 90px; 
 }
 `
-
-

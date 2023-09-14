@@ -96,19 +96,35 @@ div.foto {
   }
 }
 
-button {
+div.salvarButton{
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
+.custom-button {
+  width: 397px;
+  height: 50px;
+
+}
+
+.excluir-button {
   width: 397px;
   height: 50px;
   border-radius: 6px;
-  background-color: black;
+  background-color: ${THEME.COLORS.WHITE};
   font-size: 20px;
   font-weight: bold;
-  color: white; /* Cor do texto inicial (branco) */
+  color: #EA0F0F; 
+  border-color: #EA0F0F;
   transition: color 0.3s ease; /* Adiciona uma transição suave para a cor do texto */
+ 
 
   &:hover {
     color: #FFA500; /* Cor do texto quando o mouse passa por cima (laranja) */
   }
 }
+
+
+
 }
 `
