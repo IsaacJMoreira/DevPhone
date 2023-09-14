@@ -142,3 +142,7 @@ exports.default = {
     // Whether to use watchman for file crawling
     // watchman: true,
 };
+module.exports = {
+    preset: 'ts-jest',
+    testEnvironment: 'node',
+};

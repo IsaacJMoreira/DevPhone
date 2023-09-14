@@ -1,12 +1,10 @@
 import * as React from 'react'
 import { ProductCard } from '../../ProductCard'
 import axios from 'axios'
-import { DivStyled } from "./styles"
-import baseURL from '../../../../../baseURL'
-import { ButtonShoparea } from '../../Buttons/ButtonGlobal'
-import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import baseURL from '../../../../../baseURL';
+import { Paginate } from './styled';
+import { CardContainer } from '../../Containers/cardContainer/styles';
+import { CategorieArea } from '../CategorieArea';
 
 
 
@@ -17,98 +15,148 @@ type Product = {
     name: string;
     price: number;
     shortDescription: string;
-    stock: number
+    link: string;
+    stock: number,
 }
 
-export const ShopArea = ()=>{
+interface ISearch {
+    searchTerm?: string;
+    categoriesList?: string[];
+}
 
 
-    const [products, setProducts] = React.useState<Product[]>([]);
-    let toRender: any = [];
-    
-   
+export const ShopArea: React.FC<ISearch> = ({
+    searchTerm
+}) => {
 
-    try{
-        React.useEffect ( ()=>{
+    const [productsTotal, setProductsTotal] = React.useState(0);
+    const [productsList, setProductsList] = React.useState<Product[]>([]);
+    const [page, setPage] = React.useState(1);
+    const [totalPages, setTotalPage] = React.useState(1);
+    const [status, setStatus] = React.useState(200);
+    const [categories, setCategories] = React.useState([]);
+    const perPage = 8;
 
-            axios.get<Product[]>(`${baseURL}/allproducts`).then((response)=>{
-                setProducts(response);
-            } )
-            .catch(error=>{
-                console.log("Error fetching data", error);
-            });
-
-            
-        }, []);
-        }catch(error){
-            console.log(error);
-        }
-
-    
+    const getProductList = async () => {
         try {
-            //TODO: Remove all the logs!!!
-            console.log("Total de produtos:",products.data.length);
-            const fullPages = Math.floor(products.data.length/10);
-            const remeinderOfProducts = products.data.length%10; 
-            console.log("Pgs completas:",fullPages, "|Última pg terá:", remeinderOfProducts, "produtos");
-            const pages: number = fullPages + (remeinderOfProducts > 0? 1 : 0);
-            console.log("Total de pgs: ", pages);
-            for(let i = 0; i < fullPages; i++){
-                 toRender.push([]);
-                
-                for(let j = 0; j < 10; j++){
-                    toRender[i].push(products.data[i*10+j]);
-                }
-            }
-
-            if(remeinderOfProducts) toRender.push([]);
-
-            for(let i = 10 * fullPages ; i < 10 * fullPages + remeinderOfProducts; i++ ){
-                
-                toRender[fullPages].push(products.data[i]);
-            }
-
-            console.log("O novo array de produtos agora é assim:",toRender);
-
+            const categoriesToSearch = toQueryString(categories);
+            const list = await axios.get(`${baseURL}/products/?page=${page}&perPage=${perPage}&searchTerm=${searchTerm}${categoriesToSearch}`);
+            setProductsList(list.data.products);
+            setProductsTotal(list.data.totalProducts)
+            setStatus(list.status);
+            setTotalPage(list.data.totalPages);
         } catch (error) {
-            console.log("erro ao buscar dados: ", error);   
+            setStatus(404);
         }
-        
 
-    if(!products.data) return (
+    }
+
+
+    const handleCheck = (event) => {
+        var categoriesArray = [...categories];
+        if (event.target.checked) {
+            categoriesArray = [...categories, event.target.value];
+        } else {
+            categoriesArray.splice(categories.indexOf(event.target.value), 1);
+        }
+        setCategories(categoriesArray);
+
+    };
+
+
+
+    // Invoke when user click to request another page.
+    const handlePageClick = (event: { selected: number }) => {
+        setPage(event.selected + 1);
+    };
+
+    React.useEffect(() => {
+
+        if (page > totalPages) {
+            return
+        }
+
+        getProductList();//gets the first page to be rendered
+
+    }, [searchTerm, categories, page]);
+    
+    
+    return (
+
         <>
-            <h6>Sorry, nothing to buy here</h6>
+            <div className="CategorieSection">
+                <CategorieArea 
+                onChangeFunction={handleCheck}
+                />
+            </div>
+            <CardContainer>
+                <div>
+                    <h1>{
+                        searchTerm ?
+                            `Resultados para: "${searchTerm}"` :
+                            "Todos os Produtos"
+                    }
+                    </h1>
+                    <div>
+                        <h2>{
+                            status !== 200 ?
+                                "💔😭Nenhum resultado encontrado😭💔" :
+                                (
+                                    searchTerm ?
+                                        `📱Total: ${productsTotal} produto${productsTotal > 1 ? "s" : ""}📱` :
+                                        ""
+                                )
+                        }
+                        </h2>
+                    </div>
+                    <br />
+                </div>
+                {productsList.map((product: Product) => {
+                    return (
+                        status === 200 &&
+                        <ProductCard
+                            key={`${product._id}`}
+                            Src={product.imgURL}
+                            Alt={product.alt}
+                            Title={product.name}
+                            Price={product.price}
+                            Description={product.shortDescription}
+                            Stock={product.stock}
+                            link={product._id}
+                        />
+                    )
+                })}
+
+                {
+                    status === 200 && <div>
+                        <Paginate
+                            breakLabel="..."
+                            nextLabel="next >"
+                            onPageChange={handlePageClick}
+                            pageRangeDisplayed={5}
+                            pageCount={totalPages}
+                            previousLabel="< previous"
+                            renderOnZeroPageCount={null}
+                        />
+                    </div>}
+
+            </CardContainer>
+
+
+            {/*<input type="number" value={perPage} onChange={(e)=> setPerPage(Number(e.target.value))} />*/}
+
+
+
         </>
     );
 
-    return (
-        <>
-               
-            {toRender[0].map((product: Product)=>{
-                        return(
-                            
-                        <ProductCard
-                        key = {`${product._id}`}
-                        Src = {product.imgURL} 
-                        Alt = {product.alt}
-                        Title= {product.name}
-                        Price= {product.price}
-                        Description= {product.shortDescription}
-                        Stock={product.stock}
-                        />
 
-                        )
-                    
+}
 
-                    })
-                    
-            }  
-
-            <DivStyled>
-            <ButtonShoparea>1</ButtonShoparea><label>de 10</label><Link to="/" className='seguinte'>Seguinte <FontAwesomeIcon icon={faArrowRight}/></Link>
-            </DivStyled>
-            
-        </>      
-    ); 
-    
-};
+function toQueryString(rawArray: string[]): string {
+    let result = "";
+    rawArray.forEach((element, index) => {
+        result += `&categories%5B${index}%5D=${element}`
+    });
+    return result;
+}

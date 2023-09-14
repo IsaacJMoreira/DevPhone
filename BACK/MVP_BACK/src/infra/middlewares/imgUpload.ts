@@ -1,12 +1,16 @@
 import multer from "multer"
 import path from 'path';
 
+
+
 const storage = multer.diskStorage({
     destination: function (request, file, cb){
-        cb(null, path.resolve('uploads'));
+        cb(null, path.resolve("../../uploads"))
+        console.log(path.resolve("../../uploads"));
     },
     filename: function (request, file, cb){
-        cb(null, `${Date.now()}-${file.originalname.toLocaleLowerCase()}`);
+        const { filename } = request.params
+        cb(null, `${filename}${path.extname(file.originalname).toLowerCase()}`);
     },
 });
 

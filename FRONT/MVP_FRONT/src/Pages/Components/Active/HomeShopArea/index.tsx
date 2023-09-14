@@ -4,6 +4,8 @@ import axios from 'axios'
 import baseURL from '../../../../../baseURL'
 import { CardProd } from './styles'
 import { Link } from 'react-router-dom'
+import { CardContainer } from '../../Containers/cardContainer/styles'
+import { ProductCard } from '../../ProductCard'
 
 type Product = {
   _id: string;
@@ -11,7 +13,7 @@ type Product = {
   alt: string;
   name: string;
   shortDescription: string;
-
+  products: any
 }
 export const HomeShopArea = () => {
   const [products, setProducts] = React.useState<Product[]>([]);
@@ -19,8 +21,8 @@ export const HomeShopArea = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get<Product[]>(`${baseURL}/allproducts`);
-      setProducts(response.data);
+      const response = await axios.get<Product>(`${baseURL}/products/?page=1&perPage=5`);
+      setProducts(response.data.products);
     } catch (error) {
       console.log('Error fetching data', error);
     }
@@ -42,19 +44,27 @@ export const HomeShopArea = () => {
 
   return (
     <>
-      {products.slice(0, productsToShow).map((product: Product) => (
+      <CardContainer style={{width: "100vw"}}>
+      {products.map((product: Product) => (
+        
         <Link to={`/product/${product._id}`} key={product._id}>
-          <CardProd key={product._id}>
-            <ProductsHome
-              key={`${product._id}`}
-              Src={product.imgURL}
-              Alt={product.alt}
-              Title={product.name}
-              Description={product.shortDescription}
-            />
-          </CardProd>
+          
+            
+                <ProductCard
+                  key = {`${product._id}`}
+                  Src = {product.imgURL} 
+                  Alt = {product.alt}
+                  Title= {product.name}
+                  Price= {product.price}
+                  Description= {product.shortDescription}
+                  Stock={product.stock}
+                />
+             
+          
+            
         </Link>
       ))}
+      </CardContainer>
     </>
   );
 };

@@ -8,5 +8,5 @@ const login_1 = __importDefault(require("../../infra/middlewares/login"));
 const express_1 = require("express");
 //TODO: IMPORT MIDDLEWARES
 const authRoutes = (0, express_1.Router)();
-authRoutes.post('/login', login_1.default.login, controller_1.default.login);
+authRoutes.get('/login', login_1.default.login, controller_1.default.login);
 exports.default = authRoutes;
