@@ -45,5 +45,6 @@ export const Paginate = styled(ReactPaginate).attrs({
   a:hover {
     color: ${THEME.COLORS.ORANGE_HIGHLIGHT};
     transition: 0.9s;
-}
+  }
+
 `;

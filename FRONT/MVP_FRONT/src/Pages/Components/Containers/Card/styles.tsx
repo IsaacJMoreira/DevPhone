@@ -4,6 +4,7 @@ export const Card = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    align-items: flex-start;
 
     width: 15vw;
     

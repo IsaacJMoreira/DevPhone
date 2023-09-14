@@ -20,7 +20,6 @@ productRoutes.post('/uploadimg/:filename',
 
 productRoutes.get('/products/', productControllers.paginate);
 productRoutes.get('/product/:id', productControllers.findOne);
-productRoutes.get('/products/search', productControllers.search);
 productRoutes.put('/product/:id',
                    decryptProvider, 
                    validateCredential.ADM, 

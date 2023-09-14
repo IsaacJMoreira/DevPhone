@@ -17,12 +17,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const errors_1 = __importDefault(require("../errors"));
-const isTest = true; //ATTENTION!!!! REMOVE!
+const isTest = false; //ATTENTION!!!! REMOVE!
 const productControllers = {
     create: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { dimensions, weight, name, SKU, category, stock, price, imgURL, description, shortDescription, alt } = request.body;
-        //NEEDS TO RECEIVE E img FROM THE REQUEST
-        //USE THE FACTORY TO DEAL WITH THE IMAGE EXTENSIONS
+        const { dimensions, weight, name, SKU, category, stock, price, imgURL, description, shortDescription, alt, } = request.body;
+        const categoryIsPresent = yield models_1.Categorie.find({
+            code: {
+                $in: category.map((category) => category.code) //type later ⚠ 
+            }
+        });
+        if (categoryIsPresent.some((category) => (!category || !category.enabled)))
+            return response.status(412).json("One or more category does not exist."); // errors
         try {
             const DBResponse = yield models_1.Product.create({
                 dimensions,
@@ -101,7 +106,9 @@ const productControllers = {
             const limit = Number(perPage);
             const query = {};
             if (categories.length > 0) {
-                Object.assign(query, { 'category._id': { $in: categories } });
+
+                Object.assign(query, { 'category.code': { $in: categories } });
+
             }
             const totalProducts = yield models_1.Product.count(query);
             const DBResponse = yield models_1.Product.find(query).limit(limit).skip(skip).sort({ name: 'asc' });

@@ -3,7 +3,7 @@ import { User } from "../../models";
 import errors from "../errors";
 import cryptoProvider from "../../infra/providers/CryptoProvider";
 
-const isTest= true;
+const isTest= false;
 
 const userControllers = {
  async create(req:Request, res:Response){
