@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
-import { DivCarrinho, HeaderStyled } from "./styled";
-import { useState, useContext, ReactNode } from 'react';
-import Carrinho from './Carrinho';
+import { faBagShopping } from '@fortawesome/free-solid-svg-icons'
+import {  useContext, ReactNode } from 'react';
 import { LogadoContext } from '../../../Routes/Logado';
+import { HeaderStyled } from './styled';
 
 export default function HeaderMenu() {
     const {user} = useContext(LogadoContext)
@@ -46,5 +45,4 @@ export default function HeaderMenu() {
     </>
 };
 
-export default HeaderMenu;
 
