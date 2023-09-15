@@ -26,8 +26,8 @@ export const LogadoProvider = ({ children }: { children: react.ReactNode }) => {
         localStorage.setItem('userLogado', JSON.stringify(user))
       }, [user]);
 
-
     return <LogadoContext.Provider value={{user, setUser}}>
         {children}
     </LogadoContext.Provider>
 }
+
