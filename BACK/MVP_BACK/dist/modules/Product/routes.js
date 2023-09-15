@@ -15,6 +15,5 @@ productRoutes.post('/uploadimg/:filename', auth_1.default, validadeCredential_1.
 controller_1.default.imgUpload);
 productRoutes.get('/products/', controller_1.default.paginate);
 productRoutes.get('/product/:id', controller_1.default.findOne);
-productRoutes.get('/products/search', controller_1.default.search);
 productRoutes.put('/product/:id', auth_1.default, validadeCredential_1.default.ADM, products_1.default.updateProduct, controller_1.default.update);
 exports.default = productRoutes;

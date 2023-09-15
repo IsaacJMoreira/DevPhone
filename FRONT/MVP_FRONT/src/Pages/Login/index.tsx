@@ -38,6 +38,9 @@ export default function Login({}) {
                 setPassword('')
                 setLoading(0)
 
+                const SlLogin = [response.data.name, response.data.credential, response.data.token]
+                localStorage.setItem("userLogado", JSON.stringify(SlLogin))
+               
                 setUser({
                     name: response.data.name,
                     credential: response.data.credential,
