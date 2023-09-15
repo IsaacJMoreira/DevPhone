@@ -1,4 +1,5 @@
-import { User } from "../../../models";
-import UserRepository from "./userRepository";
+import { UserRepo } from "./userRepository";
 
-export const userRepository = new UserRepository(User)
+const useRepo:UserRepo = new UserRepo();
+
+export default useRepo;
