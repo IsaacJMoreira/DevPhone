@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { InfoBoxContainer, TextContainer, CheckboxButton, TopText, BottomText } from './styled';
@@ -6,40 +6,27 @@ import { InfoBoxContainer, TextContainer, CheckboxButton, TopText, BottomText } 
 interface InfoBoxProps {
   topText: string;
   bottomText: string;
+  isSelected: boolean; // Adicione a propriedade isSelected
+  onBoxClick: () => void; // Adicione a propriedade onBoxClick
 }
 
-const InfoBox: React.FC<InfoBoxProps> = ({ topText, bottomText }) => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  const toggleCheckbox = () => {
-    setIsChecked(!isChecked);
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
-
-  const handleClick = () => {
-    setIsHovered(false);
-    setIsChecked(!isChecked);
+const InfoBox: React.FC<InfoBoxProps> = ({ topText, bottomText, isSelected, onBoxClick }) => {
+  const handleBoxClick = () => {
+    if (!isSelected) {
+      // Chame a função de clique apenas se não estiver selecionado
+      onBoxClick();
+    }
   };
 
   return (
     <InfoBoxContainer
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={handleClick}
+      onClick={handleBoxClick}
       style={{
-        border: isHovered ? '2px solid black' : isChecked ? '2px solid orange' : '2px solid transparent',
+        border: isSelected ? '2px solid orange' : '2px solid transparent',
       }}
     >
-      <CheckboxButton onClick={toggleCheckbox}>
-        {isChecked ? <span>&#10003;</span> : null}
+      <CheckboxButton>
+        {isSelected ? <span>&#10003;</span> : null}
       </CheckboxButton>
       <TextContainer>
         <TopText>{topText}</TopText>
@@ -52,6 +39,8 @@ const InfoBox: React.FC<InfoBoxProps> = ({ topText, bottomText }) => {
 InfoBox.propTypes = {
   topText: PropTypes.string.isRequired,
   bottomText: PropTypes.string.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  onBoxClick: PropTypes.func.isRequired,
 };
 
 export default InfoBox;

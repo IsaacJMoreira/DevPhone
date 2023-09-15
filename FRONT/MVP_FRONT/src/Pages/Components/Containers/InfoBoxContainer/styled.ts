@@ -1,16 +1,21 @@
 import styled from 'styled-components';
 
 export const InfoBoxContainer = styled.div`
-  width: 396px;
+  width: 100%;
+  max-width: 350px; 
   height: auto; 
   background-color: #fff; 
   padding: 20px;
   display: flex;
   align-items: flex-start; 
   justify-content: flex-start; 
-  flex-direction: row; 
+  flex-direction: column; 
   border: 2px solid transparent; 
-  transition: border 0.3s ease; 
+  transition: border 0.3s ease;
+
+  @media (min-width: 768px) {
+    flex-direction: row; 
+  }
 `;
 
 export const TextContainer = styled.div`
@@ -42,4 +47,3 @@ export const BottomText = styled.div`
   align-self: flex-start;
   margin-top: 8px; 
 `;
-
