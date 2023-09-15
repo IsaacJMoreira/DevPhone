@@ -9,6 +9,5 @@ const algo = 'HS256';
 const decryptProvider = (0, express_jwt_1.expressjwt)({
     secret: secret_1.default.key,
     algorithms: [algo],
-    //credentialsRequired: false //maybe this is the enswer?
 });
 exports.default = decryptProvider;

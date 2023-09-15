@@ -60,7 +60,9 @@ const productSchema = new Schema<IProduct>(
         code: { type: String, required: true},
         name: { type: String, required: true},
         fatherCategory: { type: String, required: true, default: "root"},
-     },],
+     },{
+        _id: false
+     }],
 
      stock: { type: Number, required: true, default: 0},
      price:  { type: Number, required: true, default: 0},
@@ -72,7 +74,7 @@ const productSchema = new Schema<IProduct>(
 
     },
     {
-        timestamps: true,
+        timestamps: true
     },
 );
 

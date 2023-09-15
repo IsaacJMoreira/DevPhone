@@ -17,12 +17,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const errors_1 = __importDefault(require("../errors"));
-const isTest = true; //ATTENTION!!!! REMOVE!
+const isTest = false; //ATTENTION!!!! REMOVE!
 const productControllers = {
     create: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { dimensions, weight, name, SKU, category, stock, price, imgURL, description, shortDescription, alt } = request.body;
-        //NEEDS TO RECEIVE E img FROM THE REQUEST
-        //USE THE FACTORY TO DEAL WITH THE IMAGE EXTENSIONS
+        const { dimensions, weight, name, SKU, category, stock, price, imgURL, description, shortDescription, alt, } = request.body;
+        const categoryIsPresent = yield models_1.Categorie.find({
+            code: {
+                $in: category.map((category) => category.code) //type later ⚠ 
+            }
+        });
+        if (categoryIsPresent.some((category) => (!category || !category.enabled)))
+            return response.status(412).json("One or more category does not exist."); // errors
         try {
             const DBResponse = yield models_1.Product.create({
                 dimensions,
@@ -68,23 +73,22 @@ const productControllers = {
             response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
-    //This can implement other search Items:
-    // Symbol.find(
-    //     {
-    //       $or: [
-    //         { 'symbol': { '$regex': input, '$options': 'i' } },
-    //         { 'name': { '$regex': input, '$options': 'i' } }
-    //       ]
-    //     }
-    //   ) 
     search: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const category = request.query.category;
-        if (!category)
-            return response.status(400).json(errors_1.default.bad_request);
+        let { query } = request.query;
+        console.log(query);
+        if (!query) {
+            query = "";
+        }
         try {
-            const DBResponse = yield models_1.Product.find({ 'category.name': category });
+            const DBResponse = yield models_1.Product.find({
+                $or: [
+                    { 'category.name': { '$regex': `${query}`, '$options': 'i' } },
+                    { 'name': { '$regex': `${query}`, '$options': 'i' } }
+                ]
+            });
             if (!DBResponse.length)
                 return response.status(404).json(errors_1.default.not_found);
+            console.log(DBResponse.length);
             return response.status(200).json(DBResponse);
         }
         catch (error) {
@@ -93,32 +97,31 @@ const productControllers = {
             return response.status(500).json(errors_1.default.internal_server_error);
         }
     }),
-    findAll: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            const DBResponse = yield models_1.Product.find().count();
-            if (isTest)
-                console.log("Alguém tá tentando acessar!");
-            if (!DBResponse)
-                return response.status(404).json(errors_1.default.not_found);
-            return response.status(200).json(DBResponse);
-        }
-        catch (error) {
-            if (isTest)
-                console.log(error);
-            response.status(500).json(errors_1.default.internal_server_error);
-        }
-    }),
     paginate: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { page, perPage } = request.query;
+        const { page, perPage = 10, categories = [] } = request.query;
         if (!(page && perPage))
             return response.status(400).json(errors_1.default.bad_request);
         try {
-            const DBResponse = yield models_1.Product.find().limit(Number(perPage)).skip(Number(page) - 1).sort({ name: 'asc' });
+            const skip = (Number(page) - 1) * Number(perPage);
+            const limit = Number(perPage);
+            const query = {};
+            if (categories.length > 0) {
+
+                Object.assign(query, { 'category.code': { $in: categories } });
+
+            }
+            const totalProducts = yield models_1.Product.count(query);
+            const DBResponse = yield models_1.Product.find(query).limit(limit).skip(skip).sort({ name: 'asc' });
             if (isTest)
                 console.log("page :" + page, "perPage: " + perPage);
             if (!DBResponse.length)
                 return response.status(404).json(errors_1.default.not_found);
-            return response.status(200).json(DBResponse);
+            const responseJSON = {
+                totalProducts: totalProducts,
+                totalPages: Math.ceil(totalProducts / Number(perPage)),
+                products: DBResponse,
+            };
+            return response.status(200).json(responseJSON);
         }
         catch (error) {
             if (isTest)

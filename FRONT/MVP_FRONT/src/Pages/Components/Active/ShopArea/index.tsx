@@ -1,100 +1,141 @@
-import * as React from 'react'
-import { ProductCard } from '../../ProductCard'
-import axios from 'axios'
-import baseURL from '../../../../../baseURL'
-import Paginacao from '../../Paginacao'
-
-
+import * as React from "react";
+import { ProductCard } from "../../ProductCard";
+import axios from "axios";
+import baseURL from "../../../../../baseURL";
+import { Paginate } from "./styled";
+import { CardContainer } from "../../Containers/cardContainer/styles";
+import { CategorieArea } from "../CategorieArea";
 
 type Product = {
-    _id: string;
-    imgURL: string;
-    alt: string;
-    name: string;
-    price: number;
-    shortDescription: string;
-    stock: number
-}
-
-export const ShopArea = ()=>{
-    const [products, setProducts] = React.useState<Product[]>([]);
-
-    let toRender: any = [];
-    
-   
-
-    try{
-        React.useEffect ( ()=>{
-
-            axios.get<Product[]>(`${baseURL}/allproducts`).then((response)=>{
-                setProducts(response);
-            } )
-            .catch(error=>{
-                console.log("Error fetching data", error);
-            });
-        }, []);
-        }catch(error){
-            console.log(error);
-        }
-
-    
-        try {
-            //TODO: Remove all the logs!!!
-            console.log("Total de produtos:",products.data.length);
-            const fullPages = Math.floor(products.data.length/10);
-            const remeinderOfProducts = products.data.length%10; 
-            console.log("Pgs completas:",fullPages, "|Última pg terá:", remeinderOfProducts, "produtos");
-            const pages: number = fullPages + (remeinderOfProducts > 0? 1 : 0);
-            console.log("Total de pgs: ", pages);
-            for(let i = 0; i < fullPages; i++){
-                 toRender.push([]);
-                
-                for(let j = 0; j < 10; j++){
-                    toRender[i].push(products.data[i*10+j]);
-                }
-            }
-
-            if(remeinderOfProducts) toRender.push([]);
-
-            for(let i = 10 * fullPages ; i < 10 * fullPages + remeinderOfProducts; i++ ){
-                
-                toRender[fullPages].push(products.data[i]);
-            }
-
-            console.log("O novo array de produtos agora é assim:",toRender);
-
-        } catch (error) {
-            console.log("erro ao buscar dados: ", error);   
-        }
-        
-
-    if(!products.data) return (
-        <>
-            <h6>Sorry, nothing to buy here</h6>
-        </>
-    );
-
-    return (
-        <>
-            {toRender[0].map((product: Product)=>{
-                        return(
-                        <ProductCard
-                        key = {`${product._id}`}
-                        Src = {product.imgURL} 
-                        Alt = {product.alt}
-                        Title= {product.name}
-                        Price= {product.price}
-                        Description= {product.shortDescription}
-                        Stock={product.stock}
-                        />
-                        )
-                    })}
-            <Paginacao/>
-        </>      
-    ); 
-    
+  _id: string;
+  imgURL: string;
+  alt: string;
+  name: string;
+  price: number;
+  shortDescription: string;
+  link: string;
+  stock: number;
 };
 
-//setSkip={function (value: React.SetStateAction<number>): void {
-//    throw new Error('Function not implemented.')
-//   }}
+interface ISearch {
+  searchTerm?: string;
+  categoriesList?: string[];
+}
+
+export const ShopArea: React.FC<ISearch> = ({ searchTerm }) => {
+  const [productsTotal, setProductsTotal] = React.useState(0);
+  const [productsList, setProductsList] = React.useState<Product[]>([]);
+  const [page, setPage] = React.useState(1);
+  const [totalPages, setTotalPage] = React.useState(1);
+  const [status, setStatus] = React.useState(200);
+  const [categories, setCategories] = React.useState<string[]>([]);
+  const perPage = 8;
+
+  const getProductList = async () => {
+    try {
+      const list = await axios.get(
+        `${baseURL}/products`,
+        {
+          params: {
+            page,
+            perPage,
+            searchTerm,
+            categories,
+          },
+        }
+      );
+      setProductsList(list.data.products);
+      setProductsTotal(list.data.totalProducts);
+      setStatus(list.status);
+      setTotalPage(list.data.totalPages);
+    } catch (error) {
+      setStatus(404);
+    }
+  };
+
+  const handleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCategories((categories) => {
+      let newList: string[] = [];
+      if (event.target.checked) {
+        newList = [...categories, event.target.value];
+      } else {
+        newList.splice(categories.indexOf(event.target.value), 1);
+      }
+
+      return newList;
+    });
+  };
+
+  // Invoke when user click to request another page.
+  const handlePageClick = (event: { selected: number }) => {
+    setPage(event.selected + 1);
+  };
+
+  React.useEffect(() => {
+    if (page > totalPages) {
+      return;
+    }
+
+    getProductList(); //gets the first page to be rendered
+  }, [searchTerm, categories, page]);
+
+  return (
+    <>
+      <div className="CategorieSection">
+        <CategorieArea onChangeFunction={handleCheck} />
+      </div>
+      <CardContainer>
+        <div>
+          <h1>
+            {searchTerm
+              ? `Resultados para: "${searchTerm}"`
+              : "Todos os Produtos"}
+          </h1>
+          <div>
+            <h2>
+              {status !== 200
+                ? "💔😭Nenhum resultado encontrado😭💔"
+                : searchTerm
+                ? `📱Total: ${productsTotal} produto${
+                    productsTotal > 1 ? "s" : ""
+                  }📱`
+                : ""}
+            </h2>
+          </div>
+          <br />
+        </div>
+        {productsList.map((product: Product) => {
+          return (
+            status === 200 && (
+              <ProductCard
+                key={`${product._id}`}
+                Src={product.imgURL}
+                Alt={product.alt}
+                Title={product.name}
+                Price={product.price}
+                Description={product.shortDescription}
+                Stock={product.stock}
+                link={product._id}
+              />
+            )
+          );
+        })}
+
+        {status === 200 && (
+          <div>
+            <Paginate
+              breakLabel="..."
+              nextLabel="next >"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={5}
+              pageCount={totalPages}
+              previousLabel="< previous"
+              renderOnZeroPageCount={null}
+            />
+          </div>
+        )}
+      </CardContainer>
+    </>
+  );
+};
+
