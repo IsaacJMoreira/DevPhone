@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const models_1 = require("../../../models");
-class UserRepository {
+const joi_1 = require("joi");
+class ProductRepository {
     constructor(model) {
         this.model = model;
     }
@@ -40,11 +40,11 @@ class UserRepository {
             throw new Error("Method not implemented.");
         });
     }
-    existBtid() {
+    existByid(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const result = yield models_1.User.count({ where: {} });
-            return Boolean(result);
+            const result = yield this.model.count({ where: { id } });
+            return (0, joi_1.boolean)(result);
         });
     }
 }
-exports.default = UserRepository;
+exports.default = ProductRepository;

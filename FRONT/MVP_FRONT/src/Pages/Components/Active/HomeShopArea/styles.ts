@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { CardContainer } from "../../Containers/cardContainer/styles";
 
 
 
@@ -19,19 +20,7 @@ a.seguinte{
 }
 `
 
-export const CardProd = styled.section`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 10px;
-    margin: 25px;
-    max-width: auto;  
-    color: #000000;
+export const CustomCardContainer = styled(CardContainer)`
+  padding-top: 80px;
 
-    @media (max-width: 768px) {
-    .CardProd {
-        flex-direction: column; /* Stack items vertically on smaller screens */
-    }
-    }
-
-`
+`;

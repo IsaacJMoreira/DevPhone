@@ -1,12 +1,12 @@
-import { mongoDB } from "./../../../database/index";
-import { MongoClient, MongoDBNamespace } from "mongodb";
 import { Db } from "mongodb";
-import productRepository from"./productRepository";
+import productRepository from "./productRepository";
 
-describe("User repository", () => {
-  const uri = mongoDB;
-  let connection: MongoClient;
-  let db: Db;
+const { MongoClient } = require("mongodb");
+
+describe("Product repository", () => {
+  const uri = global.URL;
+  let connection;
+  let db;
 
   beforeAll(async () => {
     connection = await MongoClient.connect(uri, {
@@ -35,8 +35,7 @@ describe("User repository", () => {
       alt: "string",
       enabled: "boolean",
     };
-    const result = await productRepository.craate(payloadProduct)
+    const result = await productRepository.craate(payloadProduct);
     expect(result).toBeTruthy();
-
   });
 });

@@ -1,10 +1,10 @@
 export default interface IRepository { 
 
     create(payload:any): Promise<any>
-    update(): Promise<void>
-    delete(): Promise<void>
-    findone(): Promise<void>
-    findeAll(): Promise<void>
-    existsById(): Promise<void>
+    update(): Promise<any>
+    delete(): Promise<any>
+    findone(): Promise<any>
+    findeAll(): Promise<any>
+    existsById(): Promise<boolean>
 
 }

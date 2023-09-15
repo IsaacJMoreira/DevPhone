@@ -7,6 +7,9 @@ flex-direction: column;
 background-color: #EFF2F6;
 min-height: 98vh;
 
+h1{
+  font-size: 36px;
+}
 
 main {
   margin-top: 60px;
@@ -72,8 +75,6 @@ input {
   font-size: 16px; 
 }
 
-
-
 div.foto {
   background-color: ${THEME.COLORS.WHITE};
   display: flex;
@@ -86,7 +87,6 @@ div.foto {
   cursor: pointer;
 
 
-
   input {
     cursor: pointer;
     border: none;
@@ -96,20 +96,35 @@ div.foto {
   }
 }
 
+div.salvarButton{
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
 
-button {
+.custom-button {
+  width: 397px;
+  height: 50px;
+
+}
+
+.excluir-button {
   width: 397px;
   height: 50px;
   border-radius: 6px;
-  background-color: black;
+  background-color: ${THEME.COLORS.WHITE};
   font-size: 20px;
   font-weight: bold;
-  color: white; /* Cor do texto inicial (branco) */
+  color: #EA0F0F; 
+  border-color: #EA0F0F;
   transition: color 0.3s ease; /* Adiciona uma transição suave para a cor do texto */
+ 
 
   &:hover {
     color: #FFA500; /* Cor do texto quando o mouse passa por cima (laranja) */
   }
 }
+
+
+
 }
 `
