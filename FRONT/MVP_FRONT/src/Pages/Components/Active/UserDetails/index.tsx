@@ -4,35 +4,6 @@ import baseURL from "../../../../../baseURL";
 import { UserDiv } from "./styles";
 import { Card } from "../../Containers/Card/styles";
 import { ButtonGlobal } from "../../Buttons/ButtonGlobal";
-import { CardContainer } from "../../Containers/cardContainer/styles";
-import { BodySection } from "../../../Shop/styled";
-
-type Items = {
-  itemID: string;
-  itemSKU: string;
-  quantity: number;
-};
-
-type Address = {
-  nikName: string;
-  street: string;
-  number: string;
-  zipCode: string;
-  neighborhood: string;
-  city: string;
-  state: string;
-  country: string;
-};
-
-type Order = {
-  _id: string;
-  status: string;
-  items: Items[];
-  ownerID: string;
-  shippingCode: string;
-  enabled: boolean;
-  address: Address;
-};
 
 type Adress = {
   nikName: string;
@@ -61,7 +32,6 @@ interface IUserDetails {
 
 export const UserDetails: React.FC<IUserDetails> = ({ userID }) => {
   const [userInfo, setUserInfo] = React.useState<User | null>(null);
-  const [orders, setOrders] = React.useState<Order | null | Order[]>(null);
 
   const fetchData = async () => {
     try {
@@ -78,19 +48,6 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID }) => {
     } catch (error) {
       console.log("Error fetching data", error);
     }
-
-    try {
-      const responseAboutOrders = await axios.get<Order>(
-        `${baseURL}/orders/${userID}`,
-        {
-          headers: {
-            Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDNhNTg0NGMyOTY5NjQzYmNjNDI4NCIsImVtYWlsIjoiaXNhYWNAZW1haWwuY29tIiwibmFtZSI6IklzYWFjIEplcm9uaW1vIE1vcmVpcmEiLCJjcmVkZW50aWFsIjoiQ0xJIiwiaWF0IjoxNjk0NzYyMjA3fQ.wk1f961Xh2hz-NsAQyGvRoF44D3cIlOmKeAEzao8JCY"}`,
-          },
-        }
-      );
-
-      setOrders(responseAboutOrders.data);
-    } catch (error) {}
   };
 
   React.useEffect(() => {
@@ -105,14 +62,9 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID }) => {
     );
   }
 
-  if (orders) {
-    console.log(orders);
-  }
-
   const addressAmmount = userInfo.address.length;
 
   return (
-    <BodySection>
     <UserDiv>
       <Card className="userCard">
         <Card className="userName">
@@ -128,7 +80,7 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID }) => {
             </div>
             <div className="line"></div>
             <div>
-              <label htmlFor="name">Name: </label>
+              <label htmlFor="name">Name </label>
             </div>
             <div>
               <input
@@ -139,13 +91,13 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID }) => {
               />
             </div>
             <div>
-              <label htmlFor="email">E-mail: </label>
+              <label htmlFor="email">E-mail </label>
             </div>
             <div>
               <input type="email" placeholder={userInfo.email} />
             </div>
             <div>
-              <label htmlFor="email">Phone: </label>
+              <label htmlFor="email">Phone </label>
             </div>
             <div>
               <input
@@ -264,8 +216,6 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID }) => {
           </Card>
         )}
       </Card>
-      <CardContainer></CardContainer>
     </UserDiv>
-    </BodySection>
   );
 };

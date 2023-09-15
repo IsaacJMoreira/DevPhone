@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import THEME from "../../../../theme";
 
 export const UserDiv = styled.div`
+  overflow: auto;
   ::-webkit-scrollbar {
     display: none;
   }
@@ -20,8 +21,9 @@ export const UserDiv = styled.div`
     color: ${THEME.COLORS.WHITE};
     width: 20vw;
     padding: 10px;
-    max-height: 100%;
+    max-height: 75vh;
     margin: 0;
+    
   }
   .userName,
   .personalInfo,
