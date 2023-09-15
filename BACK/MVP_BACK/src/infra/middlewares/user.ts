@@ -4,8 +4,9 @@ import { Request, Response, NextFunction } from "express";
 
 const validatePost = validate({
     body: Joi.object().keys ({
-        name: Joi.string().required(),
+        name: Joi.string().min(2).max(30).required(),
         email: Joi.string().email().required(),
+        mainPhone: Joi.string().min(8).max(14),
         password: Joi.string().min(8).max(30).required(),
         credential: Joi.string().valid("ADM","CLI","INACTIVE"),
         address: Joi.array().items(
@@ -14,7 +15,7 @@ const validatePost = validate({
             street: Joi.string().min(1).max(30),
             number: Joi.string().min(1).max(30),
             zipCode: Joi.string().min(1).max(30),
-            neighgorhood: Joi.string().min(1).max(30),
+            neighborhood: Joi.string().min(1).max(30),
             city: Joi.string().min(1).max(30),
             state: Joi.string().min(1).max(30),
             country: Joi.string().min(1).max(30),
@@ -25,8 +26,9 @@ const validatePost = validate({
 
 const validateUpdate = validate({
     body: Joi.object().keys ({
-        name: Joi.string(),
+        name: Joi.string().min(2).max(30),
         email: Joi.string().email(),
+        mainPhone: Joi.string().min(8).max(14),
         password: Joi.string().min(8).max(30),
         credential: Joi.string().valid("ADM","CLI","INACTIVE"),
         address: Joi.object({
@@ -34,7 +36,7 @@ const validateUpdate = validate({
             street: Joi.string().min(1).max(30),
             number: Joi.string().min(1).max(30),
             zipCode: Joi.string().min(1).max(30),
-            neighgorhood: Joi.string().min(1).max(30),
+            neighborhood: Joi.string().min(1).max(30),
             city: Joi.string().min(1).max(30),
             state: Joi.string().min(1).max(30),
             country: Joi.string().min(1).max(30),

@@ -14,6 +14,7 @@ import ShopCart from './Pages/ShopCart';
 import ShopCheckout from './Pages/ShopCheckout';
 import AdmCadastro from './Pages/AdmCadastro';
 import AdmDetails from './Pages/AdmDetails';
+import User from './Pages/User';
 
 
 export default function Router(){
@@ -70,7 +71,11 @@ export default function Router(){
    {
       path: "/CompraRealizada",
       element: <CompraRealizada />
-   },]);
+   },
+   {
+      path: "/user/:userID",
+      element: <User/>
+   }]);
 
    return <RouterProvider router={routes} />
 }
