@@ -1,10 +1,13 @@
 import { styled } from "styled-components";
 import THEME from "../../../../theme";
 
-export const UserDiv = styled.div`
+export const OrderDiv = styled.div`
 
+  height: 100vh;
   .ordersCard{
-    max-width: 40vw;;
+    max-width: 40vw;
+    height: 75vh;
+    margin: 0;
   }
  
   .orderCard,

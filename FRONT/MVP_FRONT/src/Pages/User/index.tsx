@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 //Styleds:
-import { MainStyled, FormStyled } from "./styled";
+
 
 //Components:
 import HeaderMenu from "../Components/HeaderMenu";
@@ -9,7 +9,8 @@ import { UserDetails } from "../Components/Active/UserDetails";
 import { BodySection } from "../Shop/styled";
 
 import { OrderDetails } from "../Components/Active/OrdersArea";
-import { ShopArea } from "../Components/Active/ShopArea";
+import { ProfileDiv } from "./styled";
+import { TopPickForUser } from "../Components/Active/HomeShopArea";
 
 export default function User() {
   const { userID } = useParams<{ userID?: string }>();
@@ -20,12 +21,10 @@ export default function User() {
     return (
       <>
         <HeaderMenu />
-        <MainStyled>
-          <FormStyled>
+        
             <h1>Error: userID is missing</h1>
             <p>Please provide a valid user ID.</p>
-          </FormStyled>
-        </MainStyled>
+    
         <Footer />
       </>
     );
@@ -33,11 +32,13 @@ export default function User() {
   return (
     <>
       <HeaderMenu />
-      <BodySection>
-        <UserDetails userID={userID ?? ""} />
-        <OrderDetails userID={userID ?? ""} />
-      </BodySection>
-
+      <ProfileDiv>
+        <BodySection className="BodySection">
+          <UserDetails userID={userID ?? ""} />
+          <OrderDetails userID={userID ?? ""} />
+          <TopPickForUser />
+        </BodySection>
+      </ProfileDiv>
       <Footer />
     </>
   );

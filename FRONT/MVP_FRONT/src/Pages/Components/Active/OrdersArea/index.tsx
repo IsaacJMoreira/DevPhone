@@ -1,7 +1,7 @@
 import * as React from "react";
 import axios from "axios";
 import baseURL from "../../../../../baseURL";
-import { UserDiv } from "./styles";
+import { OrderDiv } from "./styles";
 import { Card } from "../../Containers/Card/styles";
 import { ButtonGlobal } from "../../Buttons/ButtonGlobal";
 import { Link } from "react-router-dom";
@@ -38,8 +38,8 @@ interface IOrderDetails {
   userID: string; // Pass the productId as a prop
 }
 
-export const OrderDetails: React.FC<IOrderDetails> = ({ userID }) => {;
-  const [orders, setOrders] = React.useState<Order | null | Order[]>(null);
+export const OrderDetails: React.FC<IOrderDetails> = ({ userID }) => {
+  const [orders, setOrders] = React.useState<Order | null | Order[]>([]);
 
   const fetchData = async () => {
     try {
@@ -62,54 +62,45 @@ export const OrderDetails: React.FC<IOrderDetails> = ({ userID }) => {;
     fetchData();
   }, []);
 
-  if (!orders) {
-    return (
-      <>
-        <h1>You don't have any orders yet!</h1>
-        <h2>Don't worry, we can fix this.</h2>
-        <Link to='/Shop'>Clicke here to buy the best 📱 in the 🌎!</Link>
-      </>
-    );
+  let ordersAmmount = 0;
+
+  if (orders) {
+    ordersAmmount = orders.length;
   }
 
-  const ordersAmmount = orders.length;
-
-
-
-
   return (
-    <UserDiv>
-      
+    <OrderDiv className="OrderDiv">
       <CardContainer className="ordersCard">
-          <div>
-            <h2 className="title">{`Your Order${ordersAmmount>1? "s": ""}`}</h2>
-          </div>
-        
+        <div>
+          <h2 className="title">{ordersAmmount? (`Your Order${
+            ordersAmmount > 1 ? "s" : ""
+          }`): ""}</h2>
+        </div>
 
-        {
+        {ordersAmmount ? (
           orders.map((order) => {
             return (
               <Card className="orderCard" key={order._id}>
                 <div>
-                  <label htmlFor="orderDate">Order number </label>
+                  <h3 >Order number </h3>
                   <h4>{order._id}</h4>
                 </div>
                 <div className="line"></div>
                 <div>
                   <div>
-                    <label htmlFor="orderDate">Ordered at </label>
+                    <h3>Ordered at </h3>
                     <p>{order.createdAt}</p>
                   </div>
                   <div>
-                    <label htmlFor="status">Order Status </label>
+                    <h3>Order Status </h3>
                     <p>{order.status}</p>
                   </div>
                   <div>
-                    <label htmlFor="shippingTo">Shipping to your </label>
+                    <h3 >Shipping to your </h3>
                     <p>{order.address.nikName}</p>
                   </div>
                   <div>
-                    <label htmlFor="shippingCode">Shipping Code </label>
+                    <h3 >Shipping Code </h3>
                     <p>{order.shippingCode}</p>
                   </div>
                   <div>
@@ -121,8 +112,18 @@ export const OrderDetails: React.FC<IOrderDetails> = ({ userID }) => {;
               </Card>
             );
           })
-        }
-      </CardContainer>  
-    </UserDiv>
+        ) : (
+          <>
+            <div>
+              <h1>You don't have any orders yet!</h1>
+              <h1>💔</h1>
+            </div>
+
+            <h2>Don't worry, we can fix this</h2>
+            <Link to="/Shop">Clicke here to buy the best 📱 in the 🌎!</Link>
+          </>
+        )}
+      </CardContainer>
+    </OrderDiv>
   );
 };

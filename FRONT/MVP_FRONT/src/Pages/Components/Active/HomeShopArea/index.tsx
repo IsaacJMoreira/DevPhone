@@ -1,7 +1,6 @@
 import * as React from "react";
 import axios from "axios";
 import baseURL from "../../../../../baseURL";
-import { Link } from "react-router-dom";
 import { ProductCard } from "../../ProductCard";
 import { CustomCardContainer } from "../../Active/HomeShopArea/styles";
 
@@ -13,7 +12,7 @@ type Product = {
   shortDescription: string;
   products: any;
 };
-export const HomeShopArea = () => {
+export const TopPickForUser = () => {
   const [products, setProducts] = React.useState<Product[]>([]);
 
   const fetchData = async () => {
@@ -43,7 +42,7 @@ export const HomeShopArea = () => {
 
   return (
     <>
-      <CustomCardContainer style={{ width: "100%", height: "650px" }}>
+      <CustomCardContainer >
         {products.map((product: Product) => (
           <ProductCard
             key={`${product._id}`}

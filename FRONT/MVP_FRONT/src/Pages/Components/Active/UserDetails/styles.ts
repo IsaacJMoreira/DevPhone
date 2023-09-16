@@ -20,7 +20,7 @@ export const UserDiv = styled.div`
     background-color: ${THEME.COLORS.BLACK};
     color: ${THEME.COLORS.WHITE};
     width: 20vw;
-    padding: 10px;
+    padding: 0 10px;
     max-height: 75vh;
     margin: 0;
     
