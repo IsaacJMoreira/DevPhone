@@ -9,21 +9,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-class MongoConnection {
-    constructor(db_connection_string) {
-        this.db_connection_string = db_connection_string;
-    }
-    createConnection() {
+const models_1 = require("../../../models");
+class UserService {
+    create(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield (0, mongoose_1.connect)(this.db_connection_string);
-                console.log("Banco de dados NO-SQL conectado com sucesso!");
-            }
-            catch (error) {
-                // console.log("Não conseguimos conexão com o mongo DB!",error);
-            }
+            return models_1.User.create(user);
+        });
+    }
+    update(id, updatedUser) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const user = yield models_1.User.findByIdAndUpdate(id, updatedUser, { new: true });
+            return user;
+        });
+    }
+    findOne(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return models_1.User.findById(id);
+        });
+    }
+    findAll() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return models_1.User.find();
         });
     }
 }
-exports.default = MongoConnection;
+exports.default = UserService;

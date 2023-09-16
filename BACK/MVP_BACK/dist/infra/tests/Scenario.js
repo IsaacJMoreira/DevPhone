@@ -9,21 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = require("mongoose");
-class MongoConnection {
-    constructor(db_connection_string) {
-        this.db_connection_string = db_connection_string;
+exports.Scenario = void 0;
+class Scenario {
+    constructor(instance) {
+        this.instance = instance;
     }
-    createConnection() {
+    init() {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield (0, mongoose_1.connect)(this.db_connection_string);
-                console.log("Banco de dados NO-SQL conectado com sucesso!");
-            }
-            catch (error) {
-                // console.log("Não conseguimos conexão com o mongo DB!",error);
-            }
+            this.instance.query(''); //acrescentar as tabelas do banco 
         });
     }
 }
-exports.default = MongoConnection;
+exports.Scenario = Scenario;

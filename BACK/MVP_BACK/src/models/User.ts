@@ -3,6 +3,8 @@
  *****************************************/
 
 import { Schema, model} from 'mongoose'
+import { type } from 'os';
+import { ModelDefined, Optional } from 'sequelize';
 
 interface IAddress{
     nikName: string;

@@ -8,7 +8,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 const { validate, Joi } = require("express-validation");
 const validatePost = validate({
     body: Joi.object().keys({
@@ -46,12 +45,12 @@ const validateUpdate = validate({
         }),
     })
 });
-const middlewareUsers = {
-    newUser: (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-        yield validatePost(request, response, next);
+const middlewareUser = {
+    newUser: (require, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+        yield validatePost(require, response, next);
     }),
-    updateUser: (request, response, next) => __awaiter(void 0, void 0, void 0, function* () {
-        yield validateUpdate(request, response, next);
+    updateUser: (require, response, next) => __awaiter(void 0, void 0, void 0, function* () {
+        yield validateUpdate(require, response, next);
     })
 };
-exports.default = middlewareUsers;
+module.exports = middlewareUser;

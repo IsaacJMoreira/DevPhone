@@ -12,5 +12,5 @@ const categorieRoutes = (0, express_1.Router)();
 categorieRoutes.get('/categories', controller_1.default.findAll);
 categorieRoutes.get('/category/:name', controller_1.default.findOneByName);
 categorieRoutes.put('/category/:name', auth_1.default, validadeCredential_1.default.ADM, categories_1.default.update, controller_1.default.update);
-categorieRoutes.post('/categorie', auth_1.default, validadeCredential_1.default.ADM, categories_1.default.post, controller_1.default.create);
+categorieRoutes.post('/category', auth_1.default, validadeCredential_1.default.ADM, categories_1.default.post, controller_1.default.create);
 exports.default = categorieRoutes;

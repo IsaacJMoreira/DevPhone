@@ -1,5 +1,4 @@
 const {validate, Joi } = require ("express-validation");
-import { Request, Response, NextFunction } from "express";
 
 
 const validatePost = validate({
@@ -43,15 +42,15 @@ const validateUpdate = validate({
 })
 
 
-const middlewareUsers = {
-    newUser: async (request: Request,response: Response, next: NextFunction) =>{
-        await validatePost(request, response, next)
+const middlewareUser = {
+    newUser: async (require: any,response: any, next: any) =>{
+        await validatePost(require, response,next)
     },
     
-    updateUser: async (request: Request,response: Response, next: NextFunction) =>{
-        await  validateUpdate(request ,response, next);
+    updateUser: async (require: any,response: any, next: any) =>{
+        await  validateUpdate(require ,response,next);
     } 
    
 }
 
-export default middlewareUsers;
+module.exports = middlewareUser;

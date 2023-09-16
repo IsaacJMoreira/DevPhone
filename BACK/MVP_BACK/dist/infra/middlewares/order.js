@@ -10,28 +10,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const { validate, Joi } = require("express-validation");
-const validatePost = validate({
+const validateOrder = validate({
     body: Joi.object().keys({
         ownerID: Joi.string().required(),
-        addressNickName: Joi.string().min(3).max(30).required(),
-        itens: Joi.array().items(Joi.object({
-            itemID: Joi.string().required(),
-            itemSKU: Joi.string().required(),
-            quantity: Joi.number().min(1).required(),
-        })).required()
+        itens: Joi.string().required(),
+        //orderName :Joi.string().min(3).max(20).required() "ideia para add no fluxo" 
+    })
+});
+const validateCreate = validate({
+    body: Joi.object().keys({
+        ownerID: Joi.string().required(),
+        itens: Joi.strig().required()
     })
 });
 const validateUpdate = validate({
     body: Joi.object().keys({
-        addressNickName: Joi.string().min(3).max(30).required(),
-        shippingCode: Joi.string().min(3).max(256),
-        enabled: Joi.boolean(),
-        status: Joi.string().min(5).max(256),
+        ownerID: Joi.string().required(),
+        itens: Joi.string().required()
     })
 });
 const middlewareOrder = {
+    findall: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        yield validateOrder(req, res, next);
+    }),
     create: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        yield validatePost(req, res, next);
+        yield validateCreate(req, res, next);
     }),
     update: (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         yield validateUpdate(req, res, next);
