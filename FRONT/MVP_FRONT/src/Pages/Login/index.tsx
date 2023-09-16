@@ -43,7 +43,7 @@ export default function Login({}) {
                 setLoading(0)
 
 
-                const SlLogin = [response.data.name, response.data.credential, response.data.token]
+                const SlLogin = [response.data.id, response.data.name, response.data.credential, response.data.token]
                 localStorage.setItem("userLogado", JSON.stringify(SlLogin))
                
                 setUser({
