@@ -11,6 +11,8 @@ type Product = {
   name: string;
   shortDescription: string;
   products: any;
+  price: number;
+  stock: number;
 };
 export const TopPickForUser = () => {
   const [products, setProducts] = React.useState<Product[]>([]);
@@ -19,7 +21,7 @@ export const TopPickForUser = () => {
     try {
 
       const response = await axios.get<Product>(
-        `${baseURL}/products/?page=1&perPage=3`
+        `${baseURL}/products/?page=1&perPage=3&searchTerm=Iphone`
       );
 
       setProducts(response.data.products);
@@ -43,6 +45,9 @@ export const TopPickForUser = () => {
   return (
     <>
       <CustomCardContainer >
+        <div>
+          <h3>Top picks for you</h3>
+        </div>
         {products.map((product: Product) => (
           <ProductCard
             key={`${product._id}`}
