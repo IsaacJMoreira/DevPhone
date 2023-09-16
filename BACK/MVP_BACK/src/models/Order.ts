@@ -56,6 +56,7 @@ const shoppingCartSchema = new Schema<IOrder>(
       state: { type: String, required: true },
       country: { type: String, required: true },
     },
+
     enabled: { type: Boolean, required: true, default: true },
   },
   {

@@ -10,12 +10,18 @@ import { MainStyled, BodyStyled, FormStyled} from "./styled"
 import HeaderMenu from "../Components/HeaderMenu"
 import Footer from "../Components/Footer"
 
+import { LogadoContext } from "../../Routes/Logado"
+import Home from "../Home"
+
 
 export default function Login({}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loogar, setLoogar] = useState('');
     const [loading, setLoading] = useState(0);
+
+    const {setUser} = useContext(LogadoContext);
+
 
     const logar: FormEventHandler<HTMLFormElement> = async (event) => {
         event.preventDefault();
@@ -35,13 +41,24 @@ export default function Login({}) {
                 setEmail('')
                 setPassword('')
                 setLoading(0)
-                localStorage.setItem("user", token)
+
+
+                const SlLogin = [response.data.name, response.data.credential, response.data.token]
+                localStorage.setItem("userLogado", JSON.stringify(SlLogin))
+               
+                setUser({
+                    name: response.data.name,
+                    credential: response.data.credential,
+                    token: response.data.token,
+                })
              }
         } catch (error) {
             setLoading(0);
             setLoogar("password ou email invalido!")
             console.error(error);
         }};
+
+        if(loogar == "Login Feito!") return <Home/>
         
     return <BodyStyled>
         <HeaderMenu/>

@@ -17,6 +17,7 @@ import AdmDetails from './Pages/AdmDetails';
 import User from './Pages/User';
 
 
+
 export default function Router(){
     const routes = createBrowserRouter([{
         path: "/Login",
