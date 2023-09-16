@@ -50,12 +50,9 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
                 {
                     searchDisabled && <div style={{ width: "33vw" }}></div>
                 }
-                <li><Link to="/" className='carinho'><FontAwesomeIcon icon={faBagShopping}/></Link></li>
-                <li>{Logado}
-                  <div className='modal'>
-                     <ul><Perfil isOpened={modal} closed={() => setModal(false)}/></ul>
-                  </div>
-                </li>
+                <li><Link to="/shopCart" className='carinho'><FontAwesomeIcon icon={faBagShopping} /></Link></li>
+                <li>{Logado}</li>
+
             </ul>
         </HeaderStyled>
         

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { FormEventHandler, useState, useContext } from "react"
+import { FormEventHandler, useState } from "react"
 import axios from "axios"
 import baseURL from '../../../baseURL'
 
@@ -9,14 +9,17 @@ import { MainStyled, BodyStyled, FormStyled} from "./styled"
 //Components:
 import HeaderMenu from "../Components/HeaderMenu"
 import Footer from "../Components/Footer"
+
 import { LogadoContext } from "../../Routes/Logado"
 import Home from "../Home"
+
 
 export default function Login({}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loogar, setLoogar] = useState('');
     const [loading, setLoading] = useState(0);
+
     const {setUser} = useContext(LogadoContext);
 
 
@@ -34,9 +37,11 @@ export default function Login({}) {
              if(response.status === 200){
                 setLoogar("Login Feito!")
 
+                const token = response.data;
                 setEmail('')
                 setPassword('')
                 setLoading(0)
+
 
                 const SlLogin = [response.data.name, response.data.credential, response.data.token]
                 localStorage.setItem("userLogado", JSON.stringify(SlLogin))
