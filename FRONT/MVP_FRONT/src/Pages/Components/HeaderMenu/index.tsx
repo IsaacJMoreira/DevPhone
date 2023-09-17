@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Perfil from "./Perfil"
 
 import { faBagShopping, faSearch } from '@fortawesome/free-solid-svg-icons'
-import {  useContext, ReactNode } from 'react';
+import {  useContext, ReactNode, useState } from 'react';
 import { LogadoContext } from '../../../Routes/Logado';
 import { HeaderStyled } from './styled';
 
@@ -12,18 +13,18 @@ interface HeaderMenuProps {
     searchHandler?: (e: any) => void
 };
 
-
 const HeaderMenu: React.FC<HeaderMenuProps> = ({
     input,
     searchDisabled = true,
     searchHandler,
 }) => {
-    const {user} = useContext(LogadoContext)
+    const {user} = useContext(LogadoContext);
+    const [modal, setModal] = useState(false);
 
     let Logado = {} as ReactNode;
 
     if (user?.token) {
-        Logado = <Link to="/painelAdm" className='login'>{user?.name}</Link>
+        Logado = <Link to='' onClick={() => setModal(true)} className='login'>{user?.name}</Link>
     } else {
         Logado = <Link to="/login" className='login'>Login</Link>
     }
@@ -49,10 +50,12 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
                 {
                     searchDisabled && <div style={{ width: "33vw" }}></div>
                 }
-                <li><Link to="/" className='carinho'><FontAwesomeIcon icon={faBagShopping} /></Link></li>
+                <li><Link to="/shopCart" className='carinho'><FontAwesomeIcon icon={faBagShopping} /></Link></li>
                 <li>{Logado}</li>
+
             </ul>
         </HeaderStyled>
+        
     </>
 };
 

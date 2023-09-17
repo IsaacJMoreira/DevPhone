@@ -20,6 +20,25 @@ ul {
     gap: 50px;
     margin-left: 40px;
     font-size: 20px;
+
+    div.modal {
+        position: block;
+
+        ul {
+            flex-direction: column;
+            text-align: center;
+            background-color:${THEME.COLORS.WHITE};
+            box-shadow: 0 0 5px 0 rgba(10, 10, 10, 0.29);
+            gap: 0px;
+            margin-left: 0px;
+
+            li {
+                margin: 15px;
+                margin-top: 20px;
+            }
+        }
+    }
+
 }
 
 li {

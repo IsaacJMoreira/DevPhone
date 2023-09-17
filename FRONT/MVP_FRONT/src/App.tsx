@@ -3,7 +3,6 @@ import {GlobalCss} from "./Global"
 import {LogadoProvider} from "./Routes/Logado"
 
 
-
 function App() {
   return <>
      <LogadoProvider>
@@ -11,7 +10,6 @@ function App() {
        <GlobalCss/>
      </LogadoProvider>  
     </>
-  
 }
 
 export default App
