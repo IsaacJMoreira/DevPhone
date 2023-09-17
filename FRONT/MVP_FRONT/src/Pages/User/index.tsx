@@ -22,8 +22,8 @@ export default function User() {
       <>
         <HeaderMenu />
         
-            <h1>Error: userID is missing</h1>
-            <p>Please provide a valid user ID.</p>
+            <h1>Error: You are not logged in</h1>
+            <p>Please login first.</p>
     
         <Footer />
       </>
