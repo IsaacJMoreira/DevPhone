@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 import { Order, Product, User } from "../../models";
 import errors from "../errors";
 
-const isTest = false;//ATTENTION!!!! REMOVE!
+const isTest = true;//ATTENTION!!!! REMOVE!
 
 const orderControllers = {
 
@@ -16,7 +16,7 @@ const orderControllers = {
         const {
             ownerID,
             items,
-            addressNickName
+            address
         } = request.body;
 
 
@@ -82,7 +82,7 @@ const orderControllers = {
             const DBResponse = await Order.create({
                 ownerID: ownerID.toString(),
                 items: items,
-                addressNickName: addressNickName
+                address: address
             });
             if (isTest) console.log(DBResponse);
             return response.sendStatus(200);
