@@ -104,7 +104,7 @@ font-size: 18px;
 padding: 10px 10px;
 width: 194px;
 cursor: pointer;
-margin-top: 50px;
+margin-top: 20px;
 margin-left: 3%;
 
 &:hover {
