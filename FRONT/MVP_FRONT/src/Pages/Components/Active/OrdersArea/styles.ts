@@ -9,14 +9,18 @@ export const OrderDiv = styled.div`
     height: 75vh;
     margin: 0;
   }
+
+  h3, h2{
+    padding: 2px;
+  }
  
   .orderCard,
   .title {
     
-    height: max-content;
-    min-height: fit-content;
+    height: fit-content;
+    min-height: max-content;
     background-color: ${THEME.COLORS.WHITE};
-    padding: 15px 10px 0 10px;
+    padding: 0 10px;
     margin: 0;
   }
 

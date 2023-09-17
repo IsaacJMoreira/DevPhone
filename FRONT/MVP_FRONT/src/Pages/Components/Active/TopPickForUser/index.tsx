@@ -2,7 +2,7 @@ import * as React from "react";
 import axios from "axios";
 import baseURL from "../../../../../baseURL";
 import { ProductCard } from "../../ProductCard";
-import { CustomCardContainer } from "../../Active/HomeShopArea/styles";
+import { CustomCardContainer } from "./styles";
 
 type Product = {
   _id: string;

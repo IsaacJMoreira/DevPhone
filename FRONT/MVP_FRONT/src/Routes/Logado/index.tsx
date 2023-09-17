@@ -3,6 +3,7 @@ import react, { useEffect } from "react"
 export const LogadoContext = react.createContext({} as IUser)
 
 interface User {
+    ID: string;
     name: string,
     credential: string,
     token: string

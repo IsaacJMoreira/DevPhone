@@ -74,7 +74,7 @@ export default function Router(){
       element: <CompraRealizada />
    },
    {
-      path: "/user/:userID",
+      path: "/profile/",
       element: <User/>
    }]);
 

@@ -28,9 +28,10 @@ type User = {
 
 interface IUserDetails {
   userID: string; // Pass the productId as a prop
+  token: string;
 }
 
-export const UserDetails: React.FC<IUserDetails> = ({ userID }) => {
+export const UserDetails: React.FC<IUserDetails> = ({ userID, token }) => {
   const [userInfo, setUserInfo] = React.useState<User | null>(null);
 
   const fetchData = async () => {
@@ -39,7 +40,7 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID }) => {
         `${baseURL}/profile/${userID}`,
         {
           headers: {
-            Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDNhNTg0NGMyOTY5NjQzYmNjNDI4NCIsImVtYWlsIjoiaXNhYWNAZW1haWwuY29tIiwibmFtZSI6IklzYWFjIEplcm9uaW1vIE1vcmVpcmEiLCJjcmVkZW50aWFsIjoiQ0xJIiwiaWF0IjoxNjk0NzYyMjA3fQ.wk1f961Xh2hz-NsAQyGvRoF44D3cIlOmKeAEzao8JCY"}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );

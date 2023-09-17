@@ -3,9 +3,11 @@ import axios from "axios";
 import baseURL from "../../../../../baseURL";
 import { OrderDiv } from "./styles";
 import { Card } from "../../Containers/Card/styles";
-import { ButtonGlobal } from "../../Buttons/ButtonGlobal";
 import { Link } from "react-router-dom";
 import { CardContainer } from "../../Containers/cardContainer/styles";
+import { OrderItem } from "../OrderItem";
+
+
 type Items = {
   itemID: string;
   itemSKU: string;
@@ -36,18 +38,19 @@ type Order = {
 
 interface IOrderDetails {
   userID: string; // Pass the productId as a prop
+  token: string
 }
 
-export const OrderDetails: React.FC<IOrderDetails> = ({ userID }) => {
+export const OrderDetails: React.FC<IOrderDetails> = ({ userID, token }) => {
   const [orders, setOrders] = React.useState<Order | null | Order[]>([]);
 
   const fetchData = async () => {
     try {
-      const responseAboutOrders = await axios.get<Order>(
+      const responseAboutOrders = await axios.get<Order | Order[]>(
         `${baseURL}/orders/${userID}`,
         {
           headers: {
-            Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDNhNTg0NGMyOTY5NjQzYmNjNDI4NCIsImVtYWlsIjoiaXNhYWNAZW1haWwuY29tIiwibmFtZSI6IklzYWFjIEplcm9uaW1vIE1vcmVpcmEiLCJjcmVkZW50aWFsIjoiQ0xJIiwiaWF0IjoxNjk0NzYyMjA3fQ.wk1f961Xh2hz-NsAQyGvRoF44D3cIlOmKeAEzao8JCY"}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -72,9 +75,9 @@ export const OrderDetails: React.FC<IOrderDetails> = ({ userID }) => {
     <OrderDiv className="OrderDiv">
       <CardContainer className="ordersCard">
         <div>
-          <h2 className="title">{ordersAmmount? (`Your Order${
-            ordersAmmount > 1 ? "s" : ""
-          }`): ""}</h2>
+          <h2 className="title">
+            {ordersAmmount ? `Your Order${ordersAmmount > 1 ? "s" : ""}` : ""}
+          </h2>
         </div>
 
         {ordersAmmount ? (
@@ -82,8 +85,8 @@ export const OrderDetails: React.FC<IOrderDetails> = ({ userID }) => {
             return (
               <Card className="orderCard" key={order._id}>
                 <div>
-                  <h3 >Order number </h3>
-                  <h4>{order._id}</h4>
+                  <h3>Order number </h3>
+                  <h5>{order._id}</h5>
                 </div>
                 <div className="line"></div>
                 <div>
@@ -96,17 +99,29 @@ export const OrderDetails: React.FC<IOrderDetails> = ({ userID }) => {
                     <p>{order.status}</p>
                   </div>
                   <div>
-                    <h3 >Shipping to your </h3>
+                    <h3>Shipping to your </h3>
                     <p>{order.address.nikName}</p>
                   </div>
                   <div>
-                    <h3 >Shipping Code </h3>
-                    <p>{order.shippingCode}</p>
+                    <h3>Shipping Code </h3>
+                    <p>{`${order.shippingCode !=" "? (`${order.shippingCode}`) : "n/a"}`}</p>
                   </div>
                   <div>
-                    <ButtonGlobal className="addressButtonUpdate">
-                      {"Report Issue"}
-                    </ButtonGlobal>
+                    <div>
+                      <h3>Items</h3>
+                    </div>
+                    <div>
+                      {order.items.map((item) => {
+                        return (
+                          <>
+                            <OrderItem
+                              productID={item.itemID}
+                              quantity={item.quantity}
+                            />
+                          </>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </Card>

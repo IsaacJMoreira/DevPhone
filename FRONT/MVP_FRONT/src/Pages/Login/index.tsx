@@ -47,6 +47,7 @@ export default function Login({}) {
                 localStorage.setItem("userLogado", JSON.stringify(SlLogin))
                
                 setUser({
+                    ID: response.data.id,
                     name: response.data.name,
                     credential: response.data.credential,
                     token: response.data.token,
