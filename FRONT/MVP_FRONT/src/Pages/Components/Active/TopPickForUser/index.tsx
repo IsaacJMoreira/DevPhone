@@ -1,9 +1,8 @@
 import * as React from "react";
 import axios from "axios";
 import baseURL from "../../../../../baseURL";
-import { Link } from "react-router-dom";
 import { ProductCard } from "../../ProductCard";
-import { CustomCardContainer } from "../../Active/HomeShopArea/styles";
+import { CustomCardContainer } from "./styles";
 
 type Product = {
   _id: string;
@@ -12,15 +11,17 @@ type Product = {
   name: string;
   shortDescription: string;
   products: any;
+  price: number;
+  stock: number;
 };
-export const HomeShopArea = () => {
+export const TopPickForUser = () => {
   const [products, setProducts] = React.useState<Product[]>([]);
 
   const fetchData = async () => {
     try {
 
       const response = await axios.get<Product>(
-        `${baseURL}/products/?page=1&perPage=3`
+        `${baseURL}/products/?page=1&perPage=3&searchTerm=Iphone`
       );
 
       setProducts(response.data.products);
@@ -43,7 +44,10 @@ export const HomeShopArea = () => {
 
   return (
     <>
-      <CustomCardContainer style={{ width: "100%", height: "650px" }}>
+      <CustomCardContainer >
+        <div>
+          <h3>Top picks for you</h3>
+        </div>
         {products.map((product: Product) => (
           <ProductCard
             key={`${product._id}`}

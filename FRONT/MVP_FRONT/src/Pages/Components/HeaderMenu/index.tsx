@@ -53,7 +53,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
                 {
                     searchDisabled && <div style={{ width: "33vw" }}></div>
                 }
-                <li><Link to="" className='carinho' onClick={() => setModalCard(true)}>
+               <li><Link to="" className='carinho' onClick={() => setModalCard(true)}>
                     <FontAwesomeIcon icon={faBagShopping}/>
                     </Link>
                     <Card isOpen={modalCard} closed={() => setModalCard(false)}/></li>
