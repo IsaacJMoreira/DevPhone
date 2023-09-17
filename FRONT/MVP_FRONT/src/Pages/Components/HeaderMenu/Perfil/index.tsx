@@ -8,7 +8,7 @@ import { useEffect, useState } from "react"
 
 
 interface IPerfil {
-    isOpened: boolean
+    isOpened: boolean,
     closed(): void 
 }
 

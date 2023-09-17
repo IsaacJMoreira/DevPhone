@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Perfil from "./Perfil"
+import Card from "./Card"
 
 import { faBagShopping, faSearch } from '@fortawesome/free-solid-svg-icons'
 import {  useContext, ReactNode, useState } from 'react';
@@ -20,6 +21,8 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
 }) => {
     const {user} = useContext(LogadoContext);
     const [modal, setModal] = useState(false);
+    const [modalCard, setModalCard] = useState(false);
+
 
     let Logado = {} as ReactNode;
 
@@ -29,7 +32,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
         Logado = <Link to="/login" className='login'>Login</Link>
     }
     return <>
-        <HeaderStyled>            
+        <HeaderStyled>
             <Link to= '/'><h1>DevPhone</h1></Link>
             <ul>
                 <li><Link to="/shop" className='menu'>Shop</Link></li>
@@ -50,7 +53,10 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
                 {
                     searchDisabled && <div style={{ width: "33vw" }}></div>
                 }
-                <li><Link to="/" className='carinho'><FontAwesomeIcon icon={faBagShopping}/></Link></li>
+                <li><Link to="" className='carinho' onClick={() => setModalCard(true)}>
+                    <FontAwesomeIcon icon={faBagShopping}/>
+                    </Link>
+                    <Card isOpen={modalCard} closed={() => setModalCard(false)}/></li>
                 <li>{Logado}
                   <div className='modal'>
                      <ul><Perfil isOpened={modal} closed={() => setModal(false)}/></ul>
