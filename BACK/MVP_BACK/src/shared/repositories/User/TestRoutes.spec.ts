@@ -25,7 +25,7 @@ describe('Testes de Rotas', () => {
   it('Deve atualizar um usuário por ID', async () => {
     const userId = '1'; 
     const updatedUserData = {
-      name: 'John Updated',
+      name: 'DOLLYNHO',
     };
 
     const response = await request(route)
