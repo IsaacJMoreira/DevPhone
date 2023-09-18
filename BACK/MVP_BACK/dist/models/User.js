@@ -10,6 +10,7 @@ const userSchema = new mongoose_1.Schema({
     email: { type: String, required: true },
     credential: { type: String, required: true, default: "CLI" },
     password: { type: String, required: true },
+    mainPhone: { type: String, required: false },
     address: [{
             nikName: { type: String, required: true },
             street: { type: String, required: true },
