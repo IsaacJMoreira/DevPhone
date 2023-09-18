@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1695002485966" clover="3.2.0">
-  <project timestamp="1695002485966" name="All files">
-    <metrics statements="73" coveredstatements="69" conditionals="5" coveredconditionals="3" methods="16" coveredmethods="15" elements="94" coveredelements="87" complexity="0" loc="73" ncloc="73" packages="5" files="10" classes="10"/>
+<coverage generated="1695005868814" clover="3.2.0">
+  <project timestamp="1695005868814" name="All files">
+    <metrics statements="99" coveredstatements="91" conditionals="5" coveredconditionals="3" methods="24" coveredmethods="21" elements="128" coveredelements="115" complexity="0" loc="99" ncloc="99" packages="7" files="12" classes="12"/>
     <package name="models">
       <metrics statements="26" coveredstatements="26" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="Categorie.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\models\Categorie.ts">
@@ -118,6 +118,44 @@
         <line num="17" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="shared.repositories.order">
+      <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+      <file name="OrderRoutes.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\shared\repositories\order\OrderRoutes.ts">
+        <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="shared.repositories.product">
+      <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+      <file name="ProdRoutes.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\shared\repositories\product\ProdRoutes.ts">
+        <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
       </file>
     </package>
   </project>

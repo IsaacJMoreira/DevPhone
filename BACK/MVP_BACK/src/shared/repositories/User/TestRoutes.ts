@@ -7,7 +7,7 @@ route.get("/allusers", (req: Request, res: Response) => {
 });
 route.get("/profile/:id", (req: Request, res: Response) => {
   const userId = req.params.id;
-  res.json(`Usuário com ID ${userId} atualizado`);
+  res.json(`Usuário com ID ${userId} encontrado`);
 });
 route.post("/api/users", (req: Request, res: Response) => {
   res.status(201).json({message:"User criado com sucesso!"});
