@@ -17,21 +17,21 @@ describe("Testes de OrderService", () => {
 
   test("Deve criar uma order", async () => {
     const orderData = {
-      status: "string",
+      status: "Peding",
       items: {
-        itemID: "string",
-        itemSKU: "string",
+        itemID: "1245",
+        itemSKU: "12944812",
         quantity: "121",
       },
-      ownerID: "string",
+      ownerID: "user12553",
       shippingCode: "454234000",
-      enabled: "SIM",
+      enabled: true,
       address: {
         nikName: "Sucam",
         street: "Av.Rosario",
         number: "231",
         zipCode: "43898-000",
-        neighborhood: "string",
+        neighborhood: "cidade Nova",
         city: "Umburana",
         state: "Itaquitinga",
         country: "Brazil",
@@ -46,21 +46,21 @@ describe("Testes de OrderService", () => {
 
   test("Deve atualizar uma Order existente", async () => {
     const orderData = {
-      status: "string",
+      status: "Peding",
       items: {
-        itemID: "string",
-        itemSKU: "string",
+        itemID: "1245",
+        itemSKU: "12944812",
         quantity: "121",
       },
-      ownerID: "string",
+      ownerID: "user12553",
       shippingCode: "454234000",
-      enabled: "SIM",
+      enabled: true,
       address: {
         nikName: "Sucam",
         street: "Av.Rosario",
         number: "231",
         zipCode: "43898-000",
-        neighborhood: "string",
+        neighborhood: "cidade Nova",
         city: "Umburana",
         state: "Itaquitinga",
         country: "Brazil",
@@ -68,7 +68,7 @@ describe("Testes de OrderService", () => {
     };
 
     const createdOder = await Order.create(orderData);
-    const updatedData = { name: "Updated Name" };
+    const updatedData = { owner: "user12553" };
 
     const orderService = new OrderService();
     const updatedOrder = await orderService.update(
@@ -77,38 +77,38 @@ describe("Testes de OrderService", () => {
     );
 
     expect(updatedOrder).toBeDefined();
-    expect(updatedOrder.name).toBe(updatedData.name);
+    expect(updatedOrder.ownerID).toBe(updatedData.owner);
   });
 
   test("Deve retornar null ao atualizar uma Order inexistente", async () => {
     const updatedData = { name: "Updated Name" };
 
     const orderService = new OrderService();
-    const updatedUser = await orderService.update(
+    const updatedOrder = await orderService.update(
       "no existent_id",
       updatedData
     );
 
-    expect(updatedUser).toBeNull();
+    expect(updatedOrder).toBeNull();
   });
 
   test("Deve encontrar um usuário pelo ID", async () => {
     const orderData = {
-      status: "string",
+      status: "Peding",
       items: {
-        itemID: "string",
-        itemSKU: "string",
+        itemID: "1245",
+        itemSKU: "12944812",
         quantity: "121",
       },
-      ownerID: "string",
+      ownerID: "user12553",
       shippingCode: "454234000",
-      enabled: "SIM",
+      enabled: true,
       address: {
         nikName: "Sucam",
         street: "Av.Rosario",
         number: "231",
         zipCode: "43898-000",
-        neighborhood: "string",
+        neighborhood: "cidade Nova",
         city: "Umburana",
         state: "Itaquitinga",
         country: "Brazil",
@@ -116,45 +116,46 @@ describe("Testes de OrderService", () => {
     };
 
     const createdOder = await Order.create(orderData);
-
+    // const updatedData = { name: "Updated Name" };
     const orderService = new OrderService();
-    const foundOrder = await orderService.findOne(createdOder._id.toString());
+    const updateOrder = await orderService.findOne(createdOder.id.toString());
 
-    expect(foundOrder).toBeDefined();
-    expect(foundOrder.name).toBe(orderData.ownerID);
+    expect(updateOrder).toBeDefined();
+    expect(updateOrder.ownerID).toBe(orderData.ownerID);
   });
 
   test("Deve retornar null ao procurar um usuário inexistente", async () => {
     const orderService = new OrderService();
-    const foundOrder = await orderService.findOne("no existent_id");
+    const orderId = new mongoose.Types.ObjectId()
+    const updateOrder = await orderService.findOne(orderId.toString());
 
-    expect(foundOrder).toBeNull();
+    expect(updateOrder).toBeNull();
   });
 
   test("Deve listar todos os usuários", async () => {
     const orderData1 = {
-      status: "string",
+      status: "Peding",
       items: {
-        itemID: "string",
-        itemSKU: "string",
+        itemID: "1245",
+        itemSKU: "12944812",
         quantity: "121",
       },
-      ownerID: "string",
+      ownerID: "user12553",
       shippingCode: "454234000",
-      enabled: "SIM",
+      enabled: true,
       address: {
         nikName: "Sucam",
         street: "Av.Rosario",
         number: "231",
         zipCode: "43898-000",
-        neighborhood: "string",
+        neighborhood: "cidade Nova",
         city: "Umburana",
         state: "Itaquitinga",
         country: "Brazil",
       },
     };
     const orderData2 = {
-      status: "string",
+      status: "string123123",
       items: {
         itemID: "string",
         itemSKU: "string",
@@ -162,7 +163,7 @@ describe("Testes de OrderService", () => {
       },
       ownerID: "string",
       shippingCode: "454234000",
-      enabled: "SIM",
+      enabled: true,
       address: {
         nikName: "Sucam",
         street: "Av.Rosario",

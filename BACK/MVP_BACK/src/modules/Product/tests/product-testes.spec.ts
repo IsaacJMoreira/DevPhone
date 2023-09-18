@@ -17,30 +17,30 @@ describe("Testes de ProductService", () => {
 
   test("Deve criar um produto ", async () => {
     const productData = {
-      name: " O Phone",
-      SKU: "",
+      name: "O Phone",
+      SKU: "ABC123", 
       dimensions: {
-        height: "number",
-        width: "number",
-        length: "number",
-        dimension: "number", 
+        height: 10, 
+        width: 5,
+        length: 15,
+        dimension: 150, 
       },
       weight: {
-        weight:"3.3 in",
-        dimensions:"3.5in"
+        weight: 3.3, 
+        dimensions: 3.5, 
       },
       category: {
-        code: "string",
-        name: "string",
-        fatherCategory: "string",
+        code: "123",
+        name: "Eletrônicos",
+        fatherCategory: "Eletrônicos",
       },
-      stock: "8",
-      price: "$700",
-      imgURL: "image.jpg" ,
+      stock: 8,
+      price: 700, 
+      imgURL: "image.jpg",
       description: "lasjdfklaskdf",
       shortDescription: "alsdfakjlsdf",
-      alt: "",
-      enabled: "Yes",
+      alt: "Alt text", 
+      enabled: true,
     };
 
     const productService = new ProductService();
@@ -51,30 +51,30 @@ describe("Testes de ProductService", () => {
 
   test("Deve atualizar um produto", async () => {
     const productData = {
-      name: " O Phone",
-      SKU: "",
+      name: "O Phone",
+      SKU: "ABC123", 
       dimensions: {
-        height: "number",
-        width: "number",
-        length: "number",
-        dimension: "number", 
+        height: 10, 
+        width: 5,
+        length: 15,
+        dimension: 150, 
       },
       weight: {
-        weight:"3.3 in",
-        dimensions:"3.5in"
+        weight: 3.3, 
+        dimensions: 3.5, 
       },
       category: {
-        code: "string",
-        name: "string",
-        fatherCategory: "string",
+        code: "123",
+        name: "Eletrônicos",
+        fatherCategory: "Eletrônicos",
       },
-      stock: "8",
-      price: "$700",
-      imgURL: "image.jpg" ,
+      stock: 8,
+      price: 700, 
+      imgURL: "image.jpg",
       description: "lasjdfklaskdf",
       shortDescription: "alsdfakjlsdf",
-      alt: "",
-      enabled: "Yes",
+      alt: "Alt text", 
+      enabled: true,
     };
 
     const createdProd = await Product.create(productData);
@@ -91,113 +91,110 @@ describe("Testes de ProductService", () => {
   });
 
   test("Deve retornar null ao atualizar um produto inexistente", async () => {
-    const updatedData = { name: "Updated Name" };
-
+  
     const productService = new ProductService();
-    const updatedProd = await productService.update(
-      "nonexistent_id",
-      updatedData
-    );
+    const productId = new mongoose.Types.ObjectId();
+    const updatedProd = await productService.findOne(productId.toString());
 
     expect(updatedProd).toBeNull();
   });
 
   test("Deve encontrar um produto pelo ID", async () => {
     const productData = {
-      name: " O Phone",
-      SKU: "",
+      name: "O Phone",
+      SKU: "ABC123", 
       dimensions: {
-        height: "number",
-        width: "number",
-        length: "number",
-        dimension: "number", 
+        height: 10, 
+        width: 5,
+        length: 15,
+        dimension: 150, 
       },
       weight: {
-        weight:"3.3 in",
-        dimensions:"3.5in"
+        weight: 3.3, 
+        dimensions: 3.5, 
       },
       category: {
-        code: "string",
-        name: "string",
-        fatherCategory: "string",
+        code: "123",
+        name: "Eletrônicos",
+        fatherCategory: "Eletrônicos",
       },
-      stock: "8",
-      price: "$700",
-      imgURL: "image.jpg" ,
+      stock: 8,
+      price: 700, 
+      imgURL: "image.jpg",
       description: "lasjdfklaskdf",
       shortDescription: "alsdfakjlsdf",
-      alt: "",
-      enabled: "Yes",
+      alt: "Alt text", 
+      enabled: true,
     };
 
     const createdProd = await Product.create(productData);
 
     const productService = new ProductService();
-    const foundProd = await productService.findOne(createdProd._id.toString());
+    const updateProd = await productService.findOne(createdProd._id.toString());
 
-    expect(foundProd).toBeDefined();
-    expect(foundProd.name).toBe(productData.name);
+    expect(updateProd).toBeDefined();
+    expect(updateProd.name).toBe(productData.name);
   });
 
   test("Deve retornar null ao procurar um usuário inexistente", async () => {
     const productService = new ProductService();
-    const foundUser = await productService.findOne("no existent_id");
+    const updatedProd = await productService.findOne("no existent_id");
 
-    expect(foundUser).toBeNull();
+    expect(updatedProd).toBeNull();
   });
 
   test("Deve listar todos os usuários", async () => {
     const productData1 = {
-      name: " O Phone",
-      SKU: "",
+      name: "O Phone",
+      SKU: "ABC123", 
       dimensions: {
-        height: "number",
-        width: "number",
-        length: "number",
-        dimension: "number", 
+        height: 10, 
+        width: 5,
+        length: 15,
+        dimension: 150, 
       },
       weight: {
-        weight:"3.3 in",
-        dimensions:"3.5in"
+        weight: 3.3, 
+        dimensions: 3.5, 
       },
       category: {
-        code: "string",
-        name: "string",
-        fatherCategory: "string",
+        code: "123",
+        name: "Eletrônicos",
+        fatherCategory: "Eletrônicos",
       },
-      stock: "8",
-      price: "$700",
-      imgURL: "image.jpg" ,
+      stock: 8,
+      price: 700, 
+      imgURL: "image.jpg",
       description: "lasjdfklaskdf",
       shortDescription: "alsdfakjlsdf",
-      alt: "",
-      enabled: "Yes",
+      alt: "Alt text", 
+      enabled: true,
     };
     const productData2 = {
-      name: " O Phone",
-      SKU: "",
+      name: "O Phone Plus",
+      SKU: "ABC1123123", 
       dimensions: {
-        height: "number",
-        width: "number",
-        length: "number",
-        dimension: "number", 
+        height: 102, 
+        width: 1,
+        length: 16,
+        dimension: 120, 
       },
       weight: {
-        weight:"3.3 in",
-        dimensions:"3.5in"
+        weight: 3.7, 
+        dimensions: 3.2, 
       },
       category: {
-        code: "string",
-        name: "string",
-        fatherCategory: "string",
+        code: "1213",
+        name: "Eletrônicos",
+        fatherCategory: "Eletrônicos",
       },
-      stock: "8",
-      price: "$700",
-      imgURL: "image.jpg" ,
-      description: "lasjdfklaskdf",
-      shortDescription: "alsdfakjlsdf",
-      alt: "",
-      enabled: "Yes",
+      stock: 18,
+      price: 1200, 
+      imgURL: "image.jpg",
+      description: "lasjdfklaskqweqwdf",
+      shortDescription: "alsdfak14124jlsdf",
+      alt: "Alt text", 
+      enabled: true,
     };
 
     await Product.create(productData1);

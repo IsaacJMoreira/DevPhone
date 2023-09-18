@@ -107,9 +107,7 @@ describe("Testes de UserService", () => {
     const updatedData = { name: "Updated Name" };
 
     const userService = new UserService();
-
     const userId = new mongoose.Types.ObjectId();
-
     const updatedUser = await userService.update(
       userId.toString(),
       updatedData

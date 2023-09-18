@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1694996903272" clover="3.2.0">
-  <project timestamp="1694996903272" name="All files">
-    <metrics statements="63" coveredstatements="57" conditionals="1" coveredconditionals="1" methods="16" coveredmethods="13" elements="80" coveredelements="71" complexity="0" loc="63" ncloc="63" packages="5" files="10" classes="10"/>
+<coverage generated="1695002485966" clover="3.2.0">
+  <project timestamp="1695002485966" name="All files">
+    <metrics statements="73" coveredstatements="69" conditionals="5" coveredconditionals="3" methods="16" coveredmethods="15" elements="94" coveredelements="87" complexity="0" loc="73" ncloc="73" packages="5" files="10" classes="10"/>
     <package name="models">
       <metrics statements="26" coveredstatements="26" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="Categorie.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\models\Categorie.ts">
@@ -50,29 +50,39 @@
       </file>
     </package>
     <package name="modules.Order.tests">
-      <metrics statements="7" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+      <metrics statements="12" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="4"/>
       <file name="order-testes.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\modules\Order\tests\order-testes.ts">
-        <metrics statements="7" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+        <metrics statements="12" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="10" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
+        <line num="18" count="2" type="cond" truecount="0" falsecount="1"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
       </file>
     </package>
     <package name="modules.Product.tests">
-      <metrics statements="7" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+      <metrics statements="12" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="4"/>
       <file name="product-test.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\modules\Product\tests\product-test.ts">
-        <metrics statements="7" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+        <metrics statements="12" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="10" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
+        <line num="18" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
       </file>
     </package>
     <package name="modules.User.tests">
