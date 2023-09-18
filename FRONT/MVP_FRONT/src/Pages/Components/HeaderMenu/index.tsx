@@ -1,7 +1,5 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Perfil from "./Perfil"
-
 import { faBagShopping, faSearch } from '@fortawesome/free-solid-svg-icons'
 import {  useContext, ReactNode, useState } from 'react';
 import { LogadoContext } from '../../../Routes/Logado';

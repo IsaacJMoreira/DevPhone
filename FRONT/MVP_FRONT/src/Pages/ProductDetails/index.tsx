@@ -5,7 +5,7 @@ import { MainStyled, FormStyled } from "./styled"
 //Components:
 import HeaderMenu from "../Components/HeaderMenu"
 import Footer from "../Components/Footer"
-import { ProductsDetailsId } from "../Components/Active/ProductDetailsId";
+import { ProductsDetailsId } from "../Components/Active/ProductDetails";
 
 
 export default function ProductDetails() {
