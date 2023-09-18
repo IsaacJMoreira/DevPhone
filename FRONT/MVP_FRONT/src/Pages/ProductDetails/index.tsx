@@ -33,7 +33,6 @@ export default function ProductDetails() {
         <ProductsDetailsId productId={productId ?? '' }
         />
          
-        
         <Footer />
     </>
 }

@@ -1,78 +1,84 @@
 import { styled } from "styled-components";
-import { ButtonGlobal } from "../../Buttons/ButtonGlobal";
 
 export const ProductsSection = styled.section`
-display: flex;
-padding-bottom: 100px;
+  display: flex;
+  margin-top: 100px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 50px;
+`;
 
+export const ProductDetailsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-bottom: 100px;
+`;
 
-h1{
-align-items: center;
-display: flex;
-justify-content:center;
-font-size: 60px;
-font-weight: 900x;
-size:56px;  
-padding-bottom: 30px;
+export const DivImg = styled.div`
+  margin-right: 100px;
+  margin-left: 50px;
+`;
 
-}
+export const ProductImage = styled.img`
+  max-width: 350px;
+  max-height: 350px;
+  width: 100%;
+  height: auto;
+`;
 
-h2{
-align-items: center;
-display: flex;
-justify-content:center;
-font-size: 40px;
-font-weight: 300px;
-padding-top: 20px;
-}
+export const ProductDetailsSection = styled.section`
+  padding-top: 20px;
+  text-align: left;
 
-p{
-text-align: center;
-font-weight: 400;
-font-size:20px;
-max-width: 620px;
-max-height: 90px; 
-}
-`
+  h1 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 30px;
+  }
+
+  p {
+    text-align: left;
+    font-weight: 400;
+    font-size: 20px;
+    max-width: 620px;
+    max-height: 90px;
+    margin-bottom: 30px;
+  }
+`;
+
 export const DivGroupBut = styled.div`
   display: flex;
   flex-direction: row;
   gap: 50px;
-  padding-top: 50px;
+  padding-top: 20px;
 `;
 
+export const ButtonShopCheckout = styled.button`
+border-color: #000000;
+background-color: black;
+color: white;
+font-weight: bolder;
+font-size: 18px;
+padding: 10px 10px;
+width: 194px;
+cursor: pointer;
+margin-top: 20px;
+margin-left: 3%;
 
-export const ProductDetailsSection = styled.section`
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column;
-width: 600px;
-height: 600px;
-padding-top: 200px;
+&:hover {
+  color: #ffa500;
+  transition: 0.9s;
+}
+`;
 
-& > ${ButtonGlobal} {
-    margin-top: 20px; 
-    margin-right: 10px;
-  }
-
-
-
-`
-
-export const DivImg = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
-padding-top: 147px;
-padding-bottom: 50px;
-padding-right: 80px;
-padding-left: 350px;
-
-`
-
-
-
+export const Price = styled.h2`
+  font-size: 40px;
+  font-weight: 300;
+  padding-top: 20px;
+`;
 
 
 

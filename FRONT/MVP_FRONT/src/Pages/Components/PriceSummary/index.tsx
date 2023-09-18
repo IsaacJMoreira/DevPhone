@@ -5,25 +5,26 @@ import {
   PriceInput,
 } from './styled';
 
-function PriceSummary() {
-  const [subtotal, setSubtotal] = useState(''); 
-  const [frete, setFrete] = useState(''); 
+export default function PriceSummary() {
+  const [subtotal, setSubtotal] = useState('');
 
-  // Função para calcular o total 
+  const frete = '30,00';
+
   const calculateTotal = () => {
     const subtotalValue = parseFloat(subtotal.replace(',', '.')) || 0;
     const freteValue = parseFloat(frete.replace(',', '.')) || 0;
-    return (subtotalValue + freteValue).toFixed(2).replace('.', ',');
+
+    
+    if (subtotalValue > 0) {
+      return (subtotalValue + freteValue).toFixed(2).replace('.', ',');
+    } else {
+      return ''; 
+    }
   };
 
   const handleSubtotalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const sanitizedValue = e.target.value.replace(/[^0-9,.]/g, '');
     setSubtotal(sanitizedValue);
-  };
-
-  const handleFreteChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const sanitizedValue = e.target.value.replace(/[^0-9,.]/g, '');
-    setFrete(sanitizedValue);
   };
 
   return (
@@ -36,19 +37,10 @@ function PriceSummary() {
       />
 
       <PriceLabel>Frete:</PriceLabel>
-      <PriceInput
-        type="text"
-        value={frete}
-        onChange={handleFreteChange}
-      />
+      <div>R$ {frete}</div>
 
       <PriceLabel>Total:</PriceLabel>
       <div>{`R$ ${calculateTotal()}`}</div>
     </PriceSummaryContainer>
   );
 }
-
-export default PriceSummary;
-
-
-
