@@ -27,6 +27,6 @@ export default function Card({isOpen, closed}: ICard) {
             }
         </div>
         <p className="valor">Valor total: R${totalPrice}</p>
-        <Link to="" className="continuarCompra">Continuar Compra</Link>
+        <Link to="/shopCart" className="continuarCompra">Continuar Compra</Link>
     </MainCard>
 };
