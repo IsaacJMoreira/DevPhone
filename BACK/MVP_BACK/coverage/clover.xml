@@ -1,57 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1695005868814" clover="3.2.0">
-  <project timestamp="1695005868814" name="All files">
-    <metrics statements="99" coveredstatements="91" conditionals="5" coveredconditionals="3" methods="24" coveredmethods="21" elements="128" coveredelements="115" complexity="0" loc="99" ncloc="99" packages="7" files="12" classes="12"/>
+<coverage generated="1695025954811" clover="3.2.0">
+  <project timestamp="1695025954811" name="All files">
+    <metrics statements="94" coveredstatements="86" conditionals="5" coveredconditionals="3" methods="24" coveredmethods="21" elements="123" coveredelements="110" complexity="0" loc="94" ncloc="94" packages="7" files="11" classes="11"/>
     <package name="models">
-      <metrics statements="26" coveredstatements="26" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="Categorie.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\models\Categorie.ts">
+      <metrics statements="21" coveredstatements="21" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="Categorie.ts" path="D:\Estudo\GAMA_PROJETO_FINAL\noName\BACK\MVP_BACK\src\models\Categorie.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="5" count="3" type="stmt"/>
         <line num="14" count="3" type="stmt"/>
         <line num="27" count="3" type="stmt"/>
         <line num="29" count="3" type="stmt"/>
       </file>
-      <file name="Order.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\models\Order.ts">
+      <file name="Order.ts" path="D:\Estudo\GAMA_PROJETO_FINAL\noName\BACK\MVP_BACK\src\models\Order.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="5" count="3" type="stmt"/>
         <line num="33" count="3" type="stmt"/>
         <line num="67" count="3" type="stmt"/>
         <line num="69" count="3" type="stmt"/>
       </file>
-      <file name="Product.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\models\Product.ts">
+      <file name="Product.ts" path="D:\Estudo\GAMA_PROJETO_FINAL\noName\BACK\MVP_BACK\src\models\Product.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="6" count="3" type="stmt"/>
         <line num="42" count="3" type="stmt"/>
         <line num="81" count="3" type="stmt"/>
         <line num="83" count="3" type="stmt"/>
       </file>
-      <file name="ShoppingCart.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\models\ShoppingCart.ts">
-        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="20" count="3" type="stmt"/>
-        <line num="37" count="3" type="stmt"/>
-        <line num="39" count="3" type="stmt"/>
-      </file>
-      <file name="User.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\models\User.ts">
+      <file name="User.ts" path="D:\Estudo\GAMA_PROJETO_FINAL\noName\BACK\MVP_BACK\src\models\User.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="5" count="3" type="stmt"/>
         <line num="29" count="3" type="stmt"/>
-        <line num="51" count="3" type="stmt"/>
         <line num="53" count="3" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
       </file>
-      <file name="index.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\models\index.ts">
-        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="index.ts" path="D:\Estudo\GAMA_PROJETO_FINAL\noName\BACK\MVP_BACK\src\models\index.ts">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
         <line num="3" count="3" type="stmt"/>
         <line num="4" count="3" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
       </file>
     </package>
     <package name="modules.Order.tests">
       <metrics statements="12" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="4"/>
-      <file name="order-testes.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\modules\Order\tests\order-testes.ts">
+      <file name="order-testes.ts" path="D:\Estudo\GAMA_PROJETO_FINAL\noName\BACK\MVP_BACK\src\modules\Order\tests\order-testes.ts">
         <metrics statements="12" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -69,7 +61,7 @@
     </package>
     <package name="modules.Product.tests">
       <metrics statements="12" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="4"/>
-      <file name="product-test.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\modules\Product\tests\product-test.ts">
+      <file name="product-test.ts" path="D:\Estudo\GAMA_PROJETO_FINAL\noName\BACK\MVP_BACK\src\modules\Product\tests\product-test.ts">
         <metrics statements="12" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -87,7 +79,7 @@
     </package>
     <package name="modules.User.tests">
       <metrics statements="10" coveredstatements="10" conditionals="1" coveredconditionals="1" methods="4" coveredmethods="4"/>
-      <file name="user-test.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\modules\User\tests\user-test.ts">
+      <file name="user-test.ts" path="D:\Estudo\GAMA_PROJETO_FINAL\noName\BACK\MVP_BACK\src\modules\User\tests\user-test.ts">
         <metrics statements="10" coveredstatements="10" conditionals="1" coveredconditionals="1" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -103,7 +95,7 @@
     </package>
     <package name="shared.repositories.User">
       <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
-      <file name="TestRoutes.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\shared\repositories\User\TestRoutes.ts">
+      <file name="TestRoutes.ts" path="D:\Estudo\GAMA_PROJETO_FINAL\noName\BACK\MVP_BACK\src\shared\repositories\User\TestRoutes.ts">
         <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -122,7 +114,7 @@
     </package>
     <package name="shared.repositories.order">
       <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
-      <file name="OrderRoutes.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\shared\repositories\order\OrderRoutes.ts">
+      <file name="OrderRoutes.ts" path="D:\Estudo\GAMA_PROJETO_FINAL\noName\BACK\MVP_BACK\src\shared\repositories\order\OrderRoutes.ts">
         <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -141,7 +133,7 @@
     </package>
     <package name="shared.repositories.product">
       <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
-      <file name="ProdRoutes.ts" path="C:\Users\User\noName\BACK\MVP_BACK\src\shared\repositories\product\ProdRoutes.ts">
+      <file name="ProdRoutes.ts" path="D:\Estudo\GAMA_PROJETO_FINAL\noName\BACK\MVP_BACK\src\shared\repositories\product\ProdRoutes.ts">
         <metrics statements="13" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>

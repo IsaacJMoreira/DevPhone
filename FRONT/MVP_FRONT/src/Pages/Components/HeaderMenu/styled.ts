@@ -8,7 +8,7 @@ display: flex;
 padding: 1em;
 justify-content: center;
 max-width: 100%;
-height: 5vh;
+height: 40px;
 
 h1 {
     margin-top: 10px;
