@@ -82,7 +82,12 @@ const userControllers = {
     const { id } = req.params;
     const { name, email, password, credential, address, mainPhone } = req.body;
 
-    const newEncryptedPass = cryptoProvider.hashSync(password, 10);
+    let newEncryptedPass = undefined;
+
+    if(password){
+       newEncryptedPass = cryptoProvider.hashSync(password, 10);
+    }
+    
 
     try {
       const updateUser = await User.updateOne(

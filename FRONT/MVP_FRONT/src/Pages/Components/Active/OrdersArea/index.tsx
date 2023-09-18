@@ -94,22 +94,28 @@ export const OrderDetails: React.FC<IOrderDetails> = ({ userID, token }) => {
                     <h3>Ordered at </h3>
                     <p>{order.createdAt}</p>
                   </div>
+                  <br />
                   <div>
                     <h3>Order Status </h3>
                     <p>{order.status}</p>
                   </div>
+                  <br />
                   <div>
                     <h3>Shipping to your </h3>
                     <p>{order.address.nikName}</p>
                   </div>
+                  <br />
                   <div>
                     <h3>Shipping Code </h3>
                     <p>{`${order.shippingCode !=" "? (`${order.shippingCode}`) : "n/a"}`}</p>
                   </div>
+                  <br />
                   <div>
+                  <div className="line"></div>
                     <div>
-                      <h3>Items</h3>
+                      <h2>Items</h2>
                     </div>
+                    <br />
                     <div>
                       {order.items.map((item) => {
                         return (
