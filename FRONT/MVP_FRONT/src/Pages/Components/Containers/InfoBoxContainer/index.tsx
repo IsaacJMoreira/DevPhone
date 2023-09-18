@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { InfoBoxContainer, TextContainer, CheckboxButton, TopText, BottomText } from './styled';
@@ -6,14 +5,14 @@ import { InfoBoxContainer, TextContainer, CheckboxButton, TopText, BottomText } 
 interface InfoBoxProps {
   topText: string;
   bottomText: string;
-  isSelected: boolean; // Adicione a propriedade isSelected
-  onBoxClick: () => void; // Adicione a propriedade onBoxClick
+  isSelected: boolean; 
+  onBoxClick: () => void; 
 }
 
 const InfoBox: React.FC<InfoBoxProps> = ({ topText, bottomText, isSelected, onBoxClick }) => {
   const handleBoxClick = () => {
     if (!isSelected) {
-      // Chame a função de clique apenas se não estiver selecionado
+      
       onBoxClick();
     }
   };

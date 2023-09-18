@@ -35,10 +35,7 @@ export const OrderItem: React.FC<IOrderDetails> = ({ productID, quantity }) => {
 
   return (
     <ItemDiv>
-      <div className="line"></div>
-      <div>
-        <h5 className="title">{`${quantity} x ${orderItem?.name}`}</h5>
-      </div>
+      <h5 className="title">{`${quantity} x ${orderItem?.name}`}</h5>
     </ItemDiv>
   );
 };
