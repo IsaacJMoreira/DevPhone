@@ -1,8 +1,8 @@
 import * as React from 'react';
 import axios from 'axios';
 import baseURL from '../../../../../baseURL';
-import { ButtonGlobal } from '../../Buttons/ButtonGlobal';
-import { ProductDetailsSection, DivImg, ProductsSection, DivGroupBut } from './styles';
+import { Link } from 'react-router-dom';
+import { ProductDetailsSection, DivImg, ProductsSection, DivGroupBut, ButtonShopCheckout } from './styles';
 
 
 type Product = {
@@ -52,7 +52,7 @@ export const ProductsDetailsId: React.FC<ProductsDetailsIdProps> = ({ productId 
         <img
           src={product.imgURL}
           alt={product.alt}
-          style={{ width: '550px', height: '550px' }} 
+          style={{ width: '350px', height: '350px' }} 
         />
       </DivImg>
         <ProductDetailsSection>
@@ -60,14 +60,11 @@ export const ProductsDetailsId: React.FC<ProductsDetailsIdProps> = ({ productId 
           <p>{product.description}</p>
           <h2>Price: R$ {product.price.toFixed(2)}</h2>
           <DivGroupBut>
-            <ButtonGlobal>Add to Cart</ButtonGlobal>
-            <ButtonGlobal>Buy Now</ButtonGlobal>
+          <Link to="/shop"><ButtonShopCheckout>Add to Cart</ButtonShopCheckout></Link>
+          <Link to="/shopCart"><ButtonShopCheckout>Buy Now</ButtonShopCheckout></Link>
           </DivGroupBut>
-
         </ProductDetailsSection>
       </ProductsSection>
-
-
     </>
   );
 };

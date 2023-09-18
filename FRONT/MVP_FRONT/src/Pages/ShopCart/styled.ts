@@ -97,8 +97,8 @@ export const InputCoupon = styled.input`
 
 export const ButtonShopCheckout = styled.button`
 border-color: #000000;
-background-color: #ffffff;
-color: #000000;
+background-color: black;
+color: white;
 font-weight: bolder;
 font-size: 18px;
 padding: 10px 10px;
