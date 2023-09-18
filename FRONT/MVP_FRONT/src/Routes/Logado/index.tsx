@@ -10,7 +10,7 @@ interface User {
 }
 
 interface IUser {
-    user?: User, 
+    user?: User,
     setUser: react.Dispatch<react.SetStateAction<User | undefined>>,
 }
 

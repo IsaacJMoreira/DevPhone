@@ -6,7 +6,6 @@ import { faBagShopping, faSearch } from '@fortawesome/free-solid-svg-icons'
 import {  useContext, ReactNode, useState } from 'react';
 import { LogadoContext } from '../../../Routes/Logado';
 import { HeaderStyled } from './styled';
-import { CardContext } from './Card/ItemCard/provider';
 
 interface HeaderMenuProps {
     input?: string;
@@ -20,7 +19,6 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
     searchHandler,
 }) => {
     const {user} = useContext(LogadoContext);
-    const {cardItem} = useContext(CardContext);
     const [modal, setModal] = useState(false);
     const [modalCard, setModalCard] = useState(false);
 
@@ -54,8 +52,8 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
                 {
                     searchDisabled && <div style={{ width: "33vw" }}></div>
                 }
-               <li><Link to="" className='carinho' onClick={() => setModalCard(!modalCard)}>
-                    <FontAwesomeIcon icon={faBagShopping}/> {cardItem.length}
+               <li><Link to="" className='carinho' onClick={() => setModalCard(true)}>
+                    <FontAwesomeIcon icon={faBagShopping}/>
                     </Link>
                     <Card isOpen={modalCard} closed={() => setModalCard(false)}/></li>
                 <li>{Logado}

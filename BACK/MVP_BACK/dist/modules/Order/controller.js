@@ -17,10 +17,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const errors_1 = __importDefault(require("../errors"));
-const isTest = true; //ATTENTION!!!! REMOVE!
+const isTest = false; //ATTENTION!!!! REMOVE!
 const orderControllers = {
     create: (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-        const { ownerID, items, address } = request.body;
+        const { ownerID, items, addressNickName } = request.body;
         //WE TEST IF ANY ITEM IS EITHER LOW IN STOCK OR MISSING COMPLETELY
         try {
             const userExistes = yield models_1.User.findById({ _id: ownerID }).count();
@@ -66,7 +66,7 @@ const orderControllers = {
             const DBResponse = yield models_1.Order.create({
                 ownerID: ownerID.toString(),
                 items: items,
-                address: address
+                addressNickName: addressNickName
             });
             if (isTest)
                 console.log(DBResponse);
