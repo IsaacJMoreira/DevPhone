@@ -7,6 +7,7 @@ import {  useContext, ReactNode, useState } from 'react';
 import { LogadoContext } from '../../../Routes/Logado';
 import { HeaderStyled } from './styled';
 import { CardContext } from './Card/ItemCard/provider';
+import Card from './Card'
 
 interface HeaderMenuProps {
     input?: string;

@@ -30,7 +30,7 @@ export default function Perfil({isOpened, closed}: IPerfil) {
     <MainStyled>
     <li><FontAwesomeIcon icon={faArrowLeft} onClick={closed} color="#FFF"/></li>
         <ul>
-            <li><Link className="menuPerfil" to={"/painelAdm"}>Perfil</Link></li>
+            <li><Link className="menuPerfil" to={"/profile"}>Perfil</Link></li>
             <li><Link className="menuPerfil" to={"/login"} onClick={() => { deslogar() }} >Logout</Link></li>
         </ul>
     </MainStyled>
