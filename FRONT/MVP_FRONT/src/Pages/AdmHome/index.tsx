@@ -6,9 +6,19 @@ import { BodyStyled, MainStyled, SectionStyled } from "./styled"
 //Components:
 import HeaderMenu from "../Components/HeaderMenu"
 import Footer from "../Components/Footer"
+import baseURL from "../../../baseURL"
 
 
 export default function AdmHome({}) {
+
+    const teste = async () => {
+        const response = await axios.get<User>(`${baseURL}/profile/${userID}`, {
+              headers: {
+                Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDNhNTg0NGMyOTY5NjQzYmNjNDI4NCIsImVtYWlsIjoiaXNhYWNAZW1haWwuY29tIiwibmFtZSI6IklzYWFjIEplcm9uaW1vIE1vcmVpcmEiLCJjcmVkZW50aWFsIjoiQ0xJIiwiaWF0IjoxNjk0NzYyMjA3fQ.wk1f961Xh2hz-NsAQyGvRoF44D3cIlOmKeAEzao8JCY"}`,
+              },
+            }
+          );
+    }
 
     return <BodyStyled>
         <HeaderMenu/>
