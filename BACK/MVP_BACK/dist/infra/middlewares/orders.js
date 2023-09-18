@@ -14,11 +14,11 @@ const validatePost = validate({
     body: Joi.object().keys({
         ownerID: Joi.string().required(),
         addressNickName: Joi.string().min(3).max(30).required(),
-        itens: Joi.object({
+        itens: Joi.array().items(Joi.object({
             itemID: Joi.string().required(),
             itemSKU: Joi.string().required(),
             quantity: Joi.number().min(1).required(),
-        }).required()
+        })).required()
     })
 });
 const validateUpdate = validate({

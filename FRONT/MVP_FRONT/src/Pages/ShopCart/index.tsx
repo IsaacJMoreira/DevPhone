@@ -46,7 +46,7 @@ export default function ShopCart() {
                     <InputCoupon type="text" placeholder="Coloque seu cupom aqui" />
                     <PriceSummary />
                     <Link to="/shopCheckout">
-                    <ButtonShopCheckout>Finalizar Compras</ButtonShopCheckout></Link>
+                    <ButtonShopCheckout>Seguir Comprando</ButtonShopCheckout></Link>
                 </div>
             </BodySectionTwo> 
             </BodySectionsContainer>  

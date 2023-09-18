@@ -1,12 +1,15 @@
 import Routes from "./Router"
 import {GlobalCss} from "./Global"
+import {LogadoProvider} from "./Routes/Logado"
+
 
 function App() {
   return <>
-     <Routes/>
-     <GlobalCss/>
+     <LogadoProvider>
+       <Routes/>
+       <GlobalCss/>
+     </LogadoProvider>  
     </>
-  
 }
 
 export default App

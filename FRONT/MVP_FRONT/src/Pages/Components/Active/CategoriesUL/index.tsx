@@ -6,7 +6,7 @@ interface RadioButtonProps {
     id: string;
     code: string;
     arrayOfCategories?: string[];
-    handleCheckfunction?: ()=> void
+    handleCheckfunction?: (event: React.ChangeEvent<HTMLInputElement>)=> void
 }
 
 
@@ -21,7 +21,7 @@ const CategoriesUL: React.FC<RadioButtonProps> = (props) => {
                     type="checkbox"
                     className="react-switch-checkbox"
                     id={props.id}
-                    onChange={(e)=>props.handleCheckfunction(e)}
+                    onChange={props.handleCheckfunction}
                     value={props.code}
 
                 />

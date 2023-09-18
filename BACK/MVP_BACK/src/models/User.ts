@@ -22,7 +22,8 @@ interface IUser{
     email: string;
     credential: string;// CLI | ADM | INACTIVE
     password: string;
-    address: IAddress;    
+    address: IAddress;
+    mainPhone: string;    
 };
 
 const userSchema = new Schema<IUser>({
@@ -30,6 +31,7 @@ const userSchema = new Schema<IUser>({
     email: { type: String, required: true},
     credential: { type: String, required: true, default: "CLI"},
     password: { type: String, required: true},//every new user is a client by default. Will be usefull when we need to create the routes
+    mainPhone: { type:String, required: false },
 
     address: [{
         nikName: { type: String, required: true},
@@ -40,7 +42,9 @@ const userSchema = new Schema<IUser>({
         city: { type: String, required: true},
         state: { type: String, required: true},
         country: { type: String, required: true},        
-    }]
+    },{
+        _id: false
+     }]
 },
 {
    timestamps: true, 

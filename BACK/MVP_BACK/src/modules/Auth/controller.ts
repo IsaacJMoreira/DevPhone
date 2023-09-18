@@ -28,6 +28,8 @@ import errors from "../errors";
 
         const token = jwt.sign({id: usuario.id, email: usuario.email, name: usuario.name, credential: usuario.credential}, secret.key);
         return res.json({
+            id: usuario._id,
+            name: usuario.name,
             credential: usuario.credential,
             token: token
         });

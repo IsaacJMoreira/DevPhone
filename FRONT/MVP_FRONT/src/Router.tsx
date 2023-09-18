@@ -1,9 +1,9 @@
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 //Importações de "Pages"
 import Login from "./Pages/Login";
 import LoginContas from "./Pages/Login/LoginAccounts"
-import {ButtonGlobal} from './Pages/Components/Buttons/ButtonGlobal';
+import { ButtonGlobal } from './Pages/Components/Buttons/ButtonGlobal';
 import Inicio from './Pages/Home';
 import Shop from './Pages/Shop';
 import Logon from "./Pages/Logon"
@@ -13,6 +13,10 @@ import CompraRealizada from './Pages/CompraRealizada';
 import ShopCart from './Pages/ShopCart';
 import ShopCheckout from './Pages/ShopCheckout';
 import AdmCadastro from './Pages/AdmCadastro';
+import AdmDetails from './Pages/AdmDetails';
+import User from './Pages/User';
+
+
 
 export default function Router(){
     const routes = createBrowserRouter([{
@@ -28,7 +32,7 @@ export default function Router(){
          element: <ButtonGlobal>Sou um botão</ButtonGlobal>
      },
      {
-         path: "/Home",
+         path: "/",
          element: <Inicio/>
      },
      {
@@ -44,25 +48,35 @@ export default function Router(){
         element: <AdmHome/>
      },
      {
-      path: "/admcadastro",
-      element: <AdmCadastro/>
-      },
-     {
-        path: "/product/:productId",
-        element: <ProductDetails/>
-     },
-     {
-        path: "/shopCart",
-        element: <ShopCart/>
-     },
-     {
-        path: "/shopCheckout",
-        element: <ShopCheckout/>
-     },
-     {
-        path: "/CompraRealizada",
-        element: <CompraRealizada/>
-     },]);
 
-    return <RouterProvider router={routes}/>
+      path: "/admcadastro",
+      element: <AdmCadastro />
+   },
+   {
+      path: "/admDetails",
+      element: <AdmDetails />
+
+   },
+   {
+      path: "/product/:productId",
+      element: <ProductDetails />
+   },
+   {
+      path: "/shopCart",
+      element: <ShopCart />
+   },
+   {
+      path: "/shopCheckout",
+      element: <ShopCheckout />
+   },
+   {
+      path: "/CompraRealizada",
+      element: <CompraRealizada />
+   },
+   {
+      path: "/profile/",
+      element: <User/>
+   }]);
+
+   return <RouterProvider router={routes} />
 }

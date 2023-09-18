@@ -17,7 +17,7 @@ const validateCredential = {
     CLI: async (request: JWTRequest,response: Response, next: NextFunction) =>{
         const payload: IPayload | any = request.auth;
 
-        if(payload.credential != "CLI") return response.status(403).json(errors.forbidden);
+        if(payload.credential != "CLI") return response.status(403).json(errors.forbidden + "  not a CLI");
         
         next();
     },
@@ -25,7 +25,7 @@ const validateCredential = {
     ADM: async (request: JWTRequest,response: Response, next: NextFunction) =>{
         const payload: IPayload | any = request.auth;
 
-        if(payload.credential != "ADM") return response.status(403).json(errors.forbidden);
+        if(payload.credential != "ADM") return response.status(403).json(errors.forbidden + " not an ADM");
         
         next();
     },

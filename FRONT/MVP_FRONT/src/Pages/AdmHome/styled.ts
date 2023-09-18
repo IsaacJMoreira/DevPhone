@@ -18,6 +18,7 @@ justify-content: center;
 export const SectionStyled = styled.section `
 
 
+
 div.divh1 {
     margin-bottom: 30px;
     h1 {
@@ -39,6 +40,7 @@ button {
     font-weight: bolder;
     font-size: 16px;
     padding: 13px;
+    margin-bottom: 30px;
     min-width: 200px;
     cursor: pointer;
 
@@ -47,15 +49,14 @@ button {
         transition: 0.9s;
     }}}
 
-button.adiconarNovo {
-margin-top: 20px;
+a.adiconarNovo {
 border: ${THEME.COLORS.BLACK};
 background-color: #C0C0C0;
 color: ${THEME.COLORS.WHITE};
 font-weight: bolder;
+text-decoration: none;
 font-size: 15px;
 padding: 10px;
-width: 150px;
 cursor: pointer;
 
     &:hover {
@@ -96,6 +97,11 @@ table {
             
             padding: 10px;
             margin: 10px;
+
+            .admDetails{
+                text-decoration: none;
+                color: ${THEME.COLORS.WHITE};
+            }
 
             &:hover {
                transition: 0.8s;

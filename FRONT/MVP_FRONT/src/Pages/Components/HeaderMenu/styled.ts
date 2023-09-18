@@ -20,6 +20,25 @@ ul {
     gap: 50px;
     margin-left: 40px;
     font-size: 20px;
+
+    div.modal {
+        position: block;
+
+        ul {
+            flex-direction: column;
+            text-align: center;
+            background-color:${THEME.COLORS.WHITE};
+            box-shadow: 0 0 5px 0 rgba(10, 10, 10, 0.29);
+            gap: 0px;
+            margin-left: 0px;
+
+            li {
+                margin: 15px;
+                margin-top: 20px;
+            }
+        }
+    }
+
 }
 
 li {
@@ -58,10 +77,36 @@ a.menu {
       width: 100%;
    }
 }
+a{
+    text-decoration: none;
+    color: ${THEME.COLORS.WHITE};
+}
 
 a.carinho {
     color: #FFFAFA;
     text-decoration: none;
+}
+
+
+a.login {
+    color: #FFFAFA;
+    text-decoration: none;
+    position: relative;
+
+    &::after {
+      content: '';
+      width: 0%;
+      height: 2px;
+      background-color: #FFA500;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      transition: 0.6s ease-in-out;
+   }
+
+   &:hover::after {
+      width: 100%;
+   }
 }
 
 a.searchIcon {
@@ -71,3 +116,4 @@ a.searchIcon {
 }
 
 `
+

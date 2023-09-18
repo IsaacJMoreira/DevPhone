@@ -11,9 +11,10 @@ export const CardContainer = styled.section`
     justify-content: space-evenly;
     gap: 5px;    
     text-align: center;
-    margin: none; 
+    margin: 0; 
     width: 75vw; 
-    height: 50vw;
+    max-width: 75%;
+    height: 100%;
     overflow: auto;
     div{
         width: 100%;
