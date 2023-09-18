@@ -190,7 +190,7 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID, token }) => {
               <div>
                 <div>
                   <label htmlFor="nikName">Adress Nikname: </label>
-                  <input type="text" placeholder={location.nikName} />
+                  <input type="text" placeholder={location.nikName} onChange={(e)=> setUserInfo({...userInfo, address:[ ...userInfo.address,{...location,  nikName: e.target.value}] })} />
                 </div>
                 <div>
                   <label htmlFor="street">Street: </label>
@@ -202,7 +202,7 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID, token }) => {
                 </div>
                 <div>
                   <label htmlFor="zipCode">Zip Code: </label>
-                  <input type="text" placeholder={location.zipCode} />
+                  <input type="text" placeholder={location.zipCode}  />
                 </div>
                 <div>
                   <label htmlFor="neighbohood">Neighbohood: </label>
