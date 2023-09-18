@@ -3,7 +3,7 @@ import axios from 'axios';
 import baseURL from '../../../../../baseURL';
 import { ButtonGlobal } from '../../Buttons/ButtonGlobal';
 import { ProductDetailsSection, DivImg, ProductsSection, DivGroupBut } from './styles';
-
+import { CardContext } from '../../HeaderMenu/Card/ItemCard/provider';
 
 type Product = {
   _id: string;
@@ -22,6 +22,12 @@ interface ProductsDetailsIdProps {
 
 export const ProductsDetailsId: React.FC<ProductsDetailsIdProps> = ({ productId }) => {
   const [product, setProduct] = React.useState<Product | null>(null);
+  const { cardItem, setCardItem } = React.useContext(CardContext);
+
+  const HandleCard = () => {
+    localStorage.setItem("Card", JSON.stringify(product))
+    setCardItem([ ...cardItem, product])
+  }
 
   const fetchData = async () => {
     try {
@@ -60,7 +66,7 @@ export const ProductsDetailsId: React.FC<ProductsDetailsIdProps> = ({ productId 
           <p>{product.description}</p>
           <h2>Price: R$ {product.price.toFixed(2)}</h2>
           <DivGroupBut>
-            <ButtonGlobal>Add to Cart</ButtonGlobal>
+          <ButtonGlobal onClick={HandleCard}>Add to Cart</ButtonGlobal>
             <ButtonGlobal>Buy Now</ButtonGlobal>
           </DivGroupBut>
 
