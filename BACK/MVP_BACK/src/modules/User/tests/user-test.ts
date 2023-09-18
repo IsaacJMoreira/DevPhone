@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { User } from "../../../models";
 
 class UserService {
@@ -6,6 +7,10 @@ class UserService {
   }
 
   async update(id: string, updatedUser: any): Promise<any | null> {
+    
+    if(!mongoose.Types.ObjectId.isValid(id)){
+      return null
+    }
     const user = await User.findByIdAndUpdate(id, updatedUser, { new: true });
     return user;
   }

@@ -71,7 +71,7 @@ describe("Testes de UserService", () => {
     const updatedData = { name: "Updated Name" };
 
     const userService = new UserService();
-    const updatedUser = await userService.update("no existent_id", updatedData);
+    const updatedUser = await userService.update("nonexistent_id", updatedData);
 
     expect(updatedUser).toBeNull();
   });
@@ -104,10 +104,18 @@ describe("Testes de UserService", () => {
   });
 
   test("Deve retornar null ao procurar um usuário inexistente", async () => {
-    const userService = new UserService();
-    const foundUser = await userService.findOne("no existent_id");
+    const updatedData = { name: "Updated Name" };
 
-    expect(foundUser).toBeNull();
+    const userService = new UserService();
+
+    const userId = new mongoose.Types.ObjectId();
+
+    const updatedUser = await userService.update(
+      userId.toString(),
+      updatedData
+    );
+
+    expect(updatedUser).toBeNull();
   });
 
   test("Deve listar todos os usuários", async () => {
