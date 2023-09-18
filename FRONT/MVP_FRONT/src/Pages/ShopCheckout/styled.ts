@@ -1,14 +1,14 @@
 import styled from "styled-components"
 
 export const Line = styled.div`
-    width: 100%; // Ocupar toda a largura
-    max-width: 475px; // Largura máxima de 469px
+    width: 100%; 
+    max-width: 475px; 
     height: 2px;
     background-color: black;
     margin: 16px;
 
     @media (max-width: 475px) {
-        width: 100%; // Quando a tela for menor ou igual a 469px, a largura ocupará 100% da tela
+        width: 100%; 
     }
 `
 
@@ -65,14 +65,14 @@ export const BodySectionOne = styled.section`
     h1.pedidos {
         font-weight: bold;
         font-size: 18px;
-        margin-top: 20px; // Ajuste para a margem superior
+        margin-top: 20px; 
     }
 `
 
 export const BodySectionTwo = styled.section`
     flex: 1; 
     margin-left: 75px;
-    max-width: 48%; // Defina a largura máxima para 48% para que as seções fiquem uma ao lado da outra
+    max-width: 48%;
     padding: 50px;
 
     h1 {
@@ -83,19 +83,19 @@ export const BodySectionTwo = styled.section`
 `
 
 export const ButtonCheckout = styled.button`
-    border: 2px solid #000000;
-    background-color: #ffffff;
-    color: #000000;
-    font-weight: bold;
-    font-size: 18px;
-    padding: 10px 20px; // Ajuste para o espaçamento horizontal
-    width: auto; // Largura automática para se ajustar ao conteúdo
-    cursor: pointer;
-    margin-top: 20px; // Ajuste para a margem superior
-    margin-left: 0; // Remova a margem esquerda
+border-color: #000000;
+background-color: black;
+color: white;
+font-weight: bolder;
+font-size: 18px;
+padding: 10px 10px;
+width: 194px;
+cursor: pointer;
+margin-top: 20px;
+margin-left: 3%;
 
-    &:hover {
-        color: #ffa500;
-        transition: 0.9s;
-    }
-`
+&:hover {
+  color: #ffa500;
+  transition: 0.9s;
+}
+`;
