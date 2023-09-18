@@ -83,8 +83,9 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID, token }) => {
           },
         }
       );
+      console.log(userInfo);
     } catch (error) {
-      console.log("Error udating UPDATE BUUTTON");
+      console.log("Error udating", error);
     }
   };
 
