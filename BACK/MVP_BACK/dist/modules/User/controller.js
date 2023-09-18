@@ -20,13 +20,14 @@ const isTest = false;
 const userControllers = {
     create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name, email, credential, password } = req.body;
+            const { name, email, password, address } = req.body;
             const newEncryptedPass = CryptoProvider_1.default.hashSync(password, 10);
             try {
                 const newUser = yield models_1.User.create({
                     name,
                     email,
                     password: newEncryptedPass,
+                    address
                 });
                 if (isTest)
                     console.log(newUser);
@@ -41,7 +42,7 @@ const userControllers = {
     },
     createADM(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { name, email, password } = req.body;
+            const { name, email, password, address } = req.body;
             const newEncryptedPass = CryptoProvider_1.default.hashSync(password, 10);
             try {
                 const newUser = yield models_1.User.create({
@@ -49,6 +50,7 @@ const userControllers = {
                     email,
                     credential: "ADM",
                     password: newEncryptedPass,
+                    address
                 });
                 if (isTest)
                     console.log(newUser);
@@ -83,7 +85,13 @@ const userControllers = {
                 const user = yield models_1.User.findById({ _id: id });
                 if (!user)
                     return res.status(404).json(errors_1.default.not_found);
-                return res.status(200).json(user);
+                const nonSensibleUserData = {
+                    name: user.name,
+                    email: user.email,
+                    address: user.address,
+                    mainPhone: user.mainPhone,
+                };
+                return res.status(200).json(nonSensibleUserData);
             }
             catch (error) {
                 if (isTest)
@@ -95,7 +103,7 @@ const userControllers = {
     update(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { id } = req.params;
-            const { name, email, password, credential } = req.body;
+            const { name, email, password, credential, address, mainPhone } = req.body;
             const newEncryptedPass = CryptoProvider_1.default.hashSync(password, 10);
             try {
                 const updateUser = yield models_1.User.updateOne({
@@ -105,8 +113,10 @@ const userControllers = {
                         name,
                         email,
                         password: newEncryptedPass,
-                        credential
-                    }
+                        credential,
+                        address,
+                        mainPhone,
+                    },
                 });
                 return res.status(204).json(updateUser);
             }
@@ -118,10 +128,4 @@ const userControllers = {
         });
     },
 };
-/*  I REMOVED THE DELETE METHOD.
-    A USER WILL NOT BE DELETED.
-    IT WILL BE FLAGED 🚩 WITH THE
-    "INACTIVE" CREDENTIAL.
-    (WITH THE UPDATE METHOD)
-    */
 exports.default = userControllers;
