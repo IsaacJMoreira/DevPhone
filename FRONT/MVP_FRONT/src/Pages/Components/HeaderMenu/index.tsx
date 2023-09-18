@@ -56,7 +56,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
                     searchDisabled && <div style={{ width: "33vw" }}></div>
                 }
                <li><Link to="" className='carinho' onClick={() => setModalCard(!modalCard)}>
-                    <FontAwesomeIcon icon={faBagShopping}/> {cardItem.length}
+                    <FontAwesomeIcon icon={faBagShopping}/> {cardItem?.length}
                     </Link>
                     <Card isOpen={modalCard} closed={() => setModalCard(false)}/></li>
                 <li>{Logado}

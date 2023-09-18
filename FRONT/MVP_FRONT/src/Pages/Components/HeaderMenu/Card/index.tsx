@@ -15,7 +15,7 @@ interface ICard {
 export default function Card({isOpen, closed}: ICard) {
     const { cardItem } = React.useContext(CardContext);
 
-    const totalPrice = cardItem.reduce((acc: number, item: any) => item.price + acc , 0)
+    const totalPrice = cardItem?.reduce((acc: number, item: any) => item.price + acc , 0)
 
     if (!isOpen) return <div/>
 

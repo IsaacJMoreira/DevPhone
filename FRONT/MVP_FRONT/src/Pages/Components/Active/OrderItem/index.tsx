@@ -34,7 +34,7 @@ export const OrderItem: React.FC<IOrderDetails> = ({ productID, quantity }) => {
   }, []);
 
   return (
-    <ItemDiv>
+    <ItemDiv key={orderItem?.name}>
       <h5 className="title">{`${quantity} x ${orderItem?.name}`}</h5>
     </ItemDiv>
   );
