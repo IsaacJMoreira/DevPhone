@@ -6,161 +6,141 @@ import { Request, Response } from "express";
 import { Order, Product, User } from "../../models";
 import errors from "../errors";
 
-const isTest = true;//ATTENTION!!!! REMOVE!
+const isTest = true; //ATTENTION!!!! REMOVE!
 
 const orderControllers = {
+  create: async (request: Request, response: Response) => {
+    const { ownerID, items, address } = request.body;
 
-    create: async (request: Request, response: Response) => {
+    //WE TEST IF ANY ITEM IS EITHER LOW IN STOCK OR MISSING COMPLETELY
+    try {
+      const userExistes = await User.findById({ _id: ownerID }).count();
 
+      console.log(userExistes);
 
-        const {
-            ownerID,
-            items,
-            address
-        } = request.body;
+      if (!userExistes) return response.status(400).json(errors.bad_request);
 
+      if (!items) return response.status(400).json(errors.bad_request);
 
+      // for(let i = 0; i < items.length; i++){//
 
+      //     const id = items[i].itemID;
+      //     const decrement = items[i].quantity;
 
-        //WE TEST IF ANY ITEM IS EITHER LOW IN STOCK OR MISSING COMPLETELY
-        try {
+      //     const DBStockResponse = await Product.findById({_id: id});
 
-            const userExistes = await User.findById({ _id: ownerID }).count();
+      //     if(!DBStockResponse)  lowStockFlag++;
+      //     else if( (DBStockResponse.stock < decrement) || (!DBStockResponse.enabled) ) lowStockFlag++;
+      // }
 
-            console.log(userExistes);
+      const products = await Product.find({
+        _id: {
+          $in: items.map((item: any) => item.itemID), //type later ⚠
+        },
+      });
 
-            if (!userExistes) return response.status(400).json(errors.bad_request);
+      if (products.some((product) => product.stock <= 0))
+        return response.status(412).json("One or more products out of stock."); // errors
 
-            if (!items) return response.status(400).json(errors.bad_request);
+      //WE NEED TO TREAD LIGHTLY HERE. Any mistake means we fucked up opdating the new stock to the bank
+      // let updateFlag: number = 0;//🚩
 
-            // for(let i = 0; i < items.length; i++){//
+      // for(let i = 0; i < items.length; i++){
 
-            //     const id = items[i].itemID;
-            //     const decrement = items[i].quantity;
+      //     const id = items[i].itemID;
+      //     const decrement = items[i].quantity;
 
-            //     const DBStockResponse = await Product.findById({_id: id});
+      //     const DBUpdateResponse = await Product.updateOne({
+      //         _id: id
+      //     },{
+      //         $inc:{ stock: -decrement}
+      //     });
+      //     if(!DBUpdateResponse) updateFlag++;
+      // }
 
-            //     if(!DBStockResponse)  lowStockFlag++;
-            //     else if( (DBStockResponse.stock < decrement) || (!DBStockResponse.enabled) ) lowStockFlag++;
-            // }
+      await Promise.all(
+        products.map((product) => {
+          const { quantity } = items.find(
+            (item: any) => item.itemID == product._id.toString()
+          );
 
-            const products = await Product.find({
-                _id: {
-                    $in: items.map((item: any) => item.itemID)//type later ⚠ 
-                }
-            });
+          return Product.updateOne(
+            {
+              _id: product._id,
+            },
+            {
+              $inc: { stock: -quantity },
+            }
+          );
+        })
+      );
 
-            if (products.some((product) => product.stock <= 0)) return response.status(412).json("One or more products out of stock.");// errors
+      const DBResponse = await Order.create({
+        ownerID: ownerID.toString(),
+        items: items,
+        address: address,
+      });
+      if (isTest) console.log(DBResponse);
+      return response.sendStatus(200);
+    } catch (error) {
+      if (isTest) console.log(error);
+      return response.status(500).json(errors.internal_server_error);
+    }
+  },
 
-            //WE NEED TO TREAD LIGHTLY HERE. Any mistake means we fucked up opdating the new stock to the bank
-            // let updateFlag: number = 0;//🚩 
+  findByOwnerId: async (request: Request, response: Response) => {
+    const { ownerID } = request.params;
+    try {
+      const DBResponse = await Order.find({
+        ownerID: ownerID,
+      });
 
-            // for(let i = 0; i < items.length; i++){
+      if (!DBResponse.length)
+        return response.status(404).json(errors.not_found);
 
-            //     const id = items[i].itemID;
-            //     const decrement = items[i].quantity;
+      return response.status(200).json(DBResponse);
+    } catch (error) {
+      if (isTest) console.log(error);
+      response.status(500).json(errors.internal_server_error);
+    }
+  },
 
-            //     const DBUpdateResponse = await Product.updateOne({
-            //         _id: id
-            //     },{
-            //         $inc:{ stock: -decrement}
-            //     });
-            //     if(!DBUpdateResponse) updateFlag++;
-            // }
+  findAll: async (request: Request, response: Response) => {
+    try {
+      const DBResponse = await Order.find();
 
-            await Promise.all(products.map((product) => {
+      if (!DBResponse.length)
+        return response.status(404).json(errors.not_found);
 
-                const { quantity } = items.find((item: any)=> item.itemID == product._id.toString());
+      return response.status(200).json(DBResponse);
+    } catch (error) {
+      if (isTest) console.log(error);
+      response.status(500).json(errors.internal_server_error);
+    }
+  },
 
-                return Product.updateOne({
-                    _id: product._id
-                }, {
-                    $inc: { stock: -quantity }
-                })
-            }))
+  update: async (request: Request, response: Response) => {
+    const { id } = request.params;
+    const { items, shippingCode, status } = request.body;
 
-            const DBResponse = await Order.create({
-                ownerID: ownerID.toString(),
-                items: items,
-                address: address
-            });
-            if (isTest) console.log(DBResponse);
-            return response.sendStatus(200);
-        } catch (error) {
-            if (isTest) console.log(error);
-            return response.status(500).json(errors.internal_server_error);
+    try {
+      const DBResponse = await Order.updateOne(
+        {
+          _id: id,
+        },
+        {
+          items,
+          shippingCode,
+          status,
         }
+      );
 
-    },
-
-    findByOwnerId: async (request: Request, response: Response) => {
-
-        const { ownerID } = request.params;
-        try {
-
-            const DBResponse = await Order.find({
-                ownerID: ownerID
-            });
-
-            if (!DBResponse.length) return response.status(404).json(errors.not_found);
-
-            return response.status(200).json(DBResponse);
-
-        } catch (error) {
-
-            if (isTest) console.log(error);
-            response.status(500).json(errors.internal_server_error);
-        }
-    },
-
-    findAll: async (request: Request, response: Response) => {
-
-        try {
-
-            const DBResponse = await Order.find();
-
-            if (!DBResponse.length) return response.status(404).json(errors.not_found);
-
-            return response.status(200).json(DBResponse);
-
-        } catch (error) {
-            if (isTest) console.log(error);
-            response.status(500).json(errors.internal_server_error);
-        }
-
-    },
-
-    update: async (request: Request, response: Response) => {
-
-        const { id } = request.params
-        const {
-            items,
-            shippingCode,
-            status
-        } = request.body;
-
-        try {
-
-            const DBResponse = await Order.updateOne(
-                {
-                    _id: id
-                },
-                {
-                    items,
-                    shippingCode,
-                    status
-                }
-            );
-
-            return response.status(204).json(DBResponse);
-
-
-        } catch (error) {
-            if (isTest) console.log(error);
-            response.status(500).json(errors.internal_server_error);
-        }
-
-    },
-}
+      return response.status(204).json(DBResponse);
+    } catch (error) {
+      if (isTest) console.log(error);
+      response.status(500).json(errors.internal_server_error);
+    }
+  },
+};
 
 export default orderControllers;
