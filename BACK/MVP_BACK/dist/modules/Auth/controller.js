@@ -35,7 +35,6 @@ const AuthController = {
             }
             const token = jsonwebtoken_1.default.sign({ id: usuario.id, email: usuario.email, name: usuario.name, credential: usuario.credential }, secret_1.default.key);
             return res.json({
-                id: usuario._id,
                 name: usuario.name,
                 credential: usuario.credential,
                 token: token
