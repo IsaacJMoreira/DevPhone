@@ -6,7 +6,7 @@ import { faBagShopping, faSearch } from '@fortawesome/free-solid-svg-icons'
 import {  useContext, ReactNode, useState } from 'react';
 import { LogadoContext } from '../../../Routes/Logado';
 import { HeaderStyled } from './styled';
-
+import Card from './Card';
 interface HeaderMenuProps {
     input?: string;
     searchDisabled?: boolean;
