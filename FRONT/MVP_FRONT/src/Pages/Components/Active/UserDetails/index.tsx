@@ -33,7 +33,8 @@ interface IUserDetails {
 
 export const UserDetails: React.FC<IUserDetails> = ({ userID, token }) => {
   const [userInfo, setUserInfo] = React.useState<User | null>(null);
-  const [newAddress, setNewAddress] = React.useState<Address | null >(null);
+  const [newAddress, setNewAddress] = React.useState<Address | null>(null);
+  const [addresses, setAdresses] = React.useState<Address[] | null>(null);
 
   const fetchData = async () => {
     try {
@@ -48,12 +49,13 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID, token }) => {
 
       setUserInfo(responseAboutUser.data);
     } catch (error) {
-      console.log("Error fetching data");
+      console.log("Error fetching data cu");
     }
   };
 
   const updateData = async () => {
     try {
+      console.log(userInfo);
       let addresses: Address[] = [];
 
       userInfo?.address.forEach((address) => {
@@ -84,7 +86,7 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID, token }) => {
         }
       );
     } catch (error) {
-      console.log("Error udating UPDATE BUUTTON");
+      console.log("Error udating", error);
     }
   };
 
@@ -101,17 +103,28 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID, token }) => {
     try {
       let newAdressList = userInfo?.address;
 
-      newAdressList.push({...newAdress})
-      console.log(newAdressList)
-      
-      setUserInfo({...userInfo, address: newAdressList});
+      newAdressList.push({ ...newAdress });
+      console.log(newAdressList);
+
+      setUserInfo({ ...userInfo, address: newAdressList });
       console.log(newAdress);
       updateData();
     } catch (error) {}
   };
 
+  const updateAddress = (index, change) => {
+    setAdresses(userInfo?.address);
+    let updatedAddresses = addresses;
+
+    updatedAddresses.splice(index, 1, change) ;
+    setAdresses(updatedAddresses);
+
+    console.log(change, index, addresses);
+  };
+
   React.useEffect(() => {
     fetchData();
+    setAdresses(userInfo?.address);
   }, []);
 
   if (!userInfo) {
@@ -146,14 +159,22 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID, token }) => {
                 minLength={2}
                 maxLength={30}
                 placeholder={userInfo.name}
-                onChange={(e)=> setUserInfo({...userInfo, name: e.target.value})}
+                onChange={(e) =>
+                  setUserInfo({ ...userInfo, name: e.target.value })
+                }
               />
             </div>
             <div>
               <label htmlFor="email">E-mail </label>
             </div>
             <div>
-              <input type="email" placeholder={userInfo.email} onChange={(e)=> setUserInfo({...userInfo, email: e.target.value})}/>
+              <input
+                type="email"
+                placeholder={userInfo.email}
+                onChange={(e) =>
+                  setUserInfo({ ...userInfo, email: e.target.value })
+                }
+              />
             </div>
             <div>
               <label htmlFor="email">Phone </label>
@@ -164,7 +185,9 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID, token }) => {
                 placeholder={
                   !userInfo.mainPhone ? "Register a number" : userInfo.mainPhone
                 }
-                onChange={(e)=> setUserInfo({...userInfo, mainPhone: e.target.value})}
+                onChange={(e) =>
+                  setUserInfo({ ...userInfo, mainPhone: e.target.value })
+                }
               />
             </div>
             <div>
@@ -190,35 +213,81 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID, token }) => {
               <div>
                 <div>
                   <label htmlFor="nikName">Adress Nikname: </label>
-                  <input type="text" placeholder={location.nikName} onChange={(e)=> setUserInfo({...userInfo, address:[ ...userInfo.address,{...location,  nikName: e.target.value}] })} />
+                  <input
+                    type="text"
+                    placeholder={location.nikName}
+                    onChange={(e) => {
+                      updateAddress(index, {
+                        ...location,
+                        nikName: e.target.value,
+                      });
+                    }}
+                  />
                 </div>
                 <div>
                   <label htmlFor="street">Street: </label>
-                  <input type="text" placeholder={location.street} />
+                  <input type="text" placeholder={location.street} onChange={(e) => {
+                      updateAddress(index, {
+                        ...location,
+                        street: e.target.value,
+                      });
+                    }}/>
                 </div>
                 <div>
                   <label htmlFor="number">Number: </label>
-                  <input type="text" placeholder={location.number} />
+                  <input type="text" placeholder={location.number} onChange={(e) => {
+                      updateAddress(index, {
+                        ...location,
+                        number: e.target.value,
+                      });
+                    }}/>
                 </div>
                 <div>
                   <label htmlFor="zipCode">Zip Code: </label>
-                  <input type="text" placeholder={location.zipCode}  />
+                  <input type="text" placeholder={location.zipCode} onChange={(e) => {
+                      updateAddress(index, {
+                        ...location,
+                        zipCode: e.target.value,
+                      });
+                    }}/>
                 </div>
                 <div>
                   <label htmlFor="neighbohood">Neighbohood: </label>
-                  <input type="text" placeholder={location.neighborhood} />
+                  <input type="text" placeholder={location.neighborhood} onChange={(e) => {
+                      updateAddress(index, {
+                        ...location,
+                        neighborhood: e.target.value,
+                      });
+                    }}/>
                 </div>
                 <div>
                   <label htmlFor="city">City: </label>
-                  <input type="text" placeholder={location.city} />
+                  <input type="text" placeholder={location.city} onChange={(e) => {
+                      updateAddress(index, {
+                        ...location,
+                        city: e.target.value,
+                      });
+                    }}/>
                 </div>
                 <div>
                   <label htmlFor="satate">State: </label>
-                  <input type="text" placeholder={location.state} />
+                  <input type="text" placeholder={location.state} 
+                  onChange={(e) => {
+                    updateAddress(index, {
+                      ...location,
+                      state: e.target.value,
+                    });
+                  }}/>
                 </div>
                 <div>
                   <label htmlFor="country">Country: </label>
-                  <input type="text" placeholder={location.country} />
+                  <input type="text" placeholder={location.country} 
+                  onChange={(e) => {
+                    updateAddress(index, {
+                      ...location,
+                      country: e.target.value,
+                    });
+                  }}/>
                 </div>
                 <div>
                   <ButtonGlobal
@@ -245,37 +314,88 @@ export const UserDetails: React.FC<IUserDetails> = ({ userID, token }) => {
           <div>
             <div>
               <label htmlFor="nikName">Adress Nikname: </label>
-              <input type="text" placeholder="Home"  onChange={(e)=>setNewAddress({...newAddress, nikName: e.target.value})} />
+              <input
+                type="text"
+                placeholder="Home"
+                onChange={(e) =>
+                  setNewAddress({ ...newAddress, nikName: e.target.value })
+                }
+              />
             </div>
             <div>
               <label htmlFor="street">Street: </label>
-              <input type="text" placeholder="DevPhone Street" onChange={(e)=>setNewAddress({...newAddress, street: e.target.value})}  />
+              <input
+                type="text"
+                placeholder="DevPhone Street"
+                onChange={(e) =>
+                  setNewAddress({ ...newAddress, street: e.target.value })
+                }
+              />
             </div>
             <div>
               <label htmlFor="number">Number: </label>
-              <input type="text" placeholder="1234" onChange={(e)=>setNewAddress({...newAddress, number: e.target.value})} />
+              <input
+                type="text"
+                placeholder="1234"
+                onChange={(e) =>
+                  setNewAddress({ ...newAddress, number: e.target.value })
+                }
+              />
             </div>
             <div>
               <label htmlFor="zipCode">Zip Code: </label>
-              <input type="text" placeholder="60000000" onChange={(e)=>setNewAddress({...newAddress, zipCode: e.target.value})} />
+              <input
+                type="text"
+                placeholder="60000000"
+                onChange={(e) =>
+                  setNewAddress({ ...newAddress, zipCode: e.target.value })
+                }
+              />
             </div>
             <div>
               <label htmlFor="neighbohood">Neighbohood: </label>
-              <input type="text" placeholder="Brooklyn" onChange={(e)=>setNewAddress({...newAddress, neighborhood: e.target.value})} />
+              <input
+                type="text"
+                placeholder="Brooklyn"
+                onChange={(e) =>
+                  setNewAddress({ ...newAddress, neighborhood: e.target.value })
+                }
+              />
             </div>
             <div>
               <label htmlFor="city">City: </label>
-              <input type="text" placeholder="New York" onChange={(e)=>setNewAddress({...newAddress, city: e.target.value})} />
+              <input
+                type="text"
+                placeholder="New York"
+                onChange={(e) =>
+                  setNewAddress({ ...newAddress, city: e.target.value })
+                }
+              />
             </div>
             <div>
               <label htmlFor="satate">State: </label>
-              <input type="text" placeholder="New York" onChange={(e)=>setNewAddress({...newAddress, state: e.target.value})} />
+              <input
+                type="text"
+                placeholder="New York"
+                onChange={(e) =>
+                  setNewAddress({ ...newAddress, state: e.target.value })
+                }
+              />
             </div>
             <div>
               <label htmlFor="country">Country: </label>
-              <input type="text" placeholder="USA" onChange={(e)=>setNewAddress({...newAddress, country: e.target.value})} />
+              <input
+                type="text"
+                placeholder="USA"
+                onChange={(e) =>
+                  setNewAddress({ ...newAddress, country: e.target.value })
+                }
+              />
             </div>
-            <ButtonGlobal className="userButtonUpdate" onClick={()=> addAddress({...newAddress})}>
+            <ButtonGlobal
+              className="userButtonUpdate"
+              onClick={() => addAddress({ ...newAddress })}
+            >
               Register
             </ButtonGlobal>
           </div>

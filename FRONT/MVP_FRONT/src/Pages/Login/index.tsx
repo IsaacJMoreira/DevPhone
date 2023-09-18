@@ -33,7 +33,7 @@ export default function Login({}) {
                 password: password,
              })
              // "response.data" token;
-             console.log(response.data)
+            // console.log(response.data)
              if(response.status === 200){
                 setLoogar("Login Feito!")
 

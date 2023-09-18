@@ -72,8 +72,8 @@ export const OrderDetails: React.FC<IOrderDetails> = ({ userID, token }) => {
   }
 
   return (
-    <OrderDiv className="OrderDiv">
-      <CardContainer className="ordersCard">
+    <OrderDiv key="orderdiv" className="OrderDiv">
+      <CardContainer key='cardcont' className="ordersCard">
         <div>
           <h2 className="title">
             {ordersAmmount ? `Your Order${ordersAmmount > 1 ? "s" : ""}` : ""}
@@ -121,6 +121,7 @@ export const OrderDetails: React.FC<IOrderDetails> = ({ userID, token }) => {
                         return (
                           <>
                             <OrderItem
+                              key={`${item.name}`}
                               productID={item.itemID}
                               quantity={item.quantity}
                             />
